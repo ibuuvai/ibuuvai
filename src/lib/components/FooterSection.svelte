@@ -256,24 +256,33 @@
         {:else if selectedTab === 'journal'}
           <div in:fade={{ duration: 300 }} class="p-4">
             <h3 class="text-xl font-handwriting text-accent mb-4">Recent Entries</h3>
-            <ul class="space-y-3">
+            <ul class="space-y-4">
               {#each journalEntries as entry}
-                <li class="border-b border-accent/10 pb-2">
+                <li class="border-b border-accent/10 pb-3">
                   <button 
                     onclick={() => toggleJournalEntry(entry.id)}
-                    class="w-full text-left flex justify-between items-center py-2 text-white hover:text-accent transition-colors"
+                    class="w-full text-left flex flex-col sm:flex-row sm:justify-between sm:items-center py-2 text-white hover:text-accent transition-colors group relative"
                     aria-expanded={openJournalEntry === entry.id}
                     aria-controls="content-{entry.id}"
                   >
-                    <span class="font-handwriting">{entry.title}</span>
-                    <span class="text-xs text-white">{entry.date}</span>
+                    <div class="flex items-center">
+                      <span class="inline-block w-4 h-4 mr-2 text-xs">
+                        {#if openJournalEntry === entry.id}
+                          <span class="text-accent">▼</span>
+                        {:else}
+                          <span class="text-white/50 group-hover:text-accent/70">▶</span>
+                        {/if}
+                      </span>
+                      <span class="font-handwriting text-base group-hover:text-accent transition-colors {openJournalEntry === entry.id ? 'text-accent' : ''}">{entry.title}</span>
+                    </div>
+                    <span class="text-xs text-white/70 italic mt-1 sm:mt-0">{entry.date}</span>
                   </button>
                   
                   {#if openJournalEntry === entry.id}
                     <div 
                       id="content-{entry.id}"
                       in:slide={{ duration: 300 }} 
-                      class="mt-3 pl-4 border-l-2 border-accent/20 text-white font-handwriting text-sm text-left whitespace-pre-line"
+                      class="mt-3 ml-6 pl-4 border-l-2 border-accent/20 text-white font-handwriting text-sm text-left whitespace-pre-line leading-relaxed pr-2"
                     >
                       {entry.content}
                     </div>

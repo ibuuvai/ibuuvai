@@ -32,7 +32,6 @@
         <span class="text-3xl md:text-5xl font-black text-accent animate-text-focus font-handwriting uppercase">VAI Ibuu</span>
         <div class="mt-2 text-center">
           <p class="text-lg text-white font-handwriting uppercase font-bold">My existence isn't known by anybody else</p>
-          <p class="text-lg text-white font-handwriting">I wave my hand aimlessly over a coloring page</p>
         </div>
       </div>
       

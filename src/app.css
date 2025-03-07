@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap');
+@import '$lib/styles/global.css';
+@import "tailwindcss";
+
+/* Define theme variables */
+:root {
+  --color-primary: #000000;
+  --color-secondary: #ffffff;
+  --color-accent: #8A2BE2;
+  --color-accent-glow: #9B30FF;
+  --font-writer: 'Merriweather', serif;
+}
+
+/* Explicit utility classes */
+.bg-accent { background-color: #8A2BE2 !important; }
+.text-accent { color: #8A2BE2 !important; }
+.border-accent { border-color: #8A2BE2 !important; }
+.bg-accent-glow { background-color: #9B30FF !important; }
+.text-accent-glow { color: #9B30FF !important; }
+.shadow-violet { box-shadow: 0 0 20px 5px rgba(138, 43, 226, 0.5) !important; }
+.hover\:shadow-violet:hover { box-shadow: 0 0 20px 5px rgba(138, 43, 226, 0.5) !important; }
+
+/* Opacity variants */
+.bg-accent\/5 { background-color: rgba(138, 43, 226, 0.05) !important; }
+.bg-accent\/10 { background-color: rgba(138, 43, 226, 0.1) !important; }
+.bg-accent\/15 { background-color: rgba(138, 43, 226, 0.15) !important; }
+.bg-accent\/20 { background-color: rgba(138, 43, 226, 0.2) !important; }
+.bg-accent\/30 { background-color: rgba(138, 43, 226, 0.3) !important; }
+.bg-accent\/50 { background-color: rgba(138, 43, 226, 0.5) !important; }
+.border-accent\/5 { border-color: rgba(138, 43, 226, 0.05) !important; }
+.border-accent\/10 { border-color: rgba(138, 43, 226, 0.1) !important; }
+.border-accent\/20 { border-color: rgba(138, 43, 226, 0.2) !important; }
+.border-accent\/30 { border-color: rgba(138, 43, 226, 0.3) !important; }
+.shadow-accent\/5 { box-shadow: 0 0 10px rgba(138, 43, 226, 0.05) !important; }
+.shadow-accent\/30 { box-shadow: 0 0 10px rgba(138, 43, 226, 0.3) !important; }
+.hover\:bg-accent\/10:hover { background-color: rgba(138, 43, 226, 0.1) !important; }
+.hover\:bg-accent\/15:hover { background-color: rgba(138, 43, 226, 0.15) !important; }
+.group-hover\:bg-accent\/15:hover { background-color: rgba(138, 43, 226, 0.15) !important; }
+.group-hover\:border-accent\/30:hover { border-color: rgba(138, 43, 226, 0.3) !important; }
+
+@layer base {
+  html {
+    background-color: var(--color-primary);
+    color: var(--color-secondary);
+    scroll-behavior: smooth;
+    font-family: var(--font-writer);
+  }
+  
+  body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+  }
+  
+  ::selection {
+    background-color: var(--color-accent);
+    color: var(--color-secondary);
+  }
+}
+
+@layer utilities {
+  .text-shadow-violet {
+    text-shadow: 0 0 8px rgba(155, 48, 255, 0.6);
+  }
+}
+
+@layer components {
+  .prose-violet {
+    color-scheme: dark;
+  }
+  
+  .prose-violet h1,
+  .prose-violet h2,
+  .prose-violet h3,
+  .prose-violet h4,
+  .prose-violet h5,
+  .prose-violet h6 {
+    color: var(--color-accent);
+  }
+  
+  .prose-violet a {
+    color: var(--color-accent-glow);
+    text-decoration: none;
+  }
+  
+  .prose-violet a:hover {
+    text-shadow: 0 0 8px rgba(155, 48, 255, 0.6);
+  }
+}

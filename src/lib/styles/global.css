@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Cutive+Mono&family=Major+Mono+Display&display=swap');
+
+/* Add a subtle parallax effect to the glowing orbs */
+@media (prefers-reduced-motion: no-preference) {
+  section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    transform: translateY(calc(var(--scroll-y, 0) * -0.1px));
+  }
+}
+
+/* Apply the font to the entire site */
+body {
+  font-family: 'Cutive Mono', monospace;
+  letter-spacing: 0.02em;
+}
+
+/* Custom font classes */
+.font-handwriting {
+  font-family: 'Cutive Mono', monospace;
+  letter-spacing: 0.03em;
+}
+
+.font-creepy {
+  font-family: 'Major Mono Display', monospace;
+  letter-spacing: 0.05em;
+  font-weight: 400;
+  text-transform: lowercase;
+}
+
+section {
+  position: relative;
+  z-index: 1;
+} 

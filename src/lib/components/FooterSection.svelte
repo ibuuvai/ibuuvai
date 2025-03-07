@@ -282,7 +282,7 @@
                     <div 
                       id="content-{entry.id}"
                       in:slide={{ duration: 300 }} 
-                      class="mt-3 ml-6 pl-4 border-l-2 border-accent/20 text-white font-handwriting text-sm text-left whitespace-pre-line leading-relaxed pr-2"
+                      class="mt-3 border-l-2 border-accent/20 pl-4 text-white font-handwriting text-sm text-left whitespace-pre-line leading-relaxed pr-2"
                     >
                       {entry.content}
                     </div>

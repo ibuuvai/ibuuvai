@@ -10,6 +10,16 @@
   
   function toggleJournalEntry(id: string) {
     openJournalEntry = openJournalEntry === id ? null : id;
+    
+    // If opening an entry, scroll to it after a short delay to allow for rendering
+    if (openJournalEntry === id) {
+      setTimeout(() => {
+        const entryElement = document.getElementById(`entry-${id}`);
+        if (entryElement) {
+          entryElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 100);
+    }
   }
   
   function selectTab(tab: 'stories' | 'journal' | 'about') {
@@ -258,7 +268,7 @@
             <h3 class="text-xl font-handwriting text-accent mb-4">Recent Entries</h3>
             <ul class="space-y-4">
               {#each journalEntries as entry}
-                <li class="border-b border-accent/10 pb-3">
+                <li class="border-b border-accent/10 pb-3" id="entry-{entry.id}">
                   <button 
                     onclick={() => toggleJournalEntry(entry.id)}
                     class="w-full text-left flex flex-col sm:flex-row sm:justify-between sm:items-center py-2 text-white hover:text-accent transition-colors group relative"

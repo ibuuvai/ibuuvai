@@ -7,6 +7,7 @@
   
   let selectedTab = $state(activeTab);
   let openJournalEntry = $state<string | null>(null);
+  let isStoryVisible = $state(false);
   
   function toggleJournalEntry(id: string) {
     openJournalEntry = openJournalEntry === id ? null : id;
@@ -17,6 +18,20 @@
         const entryElement = document.getElementById(`entry-${id}`);
         if (entryElement) {
           entryElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 100);
+    }
+  }
+  
+  function toggleStory() {
+    isStoryVisible = !isStoryVisible;
+    
+    // If opening the story, scroll to it after a short delay
+    if (isStoryVisible) {
+      setTimeout(() => {
+        const storyElement = document.getElementById('story-nontitled');
+        if (storyElement) {
+          storyElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
       }, 100);
     }
@@ -193,17 +208,10 @@
 </script>
 
 <section class="min-h-screen py-24 px-6 md:px-12 flex flex-col justify-center items-center relative">
-  <div class="max-w-3xl mx-auto text-center relative z-10">
-    <div class="mb-4 flex flex-col items-center justify-center">
-      <img 
-        src="/images/vai.webp" 
-        alt="Creator Avatar" 
-        class="w-48 h-48 animate-pulse-subtle mb-4"
-        loading="lazy"
-      />
-      
+  <div class="w-full max-w-3xl mx-auto text-center relative z-10">
+    <div class="w-full flex flex-col items-center justify-center">
       <!-- Navigation Tabs -->
-      <div class="w-full max-w-md mx-auto my-8 relative group">
+      <div class="w-full mb-8 relative group">
         <div class="absolute inset-0 bg-accent/10 rounded-xl blur-xl group-hover:bg-accent/15 transition-all duration-700 -z-10"></div>
         <div class="bg-black/30 backdrop-blur-md border border-accent/20 rounded-xl p-1.5 grid grid-cols-3 gap-1 shadow-lg shadow-accent/5 transition-all duration-500 group-hover:border-accent/30">
           <button 
@@ -252,14 +260,52 @@
       </div>
       
       <!-- Tab Content -->
-      <div class="w-full max-w-2xl mx-auto mt-4 mb-8">
+      <div class="w-full mt-8 mb-8">
         {#if selectedTab === 'stories'}
           <div in:fade={{ duration: 300 }} class="p-4">
             <h3 class="text-xl font-handwriting text-accent mb-4">Featured Story</h3>
             <ul class="space-y-3">
-              <li class="border-b border-accent/10 pb-2">
-                <a href="/" class="text-white hover:text-accent transition-colors">Nontitled</a>
-                <span class="text-xs text-white ml-2">2023</span>
+              <li class="border-b border-accent/10 pb-2" id="story-nontitled">
+                <button 
+                  onclick={toggleStory}
+                  class="w-full text-left flex items-center py-2 text-white hover:text-accent transition-colors group relative"
+                  aria-expanded={isStoryVisible}
+                  aria-controls="content-nontitled"
+                >
+                  <span class="inline-block w-4 h-4 mr-2 text-xs">
+                    {#if isStoryVisible}
+                      <span class="text-accent">▼</span>
+                    {:else}
+                      <span class="text-white/50 group-hover:text-accent/70">▶</span>
+                    {/if}
+                  </span>
+                  <span class="font-handwriting text-base group-hover:text-accent transition-colors {isStoryVisible ? 'text-accent' : ''}">Nontitled</span>
+                  <span class="text-xs text-white ml-2">2023</span>
+                </button>
+                
+                {#if isStoryVisible}
+                  <div 
+                    id="content-nontitled"
+                    in:slide={{ duration: 300 }} 
+                    class="mt-3 border-l-2 border-accent/20 pl-4 text-white font-handwriting text-sm text-left whitespace-pre-line leading-relaxed pr-2"
+                  >
+                    <p>Loneliness and love are foreign concepts, distant and incomprehensible, our human forms already cast aside, discarded long ago. Proof of existence is reduced to empty words, scattered meaningless across a cramped, suffocating stage. We are performers without an audience, each desperately acting out our roles, running breathlessly towards the end credits, even though the seats remain vacant.</p>
+                    
+                    <p class="mt-2">The person I once recognized as myself is no longer here, lost somewhere beyond memory. I can't recall a single part I was suited to play. Now, the encore has arrived—surely, we are all holding our breath, waiting for the dramatic twist. Yet, what do those eyes of yours see? There was a time when we were innocent, untouched; but before we realized it, we had turned into monsters.</p>
+                    
+                    <p class="mt-2">Without warning, I became nothing more than a side character, my voice lost amidst overwhelming noise. Everyone around desperately shields themselves, secretly yearning for a savior's hand to appear. Alone, I shed tears, unable to find the truths I had carefully hidden. Looking back, hadn't I discarded every emotion? Yet, the tears still flowed inexplicably. Warmth and kindness seem suspicious now, every offered hand is mistrusted. Love seeps slowly from the wound in my heart, and your gaze threatens my collapse. How pitiful I must appear, caught dancing precariously between love and hatred.</p>
+                    
+                    <p class="mt-2">Enough—I long for ignorance now. Words have become meaningless.</p>
+                    
+                    <div class="my-4 px-4 py-2 border-l-4 border-accent/30 bg-black/20 italic">
+                      "Hey, let's run away to somewhere far away—a place that's not here."
+                    </div>
+                    
+                    <p class="mt-2">A place where the morning dawn gently spills through the wooden cracks, illuminating a forgotten path once caressed by winds beneath an eternal springtime sky. A place free of scripts, devoid of lines or directors, where every moment is fleeting, impossible to retake. A world beyond the frame of any camera, a reality untouched even by the widest of lenses. In this hidden place, we could taste suspiciously bright fruits without fear of judgment.</p>
+                    
+                    <p class="mt-2">No one would cry for us. The title flashing across the screen just before the end—a story unremembered, incredibly ordinary. This title, abandoned like refuse, without even the dignity of a name, belongs solely to you and me.</p>
+                  </div>
+                {/if}
               </li>
             </ul>
           </div>

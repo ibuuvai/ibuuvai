@@ -10,6 +10,9 @@
   let openJournalEntry = $state<string | null>(null);
   let isStoryVisible = $state(false);
   
+  // Animation timing variables
+  const typingAnimationDuration = 3000; // 3 seconds for typing animation
+  
   // Mount handler
   onMount(() => {
     mounted = true;
@@ -210,6 +213,243 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css2?family=Cutive+Mono&family=Major+Mono+Display&display=swap" rel="stylesheet">
+  
+  <style>
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+    
+    @keyframes blink-caret {
+      from, to { border-color: transparent; }
+      50% { border-color: #fff; }
+    }
+    
+    .typing-animation {
+      display: inline-block;
+      overflow: hidden;
+      white-space: nowrap;
+      border-right: 3px solid #fff;
+      width: 0;
+      animation: typing 3s steps(40, end) forwards, blink-caret 0.75s step-end 8;
+    }
+    
+    .warning-content {
+      opacity: 0;
+      animation: glitchIn 1.2s forwards;
+      animation-delay: 3.2s;
+    }
+    
+    @keyframes glitchIn {
+      0% {
+        opacity: 0;
+        transform: translateX(-10px) skewX(20deg);
+        text-shadow: -2px 0 #ff0000;
+        clip-path: inset(0 100% 0 0);
+      }
+      10% {
+        opacity: 0.3;
+        transform: translateX(5px) skewX(-10deg);
+        text-shadow: 2px 0 #00ff00;
+        clip-path: inset(0 80% 0 0);
+      }
+      20% {
+        opacity: 0.5;
+        transform: translateX(-3px) skewX(5deg);
+        text-shadow: -1px 0 #ff0000, 1px 0 #00ff00;
+        clip-path: inset(0 60% 0 0);
+      }
+      30% {
+        opacity: 0.7;
+        transform: translateX(2px) skewX(-3deg);
+        text-shadow: 1px 0 #0000ff, -1px 0 #ff0000;
+        clip-path: inset(0 40% 0 0);
+      }
+      40% {
+        opacity: 0.8;
+        transform: translateX(-1px) skewX(1deg);
+        text-shadow: -1px 0 #00ff00, 1px 0 #0000ff;
+        clip-path: inset(0 20% 0 0);
+      }
+      50% {
+        opacity: 1;
+        transform: translateX(0) skewX(0);
+        text-shadow: 1px 0 #ff0000, -1px 0 #00ff00;
+        clip-path: inset(0 0 0 0);
+      }
+      60%, 70% {
+        opacity: 1;
+        transform: skewX(2deg) translateX(3px);
+        text-shadow: -1px 0 #ff0000, 2px 2px #00ff00;
+      }
+      80%, 90% {
+        opacity: 1;
+        transform: skewX(-2deg) translateX(-3px);
+        text-shadow: 1px 0 #ff0000, -2px -2px #00ff00;
+      }
+      100% {
+        opacity: 1;
+        transform: skewX(0) translateX(0);
+        text-shadow: none;
+      }
+    }
+    
+    /* Continuous glitch effect */
+    @keyframes glitch {
+      0% {
+        transform: translate(0);
+        text-shadow: -1px 0 red, 1px 0 blue;
+      }
+      2% {
+        transform: translate(-2px, 1px);
+        text-shadow: 1px 0 red, -1px 0 blue;
+      }
+      4% {
+        transform: translate(-2px, -2px);
+        text-shadow: 1px 0 green, -1px 0 red;
+      }
+      6% {
+        transform: translate(0);
+        text-shadow: -1px 0 red, 1px 0 green;
+      }
+      8% {
+        transform: translate(0, 1px);
+        text-shadow: -1px 0 blue, 1px 0 red;
+      }
+      10% {
+        transform: translate(0);
+        text-shadow: -1px 0 red, 1px 0 blue;
+      }
+      45% {
+        transform: translate(0);
+        text-shadow: -1px 0 red, 1px 0 blue;
+      }
+      46% {
+        transform: translateX(3px);
+        text-shadow: -1px 0 blue, 1px 0 red;
+      }
+      48% {
+        transform: translateX(-3px);
+        text-shadow: 1px 0 red, -1px 0 green;
+      }
+      50% {
+        transform: translateX(0);
+        text-shadow: -1px 0 red, 1px 0 blue;
+      }
+      100% {
+        transform: translateX(0);
+        text-shadow: -1px 0 red, 1px 0 blue;
+      }
+    }
+    
+    .animate-glitch {
+      animation: glitch 4s infinite;
+      animation-delay: 4.4s; /* Start after glitchIn finishes */
+    }
+    
+    .warning-text-1 {
+      opacity: 0;
+      animation: fadeIn 0.8s ease-out forwards;
+      animation-delay: 3.8s;
+    }
+    
+    .warning-text-2 {
+      opacity: 0;
+      animation: fadeIn 0.8s ease-out forwards;
+      animation-delay: 4.4s;
+    }
+    
+    .stay-away {
+      opacity: 0;
+      animation: fadeIn 0.8s ease-out forwards, enhancedPulse 2s infinite;
+      animation-delay: 5s, 5.8s; /* First delay for fadeIn, second for pulse */
+      transform-origin: center;
+      display: inline-block;
+    }
+    
+    .blood-drops {
+      opacity: 0;
+      animation: fadeIn 0.5s ease-out forwards;
+      animation-delay: 5.6s;
+    }
+    
+    .drop-1 {
+      animation: fallRepeat 2.5s ease-in infinite;
+      animation-delay: 5.8s;
+      opacity: 0;
+    }
+    
+    .drop-2 {
+      animation: fallRepeat 3s ease-in infinite;
+      animation-delay: 6.2s;
+      opacity: 0;
+    }
+    
+    .drop-3 {
+      animation: fallRepeat 2.8s ease-in infinite;
+      animation-delay: 6.6s;
+      opacity: 0;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    @keyframes pulse {
+      0% { opacity: 0.8; color: #8B0000; text-shadow: 0 0 3px #8B0000; }
+      50% { opacity: 1; color: #ff0000; text-shadow: 0 0 8px #ff0000; }
+      100% { opacity: 0.8; color: #8B0000; text-shadow: 0 0 3px #8B0000; }
+    }
+    
+    @keyframes enhancedPulse {
+      0% { 
+        transform: scale(1);
+        color: #8B0000; 
+        text-shadow: 0 0 4px #8B0000; 
+        filter: brightness(0.9);
+      }
+      50% { 
+        transform: scale(1.15);
+        color: #ff0000; 
+        text-shadow: 0 0 10px #ff0000, 0 0 15px #ff3333, 0 0 20px #ff6666; 
+        filter: brightness(1.2);
+      }
+      100% { 
+        transform: scale(1);
+        color: #8B0000; 
+        text-shadow: 0 0 4px #8B0000; 
+        filter: brightness(0.9);
+      }
+    }
+    
+    @keyframes fall {
+      from { transform: translateY(0); }
+      to { transform: translateY(100px); }
+    }
+    
+    @keyframes fallRepeat {
+      0% { 
+        transform: translateY(0); 
+        opacity: 1;
+      }
+      80% { 
+        transform: translateY(100px);
+        opacity: 1;
+      }
+      81% {
+        opacity: 0;
+      }
+      82% {
+        transform: translateY(0);
+        opacity: 0;
+      }
+      100% { 
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+  </style>
 </svelte:head>
 
 <main class="min-h-screen flex flex-col justify-start relative overflow-hidden bg-primary">
@@ -245,18 +485,17 @@
             <span class="text-3xl md:text-5xl font-black text-accent animate-text-focus font-handwriting uppercase">VAI Ibuu</span>
             <div class="mt-2 text-center">
               <p class="text-lg text-white font-handwriting uppercase font-bold">
-                <span class="animate-typing">My existence isn't known by anybody else</span>
+                <span class="typing-animation">My existence isn't known by anybody else</span>
               </p>
             </div>
           </div>
           
-          <!-- Keep Out and Warning -->
+          <!-- Keep Out and Warning - Now waiting for typing animation to complete -->
           <div class="text-center mt-3">
-            <div class="relative inline-block">
+            <div class="relative inline-block warning-content">
               <div class="absolute inset-0 bg-[#8B0000]/15 blur-[15px] -m-2 rounded-2xl"></div>
               <h1 
-                in:fly={{ y: 50, duration: 1200, delay: 800 }}
-                class="relative text-5xl md:text-7xl font-black mb-1 px-4 text-[#8B0000] animate-glitch font-creepy"
+                class="relative text-5xl md:text-7xl font-black mb-1 px-4 text-[#8B0000] font-creepy animate-glitch"
               >
                 Keep out
               </h1>
@@ -266,22 +505,22 @@
               <p 
                 class="text-xl md:text-2xl max-w-xl text-center px-6 mx-auto text-white mt-1 font-handwriting"
               >
-                <span class="block animate-slide-up opacity-0" style="animation-delay: 1.4s; animation-fill-mode: forwards;">So that I will not be fooled...</span>
-                <span class="block animate-slide-up opacity-0 mt-1" style="animation-delay: 2.0s; animation-fill-mode: forwards;">So that I won't drag you into this—</span>
+                <span class="block warning-text-1">So that I will not be fooled...</span>
+                <span class="block mt-1 warning-text-2">So that I won't drag you into this—</span>
               </p>
               
               <!-- Stay away with drops -->
               <div class="relative mt-1">
-                <div class="opacity-0 animate-slide-up" style="animation-delay: 2.6s; animation-fill-mode: forwards;">
-                  <span class="text-[#8B0000] font-bold font-creepy text-xl md:text-2xl animate-red-pulse">stay away</span>
+                <div class="stay-away">
+                  <span class="text-[#8B0000] font-bold font-creepy text-xl md:text-2xl">stay away</span>
                 </div>
                 
                 <!-- Dots positioned directly below stay away -->
-                <div class="absolute w-8 left-1/2 -translate-x-1/2 top-full mt-1 opacity-0" style="animation: fade-in 0.5s ease-out 3.1s forwards;">
+                <div class="absolute w-8 left-1/2 -translate-x-1/2 top-full mt-1 blood-drops">
                   <div class="relative h-24 w-full">
-                    <div class="w-2 h-2 bg-[#8B0000] rounded-full animate-fall absolute left-3 top-0" style="animation-duration: 4s; animation-delay: 0.2s;"></div>
-                    <div class="w-1.5 h-1.5 bg-[#8B0000] rounded-full animate-fall absolute left-1 top-0" style="animation-delay: 2.2s; animation-duration: 5s;"></div>
-                    <div class="w-1 h-1 bg-[#8B0000] rounded-full animate-fall absolute left-5 top-0" style="animation-delay: 4.2s; animation-duration: 4.5s;"></div>
+                    <div class="w-2 h-2 bg-[#8B0000] rounded-full absolute left-3 top-0 drop-1"></div>
+                    <div class="w-1.5 h-1.5 bg-[#8B0000] rounded-full absolute left-1 top-0 drop-2"></div>
+                    <div class="w-1 h-1 bg-[#8B0000] rounded-full absolute left-5 top-0 drop-3"></div>
                   </div>
                 </div>
               </div>

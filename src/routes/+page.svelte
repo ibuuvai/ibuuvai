@@ -225,13 +225,57 @@
       50% { border-color: #fff; }
     }
     
-    .typing-animation {
+    @keyframes blink-caret-end {
+      0%, 79% { border-color: transparent; }
+      30%, 49% { border-color: #fff; }
+      80%, 100% { border-color: transparent; }
+    }
+    
+    @keyframes typing-line2 {
+      0% { width: 0; }
+      50% { width: 0; }
+      100% { width: 100%; }
+    }
+    
+    .main-phrase {
+      font-size: 1.125rem;
+      line-height: 1.5;
+    }
+    
+    .typing-animation-text {
       display: inline-block;
       overflow: hidden;
       white-space: nowrap;
-      border-right: 3px solid #fff;
       width: 0;
-      animation: typing 3s steps(40, end) forwards, blink-caret 0.75s step-end 8;
+      border-right: 3px solid transparent;
+      animation: typing 1.5s steps(20, end) forwards, blink-caret 0.75s step-end 4;
+    }
+    
+    .typing-animation-text-line2 {
+      display: inline-block;
+      overflow: hidden;
+      white-space: nowrap;
+      width: 0;
+      border-right: 3px solid #fff;
+      animation: 
+        typing-line2 3s steps(40, end) forwards,
+        blink-caret 0.75s step-end 6 1.5s,
+        cursor-disappear 0.1s forwards 6s;
+    }
+    
+    @keyframes cursor-disappear {
+      to { border-right-color: transparent; }
+    }
+    
+    @media (max-width: 640px) {
+      .main-phrase {
+        font-size: 0.875rem;
+      }
+      
+      .typing-animation-text, 
+      .typing-animation-text-line2 {
+        max-width: 90vw;
+      }
     }
     
     /* Custom scrollbar styling */
@@ -513,19 +557,20 @@
               class="w-48 h-48 animate-pulse-subtle mb-4"
             />
             <span class="text-3xl md:text-5xl font-black text-accent animate-text-focus font-handwriting uppercase">VAI Ibu</span>
-            <div class="mt-2 text-center">
-              <p class="text-lg text-white font-handwriting uppercase font-bold">
-                <span class="typing-animation">My existence isn't known by anybody else</span>
+            <div class="mt-2 text-center w-full px-3">
+              <p class="text-white font-handwriting uppercase font-bold main-phrase">
+                <span class="typing-animation-text">My existence isn't known</span><br class="sm:hidden">
+                <span class="typing-animation-text-line2">by anybody else</span>
               </p>
             </div>
           </div>
           
           <!-- Keep Out and Warning - Now waiting for typing animation to complete -->
-          <div class="text-center mt-3">
+          <div class="text-center mt-3 px-3">
             <div class="relative inline-block warning-content">
               <div class="absolute inset-0 bg-[#8B0000]/15 blur-[15px] -m-2 rounded-2xl"></div>
               <h1 
-                class="relative text-5xl md:text-7xl font-black mb-1 px-4 text-[#8B0000] font-creepy animate-glitch"
+                class="relative text-4xl md:text-7xl font-black mb-1 px-2 text-[#8B0000] font-creepy animate-glitch"
               >
                 Keep out
               </h1>
@@ -533,7 +578,7 @@
             
             <div class="relative">
               <p 
-                class="text-xl md:text-2xl max-w-xl text-center px-6 mx-auto text-white mt-1 font-handwriting"
+                class="text-base md:text-2xl max-w-xl text-center px-2 mx-auto text-white mt-1 font-handwriting"
               >
                 <span class="block warning-text-1">So that I will not be fooled...</span>
                 <span class="block mt-1 warning-text-2">So that I won't drag you into this—</span>
@@ -542,7 +587,7 @@
               <!-- Stay away with drops -->
               <div class="relative mt-1">
                 <div class="stay-away">
-                  <span class="text-[#8B0000] font-bold font-creepy text-xl md:text-2xl">stay away</span>
+                  <span class="text-[#8B0000] font-bold font-creepy text-lg md:text-2xl">stay away</span>
                 </div>
                 
                 <!-- Dots positioned directly below stay away -->
@@ -562,7 +607,7 @@
       <!-- Tabbed Content Area - Positioned below initial viewport -->
       <div class="relative z-10 min-h-screen pt-16">
         <!-- Tab Navigation -->
-        <div class="w-full max-w-3xl mx-auto mb-4 px-6">
+        <div class="w-full max-w-3xl mx-auto mb-4 px-3 md:px-6">
           <div class="bg-black/30 backdrop-blur-md border border-accent/20 rounded-xl p-1.5 grid grid-cols-3 gap-1 shadow-lg shadow-accent/5">
             <button 
               onclick={() => selectTab('about')}
@@ -607,7 +652,7 @@
         </div>
         
         <!-- Tab Content -->
-        <div class="w-full max-w-3xl mx-auto p-4 px-6">
+        <div class="w-full max-w-3xl mx-auto p-2 md:p-4 px-3 md:px-6">
           {#if selectedTab === 'stories'}
             <div in:fade={{ duration: 300 }} class="text-center">
               <h3 class="text-xl font-handwriting text-accent mb-4">Featured Story</h3>
@@ -617,11 +662,15 @@
                     onclick={toggleStory}
                     class="w-full text-left flex items-center py-2 text-white hover:text-accent transition-colors group relative"
                   >
-                    <span class="inline-block w-4 h-4 mr-2 text-xs">
+                    <span class="inline-block w-4 h-4 mr-2 flex-shrink-0">
                       {#if isStoryVisible}
-                        <span class="text-accent">▼</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-accent w-4 h-4">
+                          <path d="M6 9l6 6 6-6"/>
+                        </svg>
                       {:else}
-                        <span class="text-white/50 group-hover:text-accent/70">▶</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white/50 group-hover:text-accent/70 w-4 h-4">
+                          <path d="M9 18l6-6-6-6"/>
+                        </svg>
                       {/if}
                     </span>
                     <span class="font-handwriting text-base group-hover:text-accent transition-colors {isStoryVisible ? 'text-accent' : ''}">Nontitled</span>
@@ -664,11 +713,15 @@
                       class="w-full text-left flex flex-col sm:flex-row sm:justify-between sm:items-center py-2 text-white hover:text-accent transition-colors group relative"
                     >
                       <div class="flex items-center">
-                        <span class="inline-block w-4 h-4 mr-2 text-xs">
+                        <span class="inline-block w-4 h-4 mr-2 flex-shrink-0">
                           {#if openJournalEntry === entry.id}
-                            <span class="text-accent">▼</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-accent w-4 h-4">
+                              <path d="M6 9l6 6 6-6"/>
+                            </svg>
                           {:else}
-                            <span class="text-white/50 group-hover:text-accent/70">▶</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white/50 group-hover:text-accent/70 w-4 h-4">
+                              <path d="M9 18l6-6-6-6"/>
+                            </svg>
                           {/if}
                         </span>
                         <span class="font-handwriting text-base group-hover:text-accent transition-colors {openJournalEntry === entry.id ? 'text-accent' : ''}">{entry.title}</span>

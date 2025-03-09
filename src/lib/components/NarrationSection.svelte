@@ -12,6 +12,10 @@
   const blurPosition = $derived(props.blurPosition ?? 'right-0 top-1/2 -translate-y-1/2');
   const blurSize = $derived(props.blurSize ?? 'w-64 h-64');
   
+  // Calculate different sizes for the layered glows
+  const blurSizeLarge = $derived(blurSize.replace('w-64', 'w-80').replace('h-64', 'h-80'));
+  const blurSizeSmall = $derived(blurSize.replace('w-64', 'w-48').replace('h-64', 'h-48'));
+  
   // Add state for content visibility
   let isContentVisible = $state(false);
   
@@ -45,5 +49,6 @@
     {/if}
   </div>
   
-  <div class="absolute {blurPosition} {blurSize} rounded-full filter blur-3xl bg-accent/10"></div>
+  <!-- Simple, clean glow effect -->
+  <div class="absolute {blurPosition} {blurSize} rounded-full blur-[25px] bg-accent/15 opacity-70"></div>
 </section> 

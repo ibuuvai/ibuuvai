@@ -6,6 +6,19 @@
 @import 'tailwindcss';
 @plugin '@tailwindcss/typography';
 
+/* Add smooth blur rendering hints */
+* {
+  backface-visibility: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Enable hardware acceleration for elements with blur effects */
+.blur, .blur-sm, .blur-md, .blur-lg, .blur-xl, [class*='blur-['] {
+  transform: translateZ(0);
+  will-change: filter;
+}
+
 /* Define theme */
 @layer theme {
   :root {
@@ -14,6 +27,13 @@
     --color-accent: #8A2BE2;
     --color-accent-glow: #9B30FF;
     
+    /* Blur variables for responsive adjustment */
+    --blur-small: 10px;
+    --blur-medium: 20px;
+    --blur-large: 30px;
+    --blur-xl: 40px;
+    --blur-2xl: 60px;
+    
     /* Font families */
     --font-writer: 'Merriweather', serif;
     --font-handwriting: 'Cutive Mono', monospace;
@@ -21,6 +41,17 @@
     
     /* Set default font */
     font-family: var(--font-writer);
+  }
+  
+  /* Adjust blur for high-DPI screens */
+  @media (min-resolution: 2dppx) {
+    :root {
+      --blur-small: 5px;
+      --blur-medium: 15px;
+      --blur-large: 25px;
+      --blur-xl: 35px;
+      --blur-2xl: 50px;
+    }
   }
 }
 
@@ -31,12 +62,17 @@
     color: var(--color-secondary);
     scroll-behavior: smooth;
     font-family: var(--font-writer);
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 100%;
   }
 
   body {
     margin: 0;
     padding: 0;
     min-height: 100vh;
+    overflow: hidden;
+    position: relative;
   }
 
   ::selection {
@@ -141,8 +177,119 @@
   
   /* Custom animations */
   @keyframes glow-pulse {
-    0%, 100% { box-shadow: 0 0 15px 5px rgba(138, 43, 226, 0.3); }
-    50% { box-shadow: 0 0 25px 8px rgba(155, 48, 255, 0.6); }
+    0%, 100% { 
+      box-shadow: 0 0 15px 5px rgba(138, 43, 226, 0.2),
+                 0 0 25px 10px rgba(138, 43, 226, 0.1),
+                 0 0 35px 15px rgba(138, 43, 226, 0.05);
+    }
+    50% { 
+      box-shadow: 0 0 20px 8px rgba(155, 48, 255, 0.3),
+                 0 0 35px 15px rgba(155, 48, 255, 0.15),
+                 0 0 50px 20px rgba(155, 48, 255, 0.05);
+    }
+  }
+  
+  /* Red pulse animation */
+  @keyframes red-pulse {
+    0%, 100% { 
+      text-shadow: 0 0 5px rgba(139, 0, 0, 0.5),
+                   0 0 10px rgba(139, 0, 0, 0.3);
+      transform: scale(1);
+      color: #8B0000;
+    }
+    50% { 
+      text-shadow: 0 0 10px rgba(139, 0, 0, 0.8),
+                   0 0 20px rgba(139, 0, 0, 0.5),
+                   0 0 30px rgba(139, 0, 0, 0.3);
+      transform: scale(1.08);
+      letter-spacing: 0.08em;
+      filter: brightness(1.7);
+      color: #FF0000;
+    }
+  }
+  
+  /* Glitch animation */
+  @keyframes glitch {
+    0% {
+      transform: translate(0);
+      text-shadow: -2px 0 #ff0000;
+    }
+    2% {
+      transform: translate(-5px, 5px);
+      text-shadow: 2px 0 #00ff00;
+      opacity: 0.8;
+    }
+    4% {
+      transform: translate(5px, -5px);
+      text-shadow: -2px 0 #0000ff;
+      opacity: 0.9;
+    }
+    6% {
+      transform: translate(5px, 5px);
+      text-shadow: 2px 0 #ff0000;
+      opacity: 0.8;
+    }
+    8% {
+      transform: translate(-5px, -5px);
+      text-shadow: -2px 0 #00ff00;
+      opacity: 0.9;
+    }
+    10% {
+      transform: translate(0);
+      text-shadow: -2px 0 #0000ff;
+      opacity: 1;
+    }
+    12% {
+      transform: translate(-3px, 0);
+      text-shadow: 2px 0 #ff0000;
+      opacity: 0.9;
+    }
+    14% {
+      transform: translate(0);
+      text-shadow: 0 0 #000;
+      opacity: 1;
+    }
+    100% {
+      transform: translate(0);
+      text-shadow: 0 0 #000;
+      opacity: 1;
+    }
+  }
+  
+  /* Falling animation */
+  @keyframes fall {
+    0% {
+      transform: translateY(-5px);
+      opacity: 0;
+    }
+    30% {
+      opacity: 1;
+    }
+    70% {
+      opacity: 0.8;
+    }
+    100% {
+      transform: translateY(50px);
+      opacity: 0;
+    }
+  }
+  
+  /* Typing animation */
+  @keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+  }
+  
+  @keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: var(--color-accent) }
+  }
+  
+  /* Improved smooth blur animation */
+  @keyframes smooth-blur {
+    0% { filter: blur(0px); }
+    50% { filter: blur(4px); }
+    100% { filter: blur(0px); }
   }
   
   @keyframes fade-in {
@@ -160,7 +307,21 @@
     100% { filter: blur(0); opacity: 1; }
   }
   
+  /* Animation classes */
+  .animate-smooth-blur { animation: smooth-blur 3s ease-in-out infinite; }
   .animate-glow-pulse { animation: glow-pulse 3s ease-in-out infinite; }
+  .animate-red-pulse { animation: red-pulse 1.5s ease-in-out infinite; }
+  .animate-glitch { animation: glitch 4s ease-in-out infinite; }
+  .animate-fall { animation: fall 6s linear infinite; }
+  .animate-typing { 
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 2px solid var(--color-accent);
+    width: 0;
+    animation: typing 3.5s steps(40, end) 1s forwards, 
+               blink-caret 0.75s step-end infinite;
+  }
   .animate-fade-in { animation: fade-in 1.5s ease-out; }
   .animate-slide-up { animation: slide-up 1s ease-out; }
   .animate-text-focus { animation: text-focus 2s ease; }

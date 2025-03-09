@@ -234,6 +234,36 @@
       animation: typing 3s steps(40, end) forwards, blink-caret 0.75s step-end 8;
     }
     
+    /* Custom scrollbar styling */
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+    }
+    
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 10px;
+      margin: 10px 0;
+      border: 1px solid rgba(128, 90, 213, 0.05);
+    }
+    
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, rgba(161, 90, 213, 0.6), rgba(128, 90, 213, 0.8));
+      border-radius: 10px;
+      box-shadow: 0 0 8px rgba(161, 90, 213, 0.3);
+      transition: all 0.3s ease;
+    }
+    
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(180deg, rgba(161, 90, 213, 0.8), rgba(128, 90, 213, 1));
+      box-shadow: 0 0 15px rgba(161, 90, 213, 0.5);
+    }
+    
+    .custom-scrollbar {
+      scrollbar-width: thin;
+      scrollbar-color: rgba(161, 90, 213, 0.7) rgba(0, 0, 0, 0.2);
+      padding-right: 5px;
+    }
+    
     .warning-content {
       opacity: 0;
       animation: glitchIn 1.2s forwards;
@@ -482,7 +512,7 @@
               alt="Creator Avatar" 
               class="w-48 h-48 animate-pulse-subtle mb-4"
             />
-            <span class="text-3xl md:text-5xl font-black text-accent animate-text-focus font-handwriting uppercase">VAI Ibuu</span>
+            <span class="text-3xl md:text-5xl font-black text-accent animate-text-focus font-handwriting uppercase">VAI Ibu</span>
             <div class="mt-2 text-center">
               <p class="text-lg text-white font-handwriting uppercase font-bold">
                 <span class="typing-animation">My existence isn't known by anybody else</span>
@@ -659,34 +689,117 @@
               </ul>
             </div>
           {:else if selectedTab === 'about'}
-            <div in:fade={{ duration: 300 }} class="flex flex-col gap-4 items-center">
-              <a 
-                href="https://instagram.com/ibuu.vai" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                class="px-6 py-2 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full text-white font-handwriting flex items-center gap-2 hover:shadow-lg hover:shadow-accent/30 transition-all duration-300 relative z-20 cursor-pointer w-fit"
-                aria-label="Instagram profile"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-instagram" aria-hidden="true">
-                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-                </svg>
-                @ibuu.vai
-              </a>
-              
-              <a 
-                href="https://open.spotify.com/user/nmjob8wgvxy31yim5oaztszew" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                class="px-6 py-2 bg-gradient-to-r from-green-500 to-green-700 rounded-full text-white font-handwriting flex items-center gap-2 hover:shadow-lg hover:shadow-green-500/30 transition-all duration-300 relative z-20 cursor-pointer w-fit"
-                aria-label="Spotify profile"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                  <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
-                </svg>
-                vai
-              </a>
+            <div in:fade={{ duration: 300 }} class="flex flex-col items-center">
+              <div class="w-full max-w-3xl mx-auto mb-8">
+                <!-- Main profile section with image and name -->
+                <div class="relative mb-8">
+                  <div class="relative flex flex-col md:flex-row items-center bg-black/40 rounded-2xl overflow-hidden border border-accent/20 backdrop-blur-sm">
+                    <div class="p-6 md:p-8 flex-shrink-0 flex flex-col items-center md:items-start">
+                      <img 
+                        src="/images/ibuuvai.webp" 
+                        alt="Vai Ibuu" 
+                        class="w-72 h-72 md:w-80 md:h-80 shadow-lg shadow-accent/10 mb-4"
+                      />
+                      
+                    </div>
+                    
+                    <div class="p-6 md:p-8 flex-grow">
+                      <!-- Stats cards -->
+                      <div class="grid grid-cols-2 gap-3 mb-6">
+                        <div class="bg-black/30 rounded-xl p-4 border border-accent/10 flex flex-col items-center justify-center">
+                          <span class="text-accent text-2xl font-bold">vai</span>
+                          <span class="text-white/60 text-xs uppercase tracking-wider">name</span>
+                        </div>
+                        
+                        <div class="bg-black/30 rounded-xl p-4 border border-accent/10 flex flex-col items-center justify-center">
+                          <span class="text-accent text-2xl font-bold">21</span>
+                          <span class="text-white/60 text-xs uppercase tracking-wider">age</span>
+                        </div>
+                      </div>
+                      
+                      <div class="bg-black/30 rounded-xl p-4 border border-accent/10 mb-4 backdrop-blur-sm hover:bg-black/40 transition-all duration-300">
+                        <div class="text-accent text-sm uppercase tracking-wider mb-3 font-bold">Loves</div>
+                        <div class="flex flex-wrap gap-2">
+                          <span class="px-3 py-1.5 bg-accent/10 text-accent/90 rounded-full text-xs font-handwriting hover:bg-accent/20 transition-all duration-300">
+                            Afternoon Nap
+                          </span>
+                          <span class="px-3 py-1.5 bg-accent/10 text-accent/90 rounded-full text-xs font-handwriting hover:bg-accent/20 transition-all duration-300">
+                            Reading
+                          </span>
+                        </div>
+                      </div>
+                      
+                      <div class="flex flex-col items-center space-y-3 mb-4">
+                        <div class="h-64 overflow-y-auto pr-2 space-y-3 w-full flex flex-col items-center custom-scrollbar">
+                          <div class="text-center py-3 px-4 bg-black/30 rounded-xl border border-accent/10 backdrop-blur-sm hover:bg-black/40 transition-all duration-300 w-64">
+                            <div class="text-purple-400 text-sm mb-1 font-mono">Height</div>
+                            <div class="text-white font-handwriting">185cm (6'3)</div>
+                          </div>
+                          
+                          <div class="text-center py-3 px-4 bg-black/30 rounded-xl border border-accent/10 backdrop-blur-sm hover:bg-black/40 transition-all duration-300 w-64">
+                            <div class="text-purple-400 text-sm mb-1 font-mono">Birthday</div>
+                            <div class="text-white font-handwriting">31st July</div>
+                          </div>
+                          
+                          <div class="text-center py-3 px-4 bg-black/30 rounded-xl border border-accent/10 backdrop-blur-sm hover:bg-black/40 transition-all duration-300 w-64">
+                            <div class="text-purple-400 text-sm mb-1 font-mono">Zodiac Sign</div>
+                            <div class="text-white font-handwriting">Leo</div>
+                          </div>
+                          
+                          <div class="text-center py-3 px-4 bg-black/30 rounded-xl border border-accent/10 backdrop-blur-sm hover:bg-black/40 transition-all duration-300 w-64">
+                            <div class="text-purple-400 text-sm mb-1 font-mono">Favorite Food</div>
+                            <div class="text-white font-handwriting">Salmon Sushi</div>
+                          </div>
+                          
+                          <div class="text-center py-3 px-4 bg-black/30 rounded-xl border border-accent/10 backdrop-blur-sm hover:bg-black/40 transition-all duration-300 w-64">
+                            <div class="text-purple-400 text-sm mb-1 font-mono">Favorite Pet</div>
+                            <div class="text-white font-handwriting">White Cat</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Social Links -->
+                <div class="flex justify-center gap-4 mt-6 mb-6">
+                  <a 
+                    href="https://instagram.com/ibuu.vai" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    class="px-4 py-1.5 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full text-white font-handwriting flex items-center gap-1.5 hover:shadow-lg hover:shadow-accent/30 transition-all duration-300 text-xs"
+                    aria-label="Instagram profile"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-instagram" aria-hidden="true">
+                      <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                    </svg>
+                    @ibuu.vai
+                  </a>
+                  
+                  <a 
+                    href="https://open.spotify.com/user/nmjob8wgvxy31yim5oaztszew" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    class="px-4 py-1.5 bg-gradient-to-r from-green-500 to-green-700 rounded-full text-white font-handwriting flex items-center gap-1.5 hover:shadow-lg hover:shadow-green-500/30 transition-all duration-300 text-xs"
+                    aria-label="Spotify profile"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                      <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+                    </svg>
+                    vai
+                  </a>
+                </div>
+                
+                <!-- Quote banner -->
+                <div class="bg-gradient-to-r from-black/60 to-black/40 border border-accent/20 rounded-xl p-6 relative overflow-hidden">
+                  <div class="absolute top-0 right-0 w-40 h-40 bg-accent/5 rounded-full blur-3xl -mr-10 -mt-10"></div>
+                  <blockquote class="text-white/90 font-handwriting text-center relative z-10">
+                    <p class="text-lg italic">"water lily in my lungs"</p>
+                  </blockquote>
+                </div>
+              </div>
             </div>
           {/if}
         </div>

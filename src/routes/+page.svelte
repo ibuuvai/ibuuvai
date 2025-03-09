@@ -3,7 +3,7 @@
   import { fade, fly, slide } from 'svelte/transition';
   
   // Tab state management
-  let selectedTab = $state<'stories' | 'journal' | 'about'>('stories');
+  let selectedTab = $state<'stories' | 'journal' | 'about'>('about');
   let mounted = $state(false);
   
   // Journal entries state
@@ -565,6 +565,19 @@
         <div class="w-full max-w-3xl mx-auto mb-4 px-6">
           <div class="bg-black/30 backdrop-blur-md border border-accent/20 rounded-xl p-1.5 grid grid-cols-3 gap-1 shadow-lg shadow-accent/5">
             <button 
+              onclick={() => selectTab('about')}
+              class="py-3 px-4 text-center rounded-lg transition-all duration-300 font-handwriting relative overflow-hidden {selectedTab === 'about' 
+                ? 'bg-gradient-to-br from-black/80 to-black/60 text-accent font-bold shadow-inner' 
+                : 'text-white hover:text-accent hover:bg-black/40'}"
+            >
+              <span class="relative z-10">Me</span>
+              {#if selectedTab === 'about'}
+                <div class="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-accent to-transparent"></div>
+              {:else}
+                <div class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-transparent via-accent to-transparent group-hover:w-full transition-all duration-500 opacity-0 hover:opacity-100"></div>
+              {/if}
+            </button>
+            <button 
               onclick={() => selectTab('stories')}
               class="py-3 px-4 text-center rounded-lg transition-all duration-300 font-handwriting relative overflow-hidden {selectedTab === 'stories' 
                 ? 'bg-gradient-to-br from-black/80 to-black/60 text-accent font-bold shadow-inner' 
@@ -585,19 +598,6 @@
             >
               <span class="relative z-10">Journal</span>
               {#if selectedTab === 'journal'}
-                <div class="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-accent to-transparent"></div>
-              {:else}
-                <div class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-transparent via-accent to-transparent group-hover:w-full transition-all duration-500 opacity-0 hover:opacity-100"></div>
-              {/if}
-            </button>
-            <button 
-              onclick={() => selectTab('about')}
-              class="py-3 px-4 text-center rounded-lg transition-all duration-300 font-handwriting relative overflow-hidden {selectedTab === 'about' 
-                ? 'bg-gradient-to-br from-black/80 to-black/60 text-accent font-bold shadow-inner' 
-                : 'text-white hover:text-accent hover:bg-black/40'}"
-            >
-              <span class="relative z-10">Me</span>
-              {#if selectedTab === 'about'}
                 <div class="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-accent to-transparent"></div>
               {:else}
                 <div class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-transparent via-accent to-transparent group-hover:w-full transition-all duration-500 opacity-0 hover:opacity-100"></div>

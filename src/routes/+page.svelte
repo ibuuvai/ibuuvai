@@ -43,6 +43,18 @@
   // Journal entries data
   const journalEntries = [
     {
+      id: "a-letter-that-will-never-reach-you",
+      title: "a letter that will never reach you",
+      date: "Wednesday 26 March 2025",
+      content: "For example, if this letter were to disappear, the world would remain unchanged.\n\nWe, the smallest of people, should be more hopeful than we were yesterday. That is what I would like to believe. But you, scraping together sadness, dreams, love—stuffing them into that fragile box you called a heart—was that really hope? The world you painted became my reason for living, or so I told myself. The city was calm, as if it had never known your struggle.\n\nIf this letter reaches you, does that alone give it meaning? You would probably laugh and call it nonsense. This space you fought to carve out, this place where you clung to existence—I do not know if I can preserve it in your absence. I do not know if anyone can. But I will say this: rest in peace, if such a thing is possible. If ever the day comes when you grant yourself permission to disappear, I will not stop you.\n\nIf I could save people by making a mockery of myself, I would play the fool gladly. What comes first, money or boredom? Does it even matter? Who does this voice reach? Maybe no one. Maybe we are all just wandering in the dark, grasping for something just beyond our fingertips. A little closer, and I would have caught it. But it slipped away.\n\nStill, I remain, as I am. If you could see me now, what would you think? Would you laugh? Would you scold me for still being here? Live, survive—how long do we have to keep doing this? I hope these words reach you someday, even if they are selfish, even if they last no longer than a sigh.\n\nEven if the world changes, the life you painted remains. And if I must remain here a little longer, I will. Until then, keep going."
+    },
+    {
+      id: "melancholy",
+      title: "Melancholy",
+      date: "Thursday 20 March 2025",
+      content: "Nothing is going the right way anymore.\nAnother ordinary day begins.\nWatching the day as it withers by.\n\nTomorrow has come by again today.\nEven if I lie, tomorrow will still come.\nEven if I do nothing, the sun will still rise.\nIt's all the same.\n\nThe days I've taken for granted—\nThey let me know that they're ending again today.\n\nWaiting, searching—\nFor something.\nSomething that will never cease to shine.\nI want to keep searching for that light.\nI want hope for tomorrow.\n\nI'm fine with just a tiny little bit of happiness.\n\nI regret that.\n\nMaybe today,\nI'll be able to change something.\nI'll keep believing that.\n\nI'll keep living like this.\n\nTomorrow too."
+    },
+    {
       id: "pure-white",
       title: "Pure white",
       date: "Monday 3 March 2025",
@@ -100,7 +112,7 @@
       id: "disdain",
       title: "Cracks in my heart",
       date: "Saturday 1 February 2025",
-      content: "For every person whose feelings I treat with disdain\nI live relying on an another.\nThe punishment for curling up all those times\nTightens around my chest and digs in its fangs\nCracks run their way through my heart.\nSo it wouldn't break\nSo I wouldn't break it\nEven though with my inexperienced hands, I so tried to protect it\nI ended up straining myself and crushing it"
+      content: "For every person whose feelings I treat with disdain\nI live relying on another.\nThe punishment for curling up all those times\nTightens around my chest and digs in its fangs\nCracks run their way through my heart.\nSo it wouldn't break\nSo I wouldn't break it\nEven though with my inexperienced hands, I so tried to protect it\nI ended up straining myself and crushing it"
     },
     {
       id: "so-just-live",

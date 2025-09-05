@@ -1654,42 +1654,70 @@ And in that quiet distance, I realized: it wasn't the world that had abandoned u
 								</div>
 
 								<div class="border-accent/20 mt-6 rounded-2xl border bg-black/30 p-4 md:p-6" data-reveal>
-									<h3 class="text-accent font-handwriting mb-2 text-lg">Curriculum Vae Victis</h3>
-									<p class="text-white/70 text-xs mb-4">not for employment; for evidence</p>
-									<div class="font-handwriting whitespace-pre-line text-white leading-relaxed">
-										Profile
-										Born of bad timing; domesticated by poems. I collect exits, broken promises, and sentences that refuse to behave. If there is a way to love incorrectly, I have documented it with care.
-
-										Selected Works (unpublished, unfortunately)
-										- a letter that will never reach you — endurance, performed badly.
-										- The silent collapse of a heart — a study in exquisite damage.
-										- at the mercy of my dreams — field notes from a beautiful failure.
-
-										Professional Experience
-										- Amateur witness to my own life (ongoing). Responsibilities: watch; refuse rescue; remember too clearly.
-										- Co-conspirator with loneliness. Delivered daily.
-										- Keeper of an unnecessary book; still writing it.
-
-										Competencies
-										- Precision melancholy; sustainable doubt; elegant retreat.
-										- Transmuting hurt into paragraphs; distilling paragraphs back into silence.
-										- Disappearing politely.
-
-										Achievements
-										- Survived the days I said I wouldn't. (several.)
-										- Remembered small details no one thought important, and kept them alive.
-										- Learned to apologise to the future without disturbing the past.
-
-										References
-										- Denied, with affection. The relevant people are tired; let them rest.
+									<div class="mb-4 flex items-center justify-between">
+										<h3 class="text-accent font-handwriting text-lg">Curriculum Vae Victis</h3>
+										<span class="rounded-full border border-accent/20 bg-accent/10 px-2 py-1 text-[10px] uppercase tracking-wide text-accent/90">not for employment; for evidence</span>
 									</div>
-									<div class="mt-4 text-right">
+
+									<div class="space-y-6 font-handwriting">
+										<section>
+											<h4 class="text-white/90 mb-1 font-handwriting text-xs tracking-wider uppercase">Profile</h4>
+											<p class="font-handwriting text-white/80 leading-relaxed">Born of bad timing; domesticated by poems. I collect exits, broken promises, and sentences that refuse to behave. If there is a way to love incorrectly, I have documented it with care.</p>
+										</section>
+
+										<section>
+											<h4 class="text-white/90 mb-2 font-handwriting text-xs tracking-wider uppercase">Selected Works</h4>
+											<ul class="grid grid-cols-1 gap-2 md:grid-cols-2">
+												<li class="border-accent/10 rounded-lg border bg-black/20 px-3 py-2 text-white/80"><span class="font-handwriting">a letter that will never reach you</span><span class="text-white/50"> — endurance, performed badly.</span></li>
+												<li class="border-accent/10 rounded-lg border bg-black/20 px-3 py-2 text-white/80"><span class="font-handwriting">The silent collapse of a heart</span><span class="text-white/50"> — a study in exquisite damage.</span></li>
+												<li class="border-accent/10 rounded-lg border bg-black/20 px-3 py-2 text-white/80 md:col-span-2"><span class="font-handwriting">at the mercy of my dreams</span><span class="text-white/50"> — field notes from a beautiful failure.</span></li>
+											</ul>
+										</section>
+
+										<section>
+											<h4 class="text-white/90 mb-2 font-handwriting text-xs tracking-wider uppercase">Experience</h4>
+											<ul class="space-y-2">
+												<li class="border-accent/10 rounded-lg border bg-black/20 p-3">
+													<div class="flex items-center justify-between text-white/90"><span class="font-handwriting">Amateur witness to my own life</span><span class="text-[10px] text-white/50 uppercase tracking-wide">ongoing</span></div>
+													<p class="text-white/70 mt-1 text-sm">watch; refuse rescue; remember too clearly.</p>
+												</li>
+												<li class="border-accent/10 rounded-lg border bg-black/20 p-3 text-white/80">Co-conspirator with loneliness — delivered daily.</li>
+												<li class="border-accent/10 rounded-lg border bg-black/20 p-3 text-white/80">Keeper of an unnecessary book — still writing it.</li>
+											</ul>
+										</section>
+
+										<section>
+											<h4 class="text-white/90 mb-2 font-handwriting text-xs tracking-wider uppercase">Competencies</h4>
+											<div class="flex flex-wrap gap-2">
+												<span class="bg-accent/10 text-accent/90 rounded-full px-3 py-1 text-xs">Precision melancholy</span>
+												<span class="bg-accent/10 text-accent/90 rounded-full px-3 py-1 text-xs">Sustainable doubt</span>
+												<span class="bg-accent/10 text-accent/90 rounded-full px-3 py-1 text-xs">Elegant retreat</span>
+												<span class="bg-accent/10 text-accent/90 rounded-full px-3 py-1 text-xs">Transmuting hurt</span>
+												<span class="bg-accent/10 text-accent/90 rounded-full px-3 py-1 text-xs">Distilling silence</span>
+												<span class="bg-accent/10 text-accent/90 rounded-full px-3 py-1 text-xs">Disappearing politely</span>
+											</div>
+										</section>
+
+										<section>
+											<h4 class="text-white/90 mb-2 font-handwriting text-xs tracking-wider uppercase">Achievements</h4>
+											<ul class="list-disc space-y-1 pl-5 text-white/80">
+												<li>Survived the days I said I wouldn't. <span class="text-white/50">(several)</span></li>
+												<li>Remembered small details no one thought important, and kept them alive.</li>
+												<li>Apologised to the future without disturbing the past.</li>
+											</ul>
+										</section>
+
+										<section>
+											<h4 class="text-white/90 mb-2 font-handwriting text-xs tracking-wider uppercase">References</h4>
+											<p class="text-white/70">Denied, with affection. The relevant people are tired; let them rest.</p>
+										</section>
+									</div>
+
+									<div class="mt-6 text-right">
 										<span class="font-handwriting text-white/80">signed—</span>
 										<span class="font-handwriting text-accent italic">vai</span>
 									</div>
 								</div>
-
-								<!-- removed duplicate stats -->
 							</div>
 						</div>
 					{/if}

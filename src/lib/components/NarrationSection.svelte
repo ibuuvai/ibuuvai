@@ -27,18 +27,18 @@
 
 <section class="min-h-screen py-24 px-6 md:px-12 flex flex-col justify-center relative">
   <div class="max-w-3xl mx-auto">
-    <h2 
-      class="text-3xl md:text-4xl font-bold mb-8 text-accent animate-fade-in font-creepy cursor-pointer flex items-center"
-      on:click={toggleContent}
-      on:keydown={(e) => e.key === 'Enter' && toggleContent()}
-      tabindex="0"
-      role="button"
-      aria-expanded={isContentVisible}
-    >
-      {props.title}
-      <span class="ml-2 text-sm transition-transform duration-300" class:rotate-180={isContentVisible}>
-        {isContentVisible ? '▲' : '▼'}
-      </span>
+    <h2 class="text-3xl md:text-4xl font-bold mb-8 text-accent animate-fade-in font-creepy">
+      <button
+        type="button"
+        class="cursor-pointer flex items-center"
+        onclick={toggleContent}
+        aria-expanded={isContentVisible}
+      >
+        {props.title}
+        <span class="ml-2 text-sm transition-transform duration-300" class:rotate-180={isContentVisible}>
+          {isContentVisible ? '▲' : '▼'}
+        </span>
+      </button>
     </h2>
     
     <!-- svelte-ignore slot_element_deprecated -->

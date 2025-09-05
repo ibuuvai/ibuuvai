@@ -1,39 +1,176 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { fade, fly, slide } from 'svelte/transition';
+	import { fade, slide } from 'svelte/transition';
+	import CommandPalette from '$lib/components/CommandPalette.svelte';
 
 	// Tab state management
 	let selectedTab = $state<'stories' | 'journal' | 'about' | 'book'>('about');
 	let mounted = $state(false);
 	let currentChapter = $state(0);
+	let bookProgress = $state(0);
+	let lastChapter = $state(0);
+	// removed unused: turnDirection
 
 	// Journal entries state
 	let openJournalEntry = $state<string | null>(null);
 	let isStoryVisible = $state(false);
 
-	// Animation timing variables
-	const typingAnimationDuration = 3000; // 3 seconds for typing animation
+	// removed unused: typingAnimationDuration
+
+	// Cursor parallax state (CSS variables driven)
+	let enableMotion = $state(true);
 
 	// Mount handler
 	onMount(() => {
 		mounted = true;
+
+		// Open journal entry from URL hash and switch to journal tab if applicable
+		const openFromHash = () => {
+			const id = location.hash.replace(/^#/, '');
+			if (!id) return;
+			const exists = journalEntries.some((e) => e.id === id);
+			if (exists) {
+				selectedTab = 'journal';
+				openJournalEntry = id;
+				setTimeout(() => {
+					const entryElement = document.getElementById(`entry-${id}`);
+					entryElement?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+				}, 50);
+			}
+		};
+
+		openFromHash();
+		const onHash = () => openFromHash();
+		window.addEventListener('hashchange', onHash);
+
+		// Scroll reveal animations for elements marked with [data-reveal]
+		const io = new IntersectionObserver(
+			(entries) => {
+				for (const entry of entries) {
+					if (entry.isIntersecting) {
+						entry.target.classList.add('animate-slide-up');
+						io.unobserve(entry.target);
+					}
+				}
+			},
+			{ root: null, threshold: 0.15 }
+		);
+		Array.from(document.querySelectorAll('[data-reveal]')).forEach((el) => io.observe(el));
+
+		// Reduced motion check
+		const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+		enableMotion = !prefersReduced.matches;
+		const onReducedChange = () => (enableMotion = !prefersReduced.matches);
+		prefersReduced.addEventListener?.('change', onReducedChange);
+
+		// Cursor parallax: update CSS variables --mx/--my (normalized) and --cursor-x/--cursor-y (px)
+		const onMouseMove = (e: MouseEvent) => {
+			if (!enableMotion) return;
+			const cx = window.innerWidth / 2;
+			const cy = window.innerHeight / 2;
+			const mx = (e.clientX - cx) / cx; // -1..1
+			const my = (e.clientY - cy) / cy; // -1..1
+			document.documentElement.style.setProperty('--mx', String(mx));
+			document.documentElement.style.setProperty('--my', String(my));
+			document.documentElement.style.setProperty('--cursor-x', e.clientX + 'px');
+			document.documentElement.style.setProperty('--cursor-y', e.clientY + 'px');
+		};
+		window.addEventListener('mousemove', onMouseMove, { passive: true });
+
+		function clamp(n: number, min: number, max: number) {
+			return Math.max(min, Math.min(max, n));
+		}
+
+		function updateBookProgress() {
+			const container = document.querySelector('.book-container .chapter-content') as HTMLElement | null;
+			if (!container) {
+				bookProgress = 0;
+				return;
+			}
+			const elTop = container.getBoundingClientRect().top + window.scrollY;
+			const elHeight = container.offsetHeight;
+			const viewport = window.innerHeight;
+			const maxScroll = Math.max(1, elHeight - viewport);
+			const raw = (window.scrollY - elTop) / maxScroll;
+			bookProgress = clamp(raw, 0, 1);
+		}
+
+		const onScroll = () => updateBookProgress();
+		window.addEventListener('scroll', onScroll, { passive: true });
+		window.addEventListener('resize', onScroll);
+		updateBookProgress();
+
+		return () => {
+			window.removeEventListener('hashchange', onHash);
+			window.removeEventListener('scroll', onScroll as EventListener);
+			window.removeEventListener('resize', onScroll as EventListener);
+			window.removeEventListener('mousemove', onMouseMove as EventListener);
+			io.disconnect();
+		};
+	});
+
+	$effect(() => {
+		// Trigger progress update when switching to book or changing chapter
+		selectedTab;
+		currentChapter;
+		setTimeout(() => {
+			if (selectedTab === 'book') {
+				const container = document.querySelector('.book-container .chapter-content');
+				if (container) {
+					bookProgress = 0;
+					// delay to allow layout to settle
+					setTimeout(() => {
+						const evt = new Event('scroll');
+						window.dispatchEvent(evt);
+					}, 0);
+				}
+			}
+		}, 0);
+
+		if (currentChapter !== lastChapter) {
+			lastChapter = currentChapter;
+		}
 	});
 
 	function selectTab(tab: 'stories' | 'journal' | 'about' | 'book') {
-		selectedTab = tab;
+		const apply = () => {
+			selectedTab = tab;
+			if (tab !== 'journal' && typeof window !== 'undefined' && location.hash) {
+				try { history.replaceState(null, '', location.pathname + location.search); } catch {}
+			}
+		};
+		if (document.startViewTransition) {
+			document.startViewTransition(apply);
+		} else {
+			apply();
+		}
+	}
+
+	function navigateToTab(tab: 'stories' | 'journal' | 'about' | 'book') {
+		selectTab(tab);
+	}
+
+	function openJournalFromPalette(id: string) {
+		selectedTab = 'journal';
+		openJournalEntry = id;
+		setTimeout(() => {
+			const entryElement = document.getElementById(`entry-${id}`);
+			entryElement?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+		}, 50);
 	}
 
 	function toggleJournalEntry(id: string) {
-		openJournalEntry = openJournalEntry === id ? null : id;
-
-		// If we're opening an entry, scroll it into view after a short delay to allow for animation
-		if (openJournalEntry === id) {
+		const next = openJournalEntry === id ? null : id;
+		openJournalEntry = next;
+		// Update hash without causing jump when closing
+		if (next) {
+			location.hash = `#${id}`;
 			setTimeout(() => {
 				const entryElement = document.getElementById(`entry-${id}`);
-				if (entryElement) {
-					entryElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-				}
+				entryElement?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 			}, 50);
+		} else if (location.hash === `#${id}`) {
+			history.replaceState(null, '', location.pathname + location.search);
 		}
 	}
 
@@ -917,6 +1054,18 @@ And in that quiet distance, I realized: it wasn't the world that had abandoned u
 				opacity: 1;
 			}
 		}
+
+		.page-turn {
+			transition: transform 0.5s ease;
+		}
+
+		.turn-forward {
+			transform: translateX(100%);
+		}
+
+		.turn-back {
+			transform: translateX(-100%);
+		}
 	</style>
 </svelte:head>
 
@@ -924,7 +1073,7 @@ And in that quiet distance, I realized: it wasn't the world that had abandoned u
 	<!-- Background and main container -->
 	<div class="flex flex-1 flex-col">
 		{#if mounted}
-			<div in:fade={{ duration: 1500, delay: 300 }} class="absolute inset-0 z-0">
+			<div in:fade={{ duration: 1500, delay: 300 }} class="absolute inset-0">
 				<div class="bg-primary absolute inset-0 opacity-90"></div>
 
 				<!-- Background glow - positioned to cover the entire page -->
@@ -934,7 +1083,7 @@ And in that quiet distance, I realized: it wasn't the world that had abandoned u
 			</div>
 
 			<!-- Hero Content - Takes full viewport height -->
-			<div class="relative z-10 flex h-screen flex-col items-center justify-center pt-0">
+			<div class="relative flex h-screen flex-col items-center justify-center pt-0">
 				<div in:fade={{ duration: 1000, delay: 400 }} class="relative mx-auto max-w-4xl">
 					<!-- Avatar and Name - No top margin -->
 					<div
@@ -945,9 +1094,11 @@ And in that quiet distance, I realized: it wasn't the world that had abandoned u
 							src="/images/vai.webp"
 							alt="Creator Avatar"
 							class="animate-pulse-subtle mb-4 h-48 w-48"
+							style="transform: translate3d(calc(var(--mx,0)*8px), calc(var(--my,0)*8px), 0)"
 						/>
 						<span
 							class="text-accent animate-text-focus font-handwriting text-3xl font-black uppercase md:text-5xl"
+							style="transform: translate3d(calc(var(--mx,0)*4px), calc(var(--my,0)*4px), 0)"
 							>VAI Ibu</span
 						>
 						<div class="mt-2 w-full px-3 text-center">
@@ -1005,10 +1156,13 @@ And in that quiet distance, I realized: it wasn't the world that had abandoned u
 						</div>
 					</div>
 				</div>
+
+				<!-- Command Palette -->
+				<CommandPalette journalEntries={journalEntries.map(({id, title}) => ({id, title}))} navigateToTab={navigateToTab} openJournal={openJournalFromPalette} />
 			</div>
 
 			<!-- Tabbed Content Area - Positioned below initial viewport -->
-			<div class="relative z-10 min-h-screen pt-16">
+			<div class="relative min-h-screen pt-16">
 				<!-- Tab Navigation -->
 				<div class="mx-auto mb-4 w-full max-w-3xl px-3 md:px-6">
 					<div
@@ -1021,7 +1175,7 @@ And in that quiet distance, I realized: it wasn't the world that had abandoned u
 								? 'text-accent bg-gradient-to-br from-black/80 to-black/60 font-bold shadow-inner'
 								: 'hover:text-accent text-white hover:bg-black/40'}"
 						>
-							<span class="relative z-10">Me</span>
+							<span class="relative">Me</span>
 							{#if selectedTab === 'about'}
 								<div
 									class="via-accent absolute bottom-0 left-0 h-0.5 w-full bg-gradient-to-r from-transparent to-transparent"
@@ -1039,7 +1193,7 @@ And in that quiet distance, I realized: it wasn't the world that had abandoned u
 								? 'text-accent bg-gradient-to-br from-black/80 to-black/60 font-bold shadow-inner'
 								: 'hover:text-accent text-white hover:bg-black/40'}"
 						>
-							<span class="relative z-10">Stories</span>
+							<span class="relative">Stories</span>
 							{#if selectedTab === 'stories'}
 								<div
 									class="via-accent absolute bottom-0 left-0 h-0.5 w-full bg-gradient-to-r from-transparent to-transparent"
@@ -1057,7 +1211,7 @@ And in that quiet distance, I realized: it wasn't the world that had abandoned u
 								? 'text-accent bg-gradient-to-br from-black/80 to-black/60 font-bold shadow-inner'
 								: 'hover:text-accent text-white hover:bg-black/40'}"
 						>
-							<span class="relative z-10">Journal</span>
+							<span class="relative">Journal</span>
 							{#if selectedTab === 'journal'}
 								<div
 									class="via-accent absolute bottom-0 left-0 h-0.5 w-full bg-gradient-to-r from-transparent to-transparent"
@@ -1095,7 +1249,7 @@ And in that quiet distance, I realized: it wasn't the world that had abandoned u
 						<div in:fade={{ duration: 300 }} class="text-center">
 							<h3 class="font-handwriting text-accent mb-4 text-xl">Featured Story</h3>
 							<ul class="space-y-3">
-								<li class="border-accent/10 border-b pb-2">
+								<li class="border-accent/10 border-b pb-2" data-reveal>
 									<button
 										onclick={toggleStory}
 										class="hover:text-accent group relative flex w-full items-center py-2 text-left text-white transition-colors"
@@ -1204,7 +1358,7 @@ And in that quiet distance, I realized: it wasn't the world that had abandoned u
 							<h3 class="font-handwriting text-accent mb-4 text-center text-xl">Recent Entries</h3>
 							<ul class="space-y-4">
 								{#each journalEntries as entry}
-									<li class="border-accent/10 border-b pb-3" id="entry-{entry.id}">
+									<li class="border-accent/10 border-b pb-3" id="entry-{entry.id}" data-reveal>
 										<button
 											onclick={() => toggleJournalEntry(entry.id)}
 											class="hover:text-accent group relative flex w-full flex-col py-2 text-left text-white transition-colors sm:flex-row sm:items-center sm:justify-between"
@@ -1266,6 +1420,7 @@ And in that quiet distance, I realized: it wasn't the world that had abandoned u
 							<div class="mx-auto w-full max-w-3xl">
 								<div
 									class="border-accent/20 book-container overflow-hidden rounded-2xl border bg-black/40 backdrop-blur-sm"
+									data-reveal
 								>
 									<!-- Chapter Navigation -->
 									<div class="border-accent/10 flex items-center justify-between border-b p-4">
@@ -1277,6 +1432,7 @@ And in that quiet distance, I realized: it wasn't the world that had abandoned u
 													?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 											}}
 											class="hover:text-accent px-4 py-2 text-white transition-colors disabled:cursor-not-allowed disabled:opacity-50"
+											aria-label="Previous chapter"
 											disabled={currentChapter === 0}
 										>
 											<svg
@@ -1303,6 +1459,7 @@ And in that quiet distance, I realized: it wasn't the world that had abandoned u
 													?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 											}}
 											class="hover:text-accent px-4 py-2 text-white transition-colors disabled:cursor-not-allowed disabled:opacity-50"
+											aria-label="Next chapter"
 											disabled={currentChapter === bookChapters.length - 1}
 										>
 											<svg
@@ -1320,12 +1477,12 @@ And in that quiet distance, I realized: it wasn't the world that had abandoned u
 										</button>
 									</div>
 
+									<!-- Reading progress bar moved to fixed top -->
+
 									<!-- Chapter Content -->
 									<div class="chapter-content p-6 md:p-8">
 										<div class="prose prose-invert max-w-none">
-											<div
-												class="font-handwriting leading-relaxed whitespace-pre-line text-white/90"
-											>
+											<div class="font-handwriting leading-relaxed whitespace-pre-line text-white break-anywhere max-w-[70ch] mx-auto">
 												{bookChapters[currentChapter].content}
 											</div>
 										</div>
@@ -1341,6 +1498,7 @@ And in that quiet distance, I realized: it wasn't the world that had abandoned u
 													?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 											}}
 											class="hover:text-accent px-4 py-2 text-white transition-colors disabled:cursor-not-allowed disabled:opacity-50"
+											aria-label="Previous chapter"
 											disabled={currentChapter === 0}
 										>
 											<svg
@@ -1367,6 +1525,7 @@ And in that quiet distance, I realized: it wasn't the world that had abandoned u
 													?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 											}}
 											class="hover:text-accent px-4 py-2 text-white transition-colors disabled:cursor-not-allowed disabled:opacity-50"
+											aria-label="Next chapter"
 											disabled={currentChapter === bookChapters.length - 1}
 										>
 											<svg
@@ -1384,6 +1543,15 @@ And in that quiet distance, I realized: it wasn't the world that had abandoned u
 										</button>
 									</div>
 								</div>
+
+								<!-- Fixed top reading progress bar (visible only in Book tab) -->
+								{#if selectedTab === 'book'}
+									<div class="fixed top-0 left-0 right-0 pointer-events-none">
+										<div class="h-[2px] bg-white/10">
+											<div class="h-[2px] bg-accent transition-[width] duration-200" style="width: {Math.round(bookProgress * 100)}%"></div>
+										</div>
+									</div>
+								{/if}
 							</div>
 						</div>
 					{:else if selectedTab === 'about'}
@@ -1393,6 +1561,7 @@ And in that quiet distance, I realized: it wasn't the world that had abandoned u
 								<div class="relative mb-8">
 									<div
 										class="border-accent/20 relative flex flex-col items-center overflow-hidden rounded-2xl border bg-black/40 backdrop-blur-sm md:flex-row"
+										data-reveal
 									>
 										<div class="flex flex-shrink-0 flex-col items-center p-6 md:items-start md:p-8">
 											<img
@@ -1415,7 +1584,7 @@ And in that quiet distance, I realized: it wasn't the world that had abandoned u
 												<div
 													class="border-accent/10 flex flex-col items-center justify-center rounded-xl border bg-black/30 p-4"
 												>
-													<span class="text-accent text-2xl font-bold">21</span>
+													<span class="text-accent text-2xl font-bold">22</span>
 													<span class="text-xs tracking-wider text-white/60 uppercase">age</span>
 												</div>
 											</div>
@@ -1483,6 +1652,44 @@ And in that quiet distance, I realized: it wasn't the world that had abandoned u
 										</div>
 									</div>
 								</div>
+
+								<div class="border-accent/20 mt-6 rounded-2xl border bg-black/30 p-4 md:p-6" data-reveal>
+									<h3 class="text-accent font-handwriting mb-2 text-lg">Curriculum Vae Victis</h3>
+									<p class="text-white/70 text-xs mb-4">not for employment; for evidence</p>
+									<div class="font-handwriting whitespace-pre-line text-white leading-relaxed">
+										Profile
+										Born of bad timing; domesticated by poems. I collect exits, broken promises, and sentences that refuse to behave. If there is a way to love incorrectly, I have documented it with care.
+
+										Selected Works (unpublished, unfortunately)
+										- a letter that will never reach you — endurance, performed badly.
+										- The silent collapse of a heart — a study in exquisite damage.
+										- at the mercy of my dreams — field notes from a beautiful failure.
+
+										Professional Experience
+										- Amateur witness to my own life (ongoing). Responsibilities: watch; refuse rescue; remember too clearly.
+										- Co-conspirator with loneliness. Delivered daily.
+										- Keeper of an unnecessary book; still writing it.
+
+										Competencies
+										- Precision melancholy; sustainable doubt; elegant retreat.
+										- Transmuting hurt into paragraphs; distilling paragraphs back into silence.
+										- Disappearing politely.
+
+										Achievements
+										- Survived the days I said I wouldn't. (several.)
+										- Remembered small details no one thought important, and kept them alive.
+										- Learned to apologise to the future without disturbing the past.
+
+										References
+										- Denied, with affection. The relevant people are tired; let them rest.
+									</div>
+									<div class="mt-4 text-right">
+										<span class="font-handwriting text-white/80">signed—</span>
+										<span class="font-handwriting text-accent italic">vai</span>
+									</div>
+								</div>
+
+								<!-- removed duplicate stats -->
 							</div>
 						</div>
 					{/if}
@@ -1490,4 +1697,11 @@ And in that quiet distance, I realized: it wasn't the world that had abandoned u
 			</div>
 		{/if}
 	</div>
+
+	<!-- Cursor aura (subtle, pointer-events none) -->
+	{#if enableMotion}
+		<div class="pointer-events-none fixed" style="top: var(--cursor-y); left: var(--cursor-x); transform: translate(-50%, -50%);">
+			<div class="cursor-aura"></div>
+		</div>
+	{/if}
 </main>

@@ -6,7 +6,7 @@
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build && bun run copy-cname",
- 		"copy-cname": "node -e \"import('fs').then(fs => fs.promises.copyFile('CNAME', 'build/CNAME'))\"",
+		"copy-cname": "node -e \"import('fs').then(fs => fs.promises.copyFile('CNAME', 'build/CNAME'))\"",
 		"preview": "vite preview",
 		"prepare": "svelte-kit sync || echo ''",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
@@ -15,18 +15,18 @@
 		"lint": "prettier --check ."
 	},
 	"devDependencies": {
-		"@sveltejs/adapter-static": "^3.0.8",
-		"@sveltejs/kit": "^2.19.0",
-		"@sveltejs/vite-plugin-svelte": "^5.0.3",
+		"@sveltejs/adapter-static": "^3.0.9",
+		"@sveltejs/kit": "^2.37.0",
+		"@sveltejs/vite-plugin-svelte": "^5.1.1",
 		"@tailwindcss/typography": "^0.5.16",
-		"@tailwindcss/vite": "^4.0.12",
-		"prettier": "^3.5.3",
-		"prettier-plugin-svelte": "^3.3.3",
-		"prettier-plugin-tailwindcss": "^0.6.11",
-		"svelte": "^5.22.6",
-		"svelte-check": "^4.1.5",
-		"tailwindcss": "^4.0.12",
-		"typescript": "^5.8.2",
-		"vite": "^6.2.1"
+		"@tailwindcss/vite": "^4.1.13",
+		"prettier": "^3.6.2",
+		"prettier-plugin-svelte": "^3.4.0",
+		"prettier-plugin-tailwindcss": "^0.6.14",
+		"svelte": "^5.38.7",
+		"svelte-check": "^4.3.1",
+		"tailwindcss": "^4.1.13",
+		"typescript": "^5.9.2",
+		"vite": "^6.3.5"
 	}
 }

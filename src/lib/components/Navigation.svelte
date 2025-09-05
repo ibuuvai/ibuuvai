@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { page } from '$app/stores';
   
   const { activeTab = 'stories' } = $props<{
     activeTab?: 'stories' | 'journal' | 'about';

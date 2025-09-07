@@ -85,16 +85,6 @@
 		color: var(--color-secondary);
 	}
 
-	/* Respect reduced motion users */
-	@media (prefers-reduced-motion: reduce) {
-		*,
-		*::before,
-		*::after {
-			animation: none !important;
-			transition: none !important;
-			scroll-behavior: auto !important;
-		}
-	}
 }
 
 /* Custom components */

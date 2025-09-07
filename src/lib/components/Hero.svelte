@@ -16,7 +16,7 @@
 			<span
 				class="text-accent animate-text-focus font-handwriting text-3xl font-black uppercase md:text-5xl"
 				style="transform: translate3d(calc(var(--mx,0)*4px), calc(var(--my,0)*4px), 0)"
-				>VAI Ibu</span
+				>Ibuu Vai</span
 			>
 			<div class="mt-2 w-full px-3 text-center">
 				<p class="font-handwriting main-phrase font-bold text-white uppercase">

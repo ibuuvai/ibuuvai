@@ -651,7 +651,6 @@
 					{navigateToTab}
 					openJournal={openJournalFromPalette}
 				/>
-			</div>
 
 			<!-- Tabbed Content Area - Positioned below initial viewport -->
 			<div class="relative min-h-screen pt-16">
@@ -825,12 +824,12 @@
 											</div>
 
 											<div
-												class="border-accent/10 mb-4 rounded-xl border bg-black/30 p-4 backdrop-blur-sm transition-all duration-300 hover:bg-black/40"
+												class="border-accent/10 mb-4 rounded-xl border bg-black/30 p-4 text-center backdrop-blur-sm transition-all duration-300 hover:bg-black/40"
 											>
-												<div class="text-accent mb-3 text-sm font-bold tracking-wider uppercase">
+												<div class="text-accent mb-3 text-center text-sm font-bold tracking-wider uppercase">
 													Loves
 												</div>
-												<div class="flex flex-wrap gap-2">
+												<div class="flex flex-wrap justify-center gap-2">
 													<span
 														class="bg-accent/10 text-accent/90 font-handwriting hover:bg-accent/20 rounded-full px-3 py-1.5 text-xs transition-all duration-300"
 													>

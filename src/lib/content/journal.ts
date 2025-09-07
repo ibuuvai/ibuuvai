@@ -7,6 +7,104 @@ export type JournalEntry = {
 
 export const journalEntries: JournalEntry[] = [
 	{
+		id: 'the-wind',
+		title: 'The wind',
+		date: 'Sunday 6 April 2025',
+		content:
+			"I wish to observe quietly,\n"
+			+
+			"to keep still so nothing escapes.\n"
+			+
+			"But the wind refuses my silence.\n\n"
+			+
+			"I had known you already,\n"
+			+
+			"yet one day the wind grazed me.\n"
+			+
+			"That was when I noticed it—\n"
+			+
+			"a stirring inside me, faint at first.\n"
+			+
+			"I breathed in that wind,\n"
+			+
+			"and it remained.\n\n"
+			+
+			"It was always there after that,\n"
+			+
+			"rooting itself quietly,\n"
+			+
+			"growing deeper,\n"
+			+
+			"until it spread through me.\n"
+			+
+			"Now even a single breath\n"
+			+
+			"makes my lungs ache—\n"
+			+
+			"and still, the ache is warm.\n\n"
+			+
+			"The mind resists,\n"
+			+
+			"choosing carefully what it lets inside.\n"
+			+
+			"But the wind moves where it pleases,\n"
+			+
+			"and the heart accepts it wholly.\n\n"
+			+
+			"So each time I face that wind,\n"
+			+
+			"I will accept the sting,\n"
+			+
+			"for within the sting, I am soothed.\n"
+			+
+			"Because whenever I think of you,\n"
+			+
+			"I am reminded—\n"
+			+
+			"of that warm, unyielding wind."
+	},
+	{
+		id: 'time-paradox',
+		title: 'Time paradox',
+		date: 'Thursday 3 April 2025',
+		content:
+			"I remember the day we met.\n"
+			+
+			"The future, however, comes to me only in fragments,\n"
+			+
+			"seen from the corner of my eye.\n\n"
+			+
+			"One day, pain will reach you—\n"
+			+
+			"a pain that clings and will not let go.\n"
+			+
+			"If I could grant a single wish,\n"
+			+
+			"I would bend time itself to change that fate.\n\n"
+			+
+			"In the future I carry in my pocket, you are smiling.\n"
+			+
+			"In the future you carry in yours, I believe the same is true.\n"
+			+
+			"That future is a spell, a fragile charm\n"
+			+
+			"meant to guard you from the sorrow that awaits.\n\n"
+			+
+			"But no spell holds when cast alone.\n"
+			+
+			"Only together, our magic bound as one,\n"
+			+
+			"can it withstand what is to come.\n\n"
+			+
+			"The you in my pocket never stops smiling.\n"
+			+
+			"So let the me in your pocket smile as well.\n\n"
+			+
+			"I want you to smile.\n"
+			+
+			"Please—smile."
+	},
+	{
 		id: 'a-letter-that-will-never-reach-you',
 		title: 'a letter that will never reach you',
 		date: 'Wednesday 26 March 2025',

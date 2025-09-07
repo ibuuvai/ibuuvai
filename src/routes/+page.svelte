@@ -6,6 +6,8 @@
 	import { bookChapters } from '$lib/content/book';
 	import JournalList from '$lib/components/JournalList.svelte';
 	import BookReader from '$lib/components/BookReader.svelte';
+	import Hero from '$lib/components/Hero.svelte';
+	import Tabs from '$lib/components/Tabs.svelte';
 
 	// Tab state management
 	let selectedTab = $state<'stories' | 'journal' | 'about' | 'book'>('about');
@@ -641,176 +643,19 @@
 			</div>
 
 			<!-- Hero Content - Takes full viewport height -->
-			<div class="relative flex h-screen flex-col items-center justify-center pt-0">
-				<div in:fade={{ duration: 1000, delay: 400 }} class="relative mx-auto max-w-4xl">
-					<!-- Avatar and Name - No top margin -->
-					<div
-						in:fade={{ duration: 1200, delay: 500 }}
-						class="flex flex-col items-center justify-center"
-					>
-						<img
-							src="/images/vai.webp"
-							alt="Creator Avatar"
-							class="animate-pulse-subtle mb-4 h-48 w-48"
-							width="192"
-							height="192"
-							loading="lazy"
-							onerror={(e) => {
-								(e.currentTarget as HTMLImageElement).src =
-									'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22192%22 height=%22192%22%3E%3Crect width=%22100%25%22 height=%22100%25%22 fill=%22%23000%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 fill=%22%23fff%22 font-size=%2212%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22%3Eimage%3C/text%3E%3C/svg%3E';
-							}}
-							style="transform: translate3d(calc(var(--mx,0)*8px), calc(var(--my,0)*8px), 0)"
-						/>
-						<span
-							class="text-accent animate-text-focus font-handwriting text-3xl font-black uppercase md:text-5xl"
-							style="transform: translate3d(calc(var(--mx,0)*4px), calc(var(--my,0)*4px), 0)"
-							>VAI Ibu</span
-						>
-						<div class="mt-2 w-full px-3 text-center">
-							<p class="font-handwriting main-phrase font-bold text-white uppercase">
-								<span class="typing-animation-text">My existence isn't known</span><br
-									class="sm:hidden"
-								/>
-								<span class="typing-animation-text-line2">by anybody else</span>
-							</p>
-						</div>
-					</div>
+			<Hero />
 
-					<!-- Keep Out and Warning - Now waiting for typing animation to complete -->
-					<div class="mt-3 px-3 text-center">
-						<div class="warning-content relative inline-block">
-							<div class="absolute inset-0 -m-2 rounded-2xl bg-[#8B0000]/15 blur-[15px]"></div>
-							<h1
-								class="font-creepy animate-glitch relative mb-1 px-2 text-4xl font-black text-[#8B0000] md:text-7xl"
-							>
-								Keep out
-							</h1>
-						</div>
-
-						<div class="relative">
-							<p
-								class="font-handwriting mx-auto mt-1 max-w-xl px-2 text-center text-base text-white md:text-2xl"
-							>
-								<span class="warning-text-1 block">So that I will not be fooled...</span>
-								<span class="warning-text-2 mt-1 block">So that I won't drag you into this—</span>
-							</p>
-
-							<!-- Stay away with drops -->
-							<div class="relative mt-1">
-								<div class="stay-away">
-									<span class="font-creepy text-lg font-bold text-[#8B0000] md:text-2xl"
-										>stay away</span
-									>
-								</div>
-
-								<!-- Dots positioned directly below stay away -->
-								<div class="blood-drops absolute top-full left-1/2 mt-1 w-8 -translate-x-1/2">
-									<div class="relative h-24 w-full">
-										<div
-											class="drop-1 absolute top-0 left-3 h-2 w-2 rounded-full bg-[#8B0000]"
-										></div>
-										<div
-											class="drop-2 absolute top-0 left-1 h-1.5 w-1.5 rounded-full bg-[#8B0000]"
-										></div>
-										<div
-											class="drop-3 absolute top-0 left-5 h-1 w-1 rounded-full bg-[#8B0000]"
-										></div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<!-- Command Palette -->
-				<CommandPalette
-					journalEntries={journalEntries.map(({ id, title }) => ({ id, title }))}
-					{navigateToTab}
-					openJournal={openJournalFromPalette}
-				/>
-			</div>
+			<!-- Command Palette -->
+			<CommandPalette
+				journalEntries={journalEntries.map(({ id, title }) => ({ id, title }))}
+				{navigateToTab}
+				openJournal={openJournalFromPalette}
+			/>
 
 			<!-- Tabbed Content Area - Positioned below initial viewport -->
 			<div class="relative min-h-screen pt-16">
 				<!-- Tab Navigation -->
-				<div class="mx-auto mb-4 w-full max-w-3xl px-3 md:px-6">
-					<div
-						class="border-accent/20 shadow-accent/5 grid grid-cols-4 gap-1 rounded-xl border bg-black/30 p-1.5 shadow-lg backdrop-blur-md"
-					>
-						<button
-							onclick={() => selectTab('about')}
-							class="font-handwriting relative overflow-hidden rounded-lg px-4 py-3 text-center transition-all duration-300 {selectedTab ===
-							'about'
-								? 'text-accent bg-gradient-to-br from-black/80 to-black/60 font-bold shadow-inner'
-								: 'hover:text-accent text-white hover:bg-black/40'}"
-						>
-							<span class="relative">Me</span>
-							{#if selectedTab === 'about'}
-								<div
-									class="via-accent absolute bottom-0 left-0 h-0.5 w-full bg-gradient-to-r from-transparent to-transparent"
-								></div>
-							{:else}
-								<div
-									class="via-accent absolute bottom-0 left-0 h-0.5 w-0 bg-gradient-to-r from-transparent to-transparent opacity-0 transition-all duration-500 group-hover:w-full hover:opacity-100"
-								></div>
-							{/if}
-						</button>
-						<button
-							onclick={() => selectTab('stories')}
-							class="font-handwriting relative overflow-hidden rounded-lg px-4 py-3 text-center transition-all duration-300 {selectedTab ===
-							'stories'
-								? 'text-accent bg-gradient-to-br from-black/80 to-black/60 font-bold shadow-inner'
-								: 'hover:text-accent text-white hover:bg-black/40'}"
-						>
-							<span class="relative">Stories</span>
-							{#if selectedTab === 'stories'}
-								<div
-									class="via-accent absolute bottom-0 left-0 h-0.5 w-full bg-gradient-to-r from-transparent to-transparent"
-								></div>
-							{:else}
-								<div
-									class="via-accent absolute bottom-0 left-0 h-0.5 w-0 bg-gradient-to-r from-transparent to-transparent opacity-0 transition-all duration-500 group-hover:w-full hover:opacity-100"
-								></div>
-							{/if}
-						</button>
-						<button
-							onclick={() => selectTab('journal')}
-							class="font-handwriting relative overflow-hidden rounded-lg px-4 py-3 text-center transition-all duration-300 {selectedTab ===
-							'journal'
-								? 'text-accent bg-gradient-to-br from-black/80 to-black/60 font-bold shadow-inner'
-								: 'hover:text-accent text-white hover:bg-black/40'}"
-						>
-							<span class="relative">Journal</span>
-							{#if selectedTab === 'journal'}
-								<div
-									class="via-accent absolute bottom-0 left-0 h-0.5 w-full bg-gradient-to-r from-transparent to-transparent"
-								></div>
-							{:else}
-								<div
-									class="via-accent absolute bottom-0 left-0 h-0.5 w-0 bg-gradient-to-r from-transparent to-transparent opacity-0 transition-all duration-500 group-hover:w-full hover:opacity-100"
-								></div>
-							{/if}
-						</button>
-						<button
-							onclick={() => selectTab('book')}
-							class="font-handwriting relative overflow-hidden rounded-lg px-4 py-3 text-center transition-all duration-300 {selectedTab ===
-							'book'
-								? 'text-accent bg-gradient-to-br from-black/80 to-black/60 font-bold shadow-inner'
-								: 'hover:text-accent text-white hover:bg-black/40'}"
-						>
-							<span class="relative z-10">My Book</span>
-							{#if selectedTab === 'book'}
-								<div
-									class="via-accent absolute bottom-0 left-0 h-0.5 w-full bg-gradient-to-r from-transparent to-transparent"
-								></div>
-							{:else}
-								<div
-									class="via-accent absolute bottom-0 left-0 h-0.5 w-0 bg-gradient-to-r from-transparent to-transparent opacity-0 transition-all duration-500 group-hover:w-full hover:opacity-100"
-								></div>
-							{/if}
-						</button>
-					</div>
-				</div>
+				<Tabs {selectedTab} onSelect={selectTab} />
 
 				<!-- Tab Content -->
 				<div class="mx-auto w-full max-w-3xl p-2 px-3 md:p-4 md:px-6">

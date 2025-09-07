@@ -3,7 +3,7 @@
 	let { children } = $props();
 </script>
 
-<div class="min-h-screen bg-primary text-secondary">
+<div class="bg-primary text-secondary min-h-screen">
 	{@render children()}
 </div>
 

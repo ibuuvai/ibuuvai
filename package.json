@@ -5,8 +5,7 @@
 	"type": "module",
 	"scripts": {
 		"dev": "vite dev",
-		"build": "vite build && bun run copy-cname",
-		"copy-cname": "node -e \"import('fs').then(fs => fs.promises.copyFile('CNAME', 'build/CNAME'))\"",
+		"build": "vite build",
 		"preview": "vite preview",
 		"prepare": "svelte-kit sync || echo ''",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",

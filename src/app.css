@@ -8,221 +8,266 @@
 
 /* Add smooth blur rendering hints */
 * {
-  backface-visibility: hidden;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+	backface-visibility: hidden;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 
 /* Enable hardware acceleration for elements with blur effects */
-.blur, .blur-sm, .blur-md, .blur-lg, .blur-xl, [class*='blur-['] {
-  transform: translateZ(0);
-  will-change: filter;
+.blur,
+.blur-sm,
+.blur-md,
+.blur-lg,
+.blur-xl,
+[class*='blur-['] {
+	transform: translateZ(0);
+	will-change: filter;
 }
 
 /* Define theme */
 @layer theme {
-  :root {
-    --color-primary: #000000;
-    --color-secondary: #e6e6e6;
-    --color-accent: #8A2BE2;
-    --color-accent-glow: #9B30FF;
-    
-    /* Blur variables for responsive adjustment */
-    --blur-small: 10px;
-    --blur-medium: 20px;
-    --blur-large: 30px;
-    --blur-xl: 40px;
-    --blur-2xl: 60px;
-    
-    /* Font families */
-    --font-writer: 'Merriweather', serif;
-    --font-handwriting: 'Cutive Mono', monospace;
-    --font-creepy: 'Major Mono Display', monospace;
-    
-    /* Set default font */
-    font-family: var(--font-writer);
-  }
-  
-  /* Adjust blur for high-DPI screens */
-  @media (min-resolution: 2dppx) {
-    :root {
-      --blur-small: 5px;
-      --blur-medium: 15px;
-      --blur-large: 25px;
-      --blur-xl: 35px;
-      --blur-2xl: 50px;
-    }
-  }
+	:root {
+		--color-primary: #000000;
+		--color-secondary: #e6e6e6;
+		--color-accent: #8a2be2;
+		--color-accent-glow: #9b30ff;
+
+		/* Blur variables for responsive adjustment */
+		--blur-small: 10px;
+		--blur-medium: 20px;
+		--blur-large: 30px;
+		--blur-xl: 40px;
+		--blur-2xl: 60px;
+
+		/* Font families */
+		--font-writer: 'Merriweather', serif;
+		--font-handwriting: 'Cutive Mono', monospace;
+		--font-creepy: 'Major Mono Display', monospace;
+
+		/* Set default font */
+		font-family: var(--font-writer);
+	}
+
+	/* Adjust blur for high-DPI screens */
+	@media (min-resolution: 2dppx) {
+		:root {
+			--blur-small: 5px;
+			--blur-medium: 15px;
+			--blur-large: 25px;
+			--blur-xl: 35px;
+			--blur-2xl: 50px;
+		}
+	}
 }
 
 /* Base styles */
 @layer base {
-  html {
-    background-color: var(--color-primary);
-    color: #ffffff;
-    scroll-behavior: smooth;
-    font-family: var(--font-writer);
-    overflow-y: scroll;
-    overflow-x: hidden;
-    height: 100%;
-  }
+	html {
+		background-color: var(--color-primary);
+		color: #ffffff;
+		scroll-behavior: smooth;
+		font-family: var(--font-writer);
+		overflow-y: scroll;
+		overflow-x: hidden;
+		height: 100%;
+	}
 
-  body {
-    margin: 0;
-    padding: 0;
-    min-height: 100vh;
-    overflow: hidden;
-    position: relative;
-  }
+	body {
+		margin: 0;
+		padding: 0;
+		min-height: 100vh;
+		overflow: hidden;
+		position: relative;
+	}
 
-  ::selection {
-    background-color: var(--color-accent);
-    color: var(--color-secondary);
-  }
+	::selection {
+		background-color: var(--color-accent);
+		color: var(--color-secondary);
+	}
+
+	/* Respect reduced motion users */
+	@media (prefers-reduced-motion: reduce) {
+		*,
+		*::before,
+		*::after {
+			animation: none !important;
+			transition: none !important;
+			scroll-behavior: auto !important;
+		}
+	}
 }
 
 /* Custom components */
 @layer components {
-  .prose-violet {
-    color-scheme: dark;
-  }
+	.prose-violet {
+		color-scheme: dark;
+	}
 
-  .prose-violet h1,
-  .prose-violet h2,
-  .prose-violet h3,
-  .prose-violet h4,
-  .prose-violet h5,
-  .prose-violet h6 {
-    color: var(--color-accent);
-  }
+	.prose-violet h1,
+	.prose-violet h2,
+	.prose-violet h3,
+	.prose-violet h4,
+	.prose-violet h5,
+	.prose-violet h6 {
+		color: var(--color-accent);
+	}
 
-  .prose-violet a {
-    color: var(--color-accent-glow);
-    text-decoration: none;
-  }
+	.prose-violet a {
+		color: var(--color-accent-glow);
+		text-decoration: none;
+	}
 
-  .prose-violet a:hover {
-    text-shadow: 0 0 8px rgba(155, 48, 255, 0.6);
-  }
+	.prose-violet a:hover {
+		text-shadow: 0 0 8px rgba(155, 48, 255, 0.6);
+	}
 }
 
 /* Custom utilities */
 @layer utilities {
-  /* Accent colors */
-  .bg-accent { 
-    background-color: var(--color-accent); 
-  }
-  .text-accent { 
-    color: var(--color-accent); 
-  }
-  .border-accent { 
-    border-color: var(--color-accent); 
-  }
-  
-  /* used in +page.svelte */
-  .bg-accent\/8 { background-color: rgba(138, 43, 226, 0.08); }
-  .shadow-accent\/10 { box-shadow: 0 0 10px rgba(138, 43, 226, 0.10); }
-  
-  /* Shadow utilities */
-  
-  
-  /* Text effects */
-  
-  
-  /* Opacity variants using rgba() */
-  .bg-accent\/10 { background-color: rgba(138, 43, 226, 0.1); }
-  .bg-accent\/15 { background-color: rgba(138, 43, 226, 0.15); }
-  
-  
-  .border-accent\/10 { border-color: rgba(138, 43, 226, 0.1); }
-  .border-accent\/20 { border-color: rgba(138, 43, 226, 0.2); }
-  .border-accent\/30 { border-color: rgba(138, 43, 226, 0.3); }
-  
-  .shadow-accent\/5 { box-shadow: 0 0 10px rgba(138, 43, 226, 0.05); }
-  
-  
-  /* Hover variants */
-  
-  
-  /* Group hover variants */
-  
-  
-  /* Custom font classes */
-  .font-serif {
-    font-family: var(--font-writer);
-    letter-spacing: 0.01em;
-  }
-  .font-handwriting {
-    font-family: var(--font-handwriting);
-    letter-spacing: 0.03em;
-  }
+	/* Accent colors */
+	.bg-accent {
+		background-color: var(--color-accent);
+	}
+	.text-accent {
+		color: var(--color-accent);
+	}
+	.border-accent {
+		border-color: var(--color-accent);
+	}
 
-  .font-creepy {
-    font-family: var(--font-creepy);
-    letter-spacing: 0.05em;
-    font-weight: 400;
-    text-transform: lowercase;
-  }
-  
-  /* Custom animations */
-  
-  
-  /* Red pulse animation */
-  
-  
-  /* Glitch animation */
-  
-  
-  /* Falling animation */
-  
-  
-  /* Typing animation */
-  
-  
-  /* Improved smooth blur animation */
-  
-  
-  @keyframes fade-in {
-    0% { opacity: 0; }
-    100% { opacity: 1; }
-  }
-  
-  @keyframes slide-up {
-    0% { transform: translateY(30px); opacity: 0; }
-    100% { transform: translateY(0); opacity: 1; }
-  }
-  
-  @keyframes text-focus {
-    0% { filter: blur(12px); opacity: 0; }
-    100% { filter: blur(0); opacity: 1; }
-  }
-  
-  /* Animation classes */
-  
-  
-  .animate-fade-in { animation: fade-in 1.5s ease-out; }
-  .animate-slide-up { animation: slide-up 1s ease-out; }
-  .animate-text-focus { animation: text-focus 2s ease; }
-  .animate-pulse-subtle { animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
-  
+	/* used in +page.svelte */
+	.bg-accent\/8 {
+		background-color: rgba(138, 43, 226, 0.08);
+	}
+	.shadow-accent\/10 {
+		box-shadow: 0 0 10px rgba(138, 43, 226, 0.1);
+	}
 
-  /* Cursor aura */
-  .cursor-aura {
-    width: 140px;
-    height: 140px;
-    border-radius: 9999px;
-    background: radial-gradient(closest-side, rgba(138,43,226,0.20), rgba(138,43,226,0.09) 60%, transparent 70%);
-    filter: blur(30px);
-    transform: translateZ(0);
-  }
+	/* Shadow utilities */
 
-  /* Page turn animation (reduced motion safe) */
-  
+	/* Text effects */
 
-  /* Safe word breaking utility */
-  .break-anywhere {
-    overflow-wrap: anywhere;
-    word-break: break-word;
-  }
+	/* Opacity variants using rgba() */
+	.bg-accent\/10 {
+		background-color: rgba(138, 43, 226, 0.1);
+	}
+	.bg-accent\/15 {
+		background-color: rgba(138, 43, 226, 0.15);
+	}
+
+	.border-accent\/10 {
+		border-color: rgba(138, 43, 226, 0.1);
+	}
+	.border-accent\/20 {
+		border-color: rgba(138, 43, 226, 0.2);
+	}
+	.border-accent\/30 {
+		border-color: rgba(138, 43, 226, 0.3);
+	}
+
+	.shadow-accent\/5 {
+		box-shadow: 0 0 10px rgba(138, 43, 226, 0.05);
+	}
+
+	/* Hover variants */
+
+	/* Group hover variants */
+
+	/* Custom font classes */
+	.font-serif {
+		font-family: var(--font-writer);
+		letter-spacing: 0.01em;
+	}
+	.font-handwriting {
+		font-family: var(--font-handwriting);
+		letter-spacing: 0.03em;
+	}
+
+	.font-creepy {
+		font-family: var(--font-creepy);
+		letter-spacing: 0.05em;
+		font-weight: 400;
+		text-transform: lowercase;
+	}
+
+	/* Custom animations */
+
+	/* Red pulse animation */
+
+	/* Glitch animation */
+
+	/* Falling animation */
+
+	/* Typing animation */
+
+	/* Improved smooth blur animation */
+
+	@keyframes fade-in {
+		0% {
+			opacity: 0;
+		}
+		100% {
+			opacity: 1;
+		}
+	}
+
+	@keyframes slide-up {
+		0% {
+			transform: translateY(30px);
+			opacity: 0;
+		}
+		100% {
+			transform: translateY(0);
+			opacity: 1;
+		}
+	}
+
+	@keyframes text-focus {
+		0% {
+			filter: blur(12px);
+			opacity: 0;
+		}
+		100% {
+			filter: blur(0);
+			opacity: 1;
+		}
+	}
+
+	/* Animation classes */
+
+	.animate-fade-in {
+		animation: fade-in 1.5s ease-out;
+	}
+	.animate-slide-up {
+		animation: slide-up 1s ease-out;
+	}
+	.animate-text-focus {
+		animation: text-focus 2s ease;
+	}
+	.animate-pulse-subtle {
+		animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+	}
+
+	/* Cursor aura */
+	.cursor-aura {
+		width: 140px;
+		height: 140px;
+		border-radius: 9999px;
+		background: radial-gradient(
+			closest-side,
+			rgba(138, 43, 226, 0.2),
+			rgba(138, 43, 226, 0.09) 60%,
+			transparent 70%
+		);
+		filter: blur(30px);
+		transform: translateZ(0);
+	}
+
+	/* Page turn animation (reduced motion safe) */
+
+	/* Safe word breaking utility */
+	.break-anywhere {
+		overflow-wrap: anywhere;
+		word-break: break-word;
+	}
 }
-

@@ -332,12 +332,12 @@
 			box-shadow: 0 0 15px rgba(161, 90, 213, 0.5);
 		}
 
-			.custom-scrollbar {
-				scrollbar-width: thin;
-				scrollbar-color: rgba(161, 90, 213, 0.7) rgba(0, 0, 0, 0.2);
-				scrollbar-gutter: stable both-edges;
-				padding-right: 0;
-			}
+		.custom-scrollbar {
+			scrollbar-width: thin;
+			scrollbar-color: rgba(161, 90, 213, 0.7) rgba(0, 0, 0, 0.2);
+			scrollbar-gutter: stable both-edges;
+			padding-right: 0;
+		}
 
 		.warning-content {
 			opacity: 0;
@@ -646,17 +646,17 @@
 			<!-- Hero Content - Takes full viewport height -->
 			<Hero />
 
-				<!-- Command Palette -->
-				<CommandPalette
-					journalEntries={journalEntries.map(({ id, title }) => ({ id, title }))}
-					{navigateToTab}
-					openJournal={openJournalFromPalette}
-				/>
+			<!-- Command Palette -->
+			<CommandPalette
+				journalEntries={journalEntries.map(({ id, title }) => ({ id, title }))}
+				{navigateToTab}
+				openJournal={openJournalFromPalette}
+			/>
 
 			<!-- Tabbed Content Area - Positioned below initial viewport -->
 			<div class="relative min-h-screen pt-16">
 				<!-- Tab Navigation -->
-				<Tabs selectedTab={selectedTab} onSelect={selectTab} />
+				<Tabs {selectedTab} onSelect={selectTab} />
 				<!-- Tab Content -->
 				<div class="mx-auto w-full max-w-3xl p-2 px-3 md:p-4 md:px-6">
 					{#if selectedTab === 'stories'}
@@ -827,7 +827,9 @@
 											<div
 												class="border-accent/10 mb-4 rounded-xl border bg-black/30 p-4 text-center backdrop-blur-sm transition-all duration-300 hover:bg-black/40"
 											>
-												<div class="text-accent mb-3 text-center text-sm font-bold tracking-wider uppercase">
+												<div
+													class="text-accent mb-3 text-center text-sm font-bold tracking-wider uppercase"
+												>
 													Loves
 												</div>
 												<div class="flex flex-wrap justify-center gap-2">

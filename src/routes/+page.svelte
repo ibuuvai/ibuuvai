@@ -332,11 +332,12 @@
 			box-shadow: 0 0 15px rgba(161, 90, 213, 0.5);
 		}
 
-		.custom-scrollbar {
-			scrollbar-width: thin;
-			scrollbar-color: rgba(161, 90, 213, 0.7) rgba(0, 0, 0, 0.2);
-			padding-right: 5px;
-		}
+			.custom-scrollbar {
+				scrollbar-width: thin;
+				scrollbar-color: rgba(161, 90, 213, 0.7) rgba(0, 0, 0, 0.2);
+				scrollbar-gutter: stable both-edges;
+				padding-right: 0;
+			}
 
 		.warning-content {
 			opacity: 0;
@@ -845,7 +846,7 @@
 
 											<div class="mb-4 flex flex-col items-center space-y-3">
 												<div
-													class="custom-scrollbar flex h-64 w-full flex-col items-center space-y-3 overflow-y-auto pr-2"
+													class="custom-scrollbar flex h-64 w-full flex-col items-center space-y-3 overflow-y-auto"
 												>
 													<div
 														class="border-accent/10 w-64 rounded-xl border bg-black/30 px-4 py-3 text-center backdrop-blur-sm transition-all duration-300 hover:bg-black/40"

@@ -7,6 +7,20 @@ export type JournalEntry = {
 
 export const journalEntries: JournalEntry[] = [
 	{
+		id: 'i-havnet-been-good-enough',
+		title: "I havne't been good enough",
+		date: 'Thursday 8 May 2025',
+		content:
+			"today I brought what I called improvement: a tidy stack of small changes.\nwhen you smiled, the pages went thin and every omission showed through.\nI collect advice like buttons in a jar and still leave the house unbuttoned.\n\nI have learned to pass mirrors without stopping, to nod at the boy\nwho trails behind me and pretends he isn't lost.\nif skill is a staircase, I keep polishing the first step.\nyou deserve someone fluent; I am still learning the letters.\n\nif worthiness is proof, I arrive with photographs of bridges I never crossed.\nI would like to be good without baring my teeth at the wish.\nuntil I learn, let me be plain: I won't call this love grand.\nI will call it homework—late, written in the margins,\nhanded in with shaking hands."
+	},
+	{
+		id: 'tormented',
+		title: 'tormented',
+		date: 'Sunday 4 May 2025',
+		content:
+			'she does not mean to wound me; that is my talent.\nwhen she speaks, the day tilts a few degrees and I spill.\nI promised to be calm; my hands rearrange the room instead,\nsetting places for a guest who never stays.\nI tell myself to be the ocean, but I am only a glass;\nher name turns to waves and climbs the rim.\nat night I rehearse indifference like an actor who has\nforgotten his lines and waits for a cue that will not come.\nI would return myself, unopened, to the shop that first stocked this heart.\nif virtue is endurance, mine is a thread pulled thin—\neach hour of her absence pulls it over the threshold and wears it to lint.\nand if she asked, I would say I am fine; the throat would find a voice,\nand the body would bow.\nthis torment leaves no bruise; it leaves a metronome\nset by her name, ticking through the walls.'
+	},
+	{
 		id: 'pain',
 		title: 'Pain',
 		date: 'Wednesday 30 April 2025',

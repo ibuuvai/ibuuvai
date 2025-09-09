@@ -7,6 +7,48 @@ export type JournalEntry = {
 
 export const journalEntries: JournalEntry[] = [
 	{
+		id: 'pain',
+		title: 'Pain',
+		date: 'Wednesday 30 April 2025',
+		content:
+			'I read a tale of a bird called Laughter.\n"even if these wings were born so small,"\n"even if the body was born so large."\nPain—farewell.\nthis is good-bye, pain.\nyou are right, pain.\nbut this ache in my chest—\nthe reason my chest hurt—\nI was mistaken. I misunderstood.\nwhy is it that I can understand\na monochrome day awaiting color,\nlike an essay with its singular flavour,\nlike a revolving lantern\nthat lingers in my chest just before dawn.'
+	},
+	{
+		id: 'heavy-silence',
+		title: 'Heavy Silence',
+		date: 'Saturday 26 April 2025',
+		content:
+			'if i were cruel, i would change something.\ninstead i memorize your footsteps between the till and me.\nit\'s a small map. it leads everywhere i cannot go.'
+	},
+	{
+		id: 'are-you-okay',
+		title: 'are you okay',
+		date: 'Tuesday 22 April 2025',
+		content:
+			'i am—when you don\'t look. when you do, i am tormented by the wish to answer honestly.'
+	},
+	{
+		id: 'of-you-as',
+		title: '… of you as',
+		date: 'Friday 18 April 2025',
+		content:
+			'"brother" - I nod, obedient to the fiction.\nif i ever contradict you, the world will hear how my heart drags its chain.\nso i arrange my feelings like contraband under the floorboards of my chest and sleep above them, lightly.'
+	},
+	{
+		id: 'ding-dong',
+		title: 'ding dong',
+		date: 'Monday 14 April 2025',
+		content:
+			'hear the bell practice our goodbye—ding dong\nlike a throat rehearsing words i won\'t say.'
+	},
+	{
+		id: 'you-think-youre-not-my-type',
+		title: "you think you're not my type",
+		date: 'Thursday 10 April 2025',
+		content:
+			"there are smudges where i hide you: the mirror, the inside of my pocket, the word \"soon.\"\nif you're not my type, why does the air agree to hurt when you leave the room?"
+	},
+	{
 		id: 'the-wind',
 		title: 'The wind',
 		date: 'Sunday 6 April 2025',

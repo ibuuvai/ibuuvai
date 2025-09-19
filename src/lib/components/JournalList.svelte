@@ -5,7 +5,7 @@
 		openId = null,
 		onToggle
 	} = $props<{
-		entries: Array<{ id: string; title: string; date: string; content: string }>;
+		entries: Array<{ id: string; title: string; content: string }>;
 		openId?: string | null;
 		onToggle: (id: string) => void;
 	}>();
@@ -53,7 +53,7 @@
 							(openId === entry.id ? 'text-accent' : '')}>{entry.title}</span
 					>
 				</div>
-				<span class="mt-1 text-xs text-white/70 italic sm:mt-0">{entry.date}</span>
+
 			</button>
 
 			{#if openId === entry.id}

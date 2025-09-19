@@ -7,19 +7,34 @@ export type JournalEntry = {
 
 export const journalEntries: JournalEntry[] = [
 	{
-		id: 'i-havnet-been-good-enough',
-		title: "I havne't been good enough",
-		date: 'Thursday 8 May 2025',
+		id: 'you-did-it-perfectly',
+		title: 'you did it perfectly',
+		date: 'Monday 12 May 2025',
 		content:
-			"today I brought what I called improvement: a tidy stack of small changes.\nwhen you smiled, the pages went thin and every omission showed through.\nI collect advice like buttons in a jar and still leave the house unbuttoned.\n\nI have learned to pass mirrors without stopping, to nod at the boy\nwho trails behind me and pretends he isn't lost.\nif skill is a staircase, I keep polishing the first step.\nyou deserve someone fluent; I am still learning the letters.\n\nif worthiness is proof, I arrive with photographs of bridges I never crossed.\nI would like to be good without baring my teeth at the wish.\nuntil I learn, let me be plain: I won't call this love grand.\nI will call it homework—late, written in the margins,\nhanded in with shaking hands."
+			'I told you my weakness,\nand you listened carefully,\nlike someone memorizing a lock’s combination.\n\nWhen you struck,\nit was not clumsy.\nIt was exquisite.\nA perfect cruelty.\n\nThe wound itself I could endure.\nWhat I cannot forgive\nis that I handed you the knife.\n\nI see now:\nit is dangerous to be known.\nBetter to remain silent,\nunloved,\nthan to confess what breaks you\nand watch it demonstrated back\nwith such mastery.'
 	},
 	{
-		id: 'tormented',
-		title: 'tormented',
-		date: 'Sunday 4 May 2025',
+		id: 'the-curses-for-the-kind',
+		title: 'the curses for the kind',
+		date: 'Sunday 11 May 2025',
 		content:
-			'she does not mean to wound me; that is my talent.\nwhen she speaks, the day tilts a few degrees and I spill.\nI promised to be calm; my hands rearrange the room instead,\nsetting places for a guest who never stays.\nI tell myself to be the ocean, but I am only a glass;\nher name turns to waves and climbs the rim.\nat night I rehearse indifference like an actor who has\nforgotten his lines and waits for a cue that will not come.\nI would return myself, unopened, to the shop that first stocked this heart.\nif virtue is endurance, mine is a thread pulled thin—\neach hour of her absence pulls it over the threshold and wears it to lint.\nand if she asked, I would say I am fine; the throat would find a voice,\nand the body would bow.\nthis torment leaves no bruise; it leaves a metronome\nset by her name, ticking through the walls.'
+			'There is a peculiar punishment reserved for the kind.\nThe more you give, the more they devour.\nThe more you love, the quicker they betray.\n\nYou stand in silence,\npretending the burden is strength,\nwhile privately muttering:\nwhy me? why always me?\n\nYou sacrifice for the indifferent.\nYou forgive the executioners.\nAnd the world—indifferent as ever—\nthanks you with scars.\n\nBut perhaps you should know:\n\nKindness is not weakness.\nWeakness is spared.\nOnly strength is ground down.\nThe world fears those who endure.\n\nSo let it mock you.\nLet it wound you.\nEvery scar is proof\nthat you refused its invitation to cruelty.\n\nYour pain is evidence of power.\nRemain good,\neven when goodness feels like ruin.'
 	},
+	{
+		id: 'shes-got-everything-except-time',
+		title: 'shes got everything except time',
+		date: 'Saturday 10 May 2025',
+		content:
+			'She is perfect, though I despise myself for saying so.\nPerfection is unbearable—\na flame that cannot be touched.\nShe is everything I am not:\ngraceful, steady, alive in each gesture.\n\nBut she has no time.\nNot for me, not for anyone.\nHer days dissolve into duties,\nher nights into exhaustion.\nAnd I, coward that I am,\n\ngnaw at the seconds left over.\n\nWhat good is perfection\nif it cannot remain?\nI try to tell myself fragments are enough—\nher smile, her voice,\nthe faint warmth she leaves in passing.\nBut fragments rot.\nThey remind me she is elsewhere,\nalways elsewhere.\n\nShe is perfect.\nAnd I am the fool left staring\nat an empty chair,\npretending it is enough\nto have known her at all.'
+	},
+	{
+		id: 'how-would-i-know',
+		title: 'how would I know',
+		date: 'Friday 9 May 2025',
+		content:
+			'I changed my station tonight,\nsearching for the pride I once carried.\n\nA lyric broke me,\nand I saw—\nI was never my own creation.\n\nThe days I called wasted\nwere only waiting for color.\n\nNow they return in monochrome,\nnot dead,\njust preserved,\nasking to be remembered.'
+	},
+
 	{
 		id: 'pain',
 		title: 'Pain',
@@ -63,6 +78,20 @@ export const journalEntries: JournalEntry[] = [
 			"there are smudges where i hide you: the mirror, the inside of my pocket, the word \"soon.\"\nif you're not my type, why does the air agree to hurt when you leave the room?"
 	},
 	{
+		id: 'i-havent-been-good-enough',
+		title: "I haven't been good enough",
+		date: 'Thursday 8 May 2025',
+		content:
+			"I came with small changes,\nbut your smile made them paper-thin.\n\nI polish the first step of the staircase.\nYou deserve fluency.\nI can barely speak.\n\nSo I will not call this love grand.\nIt is homework—\nlate, unfinished,\noffered with trembling hands."
+	},
+	{
+		id: 'tormented',
+		title: 'tormented',
+		date: 'Sunday 4 May 2025',
+		content:
+			'She doesn’t mean to wound me—\nthat is my own art.\nHer words tilt the day,\nand I spill.\n\nI promised calm,\nbut my hands rearrange rooms\nfor a guest who never stays.\n\nI tell myself I am ocean.\nI am only glass.\nHer name climbs the rim like a wave.\n\nAt night I rehearse indifference,\nan actor without lines,\nwaiting for a cue that won’t arrive.\n\nIf endurance is virtue,\nmine is a thread pulled thin,\nfraying with every absence.\n\nAnd if she asked,\nI would bow, say I am fine,\nwhile her name ticks\nthrough the walls like a metronome.'
+	},
+	{
 		id: 'the-wind',
 		title: 'The wind',
 		date: 'Sunday 6 April 2025',
@@ -89,6 +118,13 @@ export const journalEntries: JournalEntry[] = [
 		date: 'Thursday 20 March 2025',
 		content:
 			"Nothing is going the right way anymore.\nAnother ordinary day begins.\nWatching the day as it withers by.\n\nTomorrow has come by again today.\nEven if I lie, tomorrow will still come.\nEven if I do nothing, the sun will still rise.\nIt's all the same.\n\nThe days I've taken for granted—\nThey let me know that they're ending again today.\n\nWaiting, searching—\nFor something.\nSomething that will never cease to shine.\nI want to keep searching for that light.\nI want hope for tomorrow.\n\nI'm fine with just a tiny little bit of happiness.\n\nI regret that.\n\nMaybe today,\nI'll be able to change something.\nI'll keep believing that.\n\nI'll keep living like this.\n\nTomorrow too."
+	},
+	{
+		id: 'i-wont-forget',
+		title: "I won't forget",
+		date: 'Sunday 16 March 2025',
+		content:
+			"there’s no place for me here\non nights so painful\nscared to face tomorrow\nwanting to throw everything away\nmy heart remains hopelessly blue"
 	},
 	{
 		id: 'pure-white',
@@ -147,8 +183,8 @@ export const journalEntries: JournalEntry[] = [
 			"It's another bad day in a bad, bad world.\nIt's going to end soon . I know that.\nSo maybe it's time to leave.\nBut what should I do with all this love?\nThey say you can't take back what you've given.\nA lie. I made it, didn't I? So I can take it back\nThis spell—was it a curse or a blessing? No matter.\nI can't dispel it, nor do I want to"
 	},
 	{
-		id: 'throwaway-connections',
-		title: 'Throwaway connections',
+		id: 'tag',
+		title: 'tag',
 		date: 'Tuesday 11 February 2025',
 		content:
 			'My throwaway connections,\nAnd relationships that only exist at the right time and the right place\nEven if I try to lament, saying "something\'s not quite right",\nI remain understanding nothing'

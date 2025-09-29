@@ -6,7 +6,6 @@
 	import { bookChapters } from '$lib/content/book';
 	import JournalList from '$lib/components/JournalList.svelte';
 	import BookReader from '$lib/components/BookReader.svelte';
-	import Hero from '$lib/components/Hero.svelte';
 	import Tabs from '$lib/components/Tabs.svelte';
 
 	// Tab state management
@@ -216,99 +215,8 @@
 		rel="stylesheet"
 	/>
 
-	<style>
-		@keyframes typing {
-			from {
-				width: 0;
-			}
-			to {
-				width: 100%;
-			}
-		}
-
-		@keyframes blink-caret {
-			from,
-			to {
-				border-color: transparent;
-			}
-			50% {
-				border-color: #fff;
-			}
-		}
-
-		@keyframes blink-caret-end {
-			0%,
-			79% {
-				border-color: transparent;
-			}
-			30%,
-			49% {
-				border-color: #fff;
-			}
-			80%,
-			100% {
-				border-color: transparent;
-			}
-		}
-
-		@keyframes typing-line2 {
-			0% {
-				width: 0;
-			}
-			50% {
-				width: 0;
-			}
-			100% {
-				width: 100%;
-			}
-		}
-
-		.main-phrase {
-			font-size: 1.125rem;
-			line-height: 1.5;
-		}
-
-		.typing-animation-text {
-			display: inline-block;
-			overflow: hidden;
-			white-space: nowrap;
-			width: 0;
-			border-right: 3px solid transparent;
-			animation:
-				typing 1.5s steps(20, end) forwards,
-				blink-caret 0.75s step-end 4;
-		}
-
-		.typing-animation-text-line2 {
-			display: inline-block;
-			overflow: hidden;
-			white-space: nowrap;
-			width: 0;
-			border-right: 3px solid #fff;
-			animation:
-				typing-line2 3s steps(40, end) forwards,
-				blink-caret 0.75s step-end 6 1.5s,
-				cursor-disappear 0.1s forwards 6s;
-		}
-
-		@keyframes cursor-disappear {
-			to {
-				border-right-color: transparent;
-			}
-		}
-
-		@media (max-width: 640px) {
-			.main-phrase {
-				font-size: 0.875rem;
-			}
-
-			.typing-animation-text,
-			.typing-animation-text-line2 {
-				max-width: 90vw;
-			}
-		}
-
-		/* Custom scrollbar styling */
+    <style>
+        /* Custom scrollbar styling */
 		.custom-scrollbar::-webkit-scrollbar {
 			width: 6px;
 		}
@@ -317,316 +225,33 @@
 			background: rgba(0, 0, 0, 0.2);
 			border-radius: 10px;
 			margin: 10px 0;
-			border: 1px solid rgba(128, 90, 213, 0.05);
+            border: 1px solid rgba(139, 0, 0, 0.1);
 		}
 
 		.custom-scrollbar::-webkit-scrollbar-thumb {
-			background: linear-gradient(180deg, rgba(161, 90, 213, 0.6), rgba(128, 90, 213, 0.8));
+            background: linear-gradient(180deg, rgba(205, 0, 0, 0.6), rgba(139, 0, 0, 0.8));
 			border-radius: 10px;
-			box-shadow: 0 0 8px rgba(161, 90, 213, 0.3);
+            box-shadow: 0 0 8px rgba(255, 0, 0, 0.3);
 			transition: all 0.3s ease;
 		}
 
 		.custom-scrollbar::-webkit-scrollbar-thumb:hover {
-			background: linear-gradient(180deg, rgba(161, 90, 213, 0.8), rgba(128, 90, 213, 1));
-			box-shadow: 0 0 15px rgba(161, 90, 213, 0.5);
+            background: linear-gradient(180deg, rgba(205, 0, 0, 0.8), rgba(139, 0, 0, 1));
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
 		}
 
 		.custom-scrollbar {
 			scrollbar-width: thin;
-			scrollbar-color: rgba(161, 90, 213, 0.7) rgba(0, 0, 0, 0.2);
+            scrollbar-color: rgba(139, 0, 0, 0.7) rgba(0, 0, 0, 0.2);
 			scrollbar-gutter: stable both-edges;
 			padding-right: 0;
 		}
 
-		.warning-content {
-			opacity: 0;
-			animation: glitchIn 1.2s forwards;
-			animation-delay: 3.2s;
-		}
-
-		@keyframes glitchIn {
-			0% {
-				opacity: 0;
-				transform: translateX(-10px) skewX(20deg);
-				text-shadow: -2px 0 #ff0000;
-				clip-path: inset(0 100% 0 0);
-			}
-			10% {
-				opacity: 0.3;
-				transform: translateX(5px) skewX(-10deg);
-				text-shadow: 2px 0 #00ff00;
-				clip-path: inset(0 80% 0 0);
-			}
-			20% {
-				opacity: 0.5;
-				transform: translateX(-3px) skewX(5deg);
-				text-shadow:
-					-1px 0 #ff0000,
-					1px 0 #00ff00;
-				clip-path: inset(0 60% 0 0);
-			}
-			30% {
-				opacity: 0.7;
-				transform: translateX(2px) skewX(-3deg);
-				text-shadow:
-					1px 0 #0000ff,
-					-1px 0 #ff0000;
-				clip-path: inset(0 40% 0 0);
-			}
-			40% {
-				opacity: 0.8;
-				transform: translateX(-1px) skewX(1deg);
-				text-shadow:
-					-1px 0 #00ff00,
-					1px 0 #0000ff;
-				clip-path: inset(0 20% 0 0);
-			}
-			50% {
-				opacity: 1;
-				transform: translateX(0) skewX(0);
-				text-shadow:
-					1px 0 #ff0000,
-					-1px 0 #00ff00;
-				clip-path: inset(0 0 0 0);
-			}
-			60%,
-			70% {
-				opacity: 1;
-				transform: skewX(2deg) translateX(3px);
-				text-shadow:
-					-1px 0 #ff0000,
-					2px 2px #00ff00;
-			}
-			80%,
-			90% {
-				opacity: 1;
-				transform: skewX(-2deg) translateX(-3px);
-				text-shadow:
-					1px 0 #ff0000,
-					-2px -2px #00ff00;
-			}
-			100% {
-				opacity: 1;
-				transform: skewX(0) translateX(0);
-				text-shadow: none;
-			}
-		}
-
-		/* Continuous glitch effect */
-		@keyframes glitch {
-			0% {
-				transform: translate(0);
-				text-shadow:
-					-1px 0 red,
-					1px 0 blue;
-			}
-			2% {
-				transform: translate(-2px, 1px);
-				text-shadow:
-					1px 0 red,
-					-1px 0 blue;
-			}
-			4% {
-				transform: translate(-2px, -2px);
-				text-shadow:
-					1px 0 green,
-					-1px 0 red;
-			}
-			6% {
-				transform: translate(0);
-				text-shadow:
-					-1px 0 red,
-					1px 0 green;
-			}
-			8% {
-				transform: translate(0, 1px);
-				text-shadow:
-					-1px 0 blue,
-					1px 0 red;
-			}
-			10% {
-				transform: translate(0);
-				text-shadow:
-					-1px 0 red,
-					1px 0 blue;
-			}
-			45% {
-				transform: translate(0);
-				text-shadow:
-					-1px 0 red,
-					1px 0 blue;
-			}
-			46% {
-				transform: translateX(3px);
-				text-shadow:
-					-1px 0 blue,
-					1px 0 red;
-			}
-			48% {
-				transform: translateX(-3px);
-				text-shadow:
-					1px 0 red,
-					-1px 0 green;
-			}
-			50% {
-				transform: translateX(0);
-				text-shadow:
-					-1px 0 red,
-					1px 0 blue;
-			}
-			100% {
-				transform: translateX(0);
-				text-shadow:
-					-1px 0 red,
-					1px 0 blue;
-			}
-		}
-
-		.animate-glitch {
-			animation: glitch 4s infinite;
-			animation-delay: 4.4s; /* Start after glitchIn finishes */
-		}
-
-		.warning-text-1 {
-			opacity: 0;
-			animation: fadeIn 0.8s ease-out forwards;
-			animation-delay: 3.8s;
-		}
-
-		.warning-text-2 {
-			opacity: 0;
-			animation: fadeIn 0.8s ease-out forwards;
-			animation-delay: 4.4s;
-		}
-
-		.stay-away {
-			opacity: 0;
-			animation:
-				fadeIn 0.8s ease-out forwards,
-				enhancedPulse 2s infinite;
-			animation-delay: 5s, 5.8s; /* First delay for fadeIn, second for pulse */
-			transform-origin: center;
-			display: inline-block;
-		}
-
-		.blood-drops {
-			opacity: 0;
-			animation: fadeIn 0.5s ease-out forwards;
-			animation-delay: 5.6s;
-		}
-
-		.drop-1 {
-			animation: fallRepeat 2.5s ease-in infinite;
-			animation-delay: 5.8s;
-			opacity: 0;
-		}
-
-		.drop-2 {
-			animation: fallRepeat 3s ease-in infinite;
-			animation-delay: 6.2s;
-			opacity: 0;
-		}
-
-		.drop-3 {
-			animation: fallRepeat 2.8s ease-in infinite;
-			animation-delay: 6.6s;
-			opacity: 0;
-		}
-
-		@keyframes fadeIn {
-			from {
-				opacity: 0;
-			}
-			to {
-				opacity: 1;
-			}
-		}
-
-		@keyframes pulse {
-			0% {
-				opacity: 0.8;
-				color: #8b0000;
-				text-shadow: 0 0 3px #8b0000;
-			}
-			50% {
-				opacity: 1;
-				color: #ff0000;
-				text-shadow: 0 0 8px #ff0000;
-			}
-			100% {
-				opacity: 0.8;
-				color: #8b0000;
-				text-shadow: 0 0 3px #8b0000;
-			}
-		}
-
-		@keyframes enhancedPulse {
-			0% {
-				transform: scale(1);
-				color: #8b0000;
-				text-shadow: 0 0 4px #8b0000;
-				filter: brightness(0.9);
-			}
-			50% {
-				transform: scale(1.15);
-				color: #ff0000;
-				text-shadow:
-					0 0 10px #ff0000,
-					0 0 15px #ff3333,
-					0 0 20px #ff6666;
-				filter: brightness(1.2);
-			}
-			100% {
-				transform: scale(1);
-				color: #8b0000;
-				text-shadow: 0 0 4px #8b0000;
-				filter: brightness(0.9);
-			}
-		}
-
-		@keyframes fall {
-			from {
-				transform: translateY(0);
-			}
-			to {
-				transform: translateY(100px);
-			}
-		}
-
-		@keyframes fallRepeat {
-			0% {
-				transform: translateY(0);
-				opacity: 1;
-			}
-			80% {
-				transform: translateY(100px);
-				opacity: 1;
-			}
-			81% {
-				opacity: 0;
-			}
-			82% {
-				transform: translateY(0);
-				opacity: 0;
-			}
-			100% {
-				transform: translateY(0);
-				opacity: 1;
-			}
-		}
-
-		.page-turn {
-			transition: transform 0.5s ease;
-		}
-
-		.turn-forward {
-			transform: translateX(100%);
-		}
-
-		.turn-back {
-			transform: translateX(-100%);
-		}
+        .page-turn {
+            transition: transform 0.5s ease;
+        }
+        .turn-forward { transform: translateX(100%); }
+        .turn-back { transform: translateX(-100%); }
 	</style>
 </svelte:head>
 
@@ -635,7 +260,7 @@
 	<div class="flex flex-1 flex-col">
 		{#if mounted}
 			<div in:fade={{ duration: 1500, delay: 300 }} class="absolute inset-0">
-				<div class="bg-primary absolute inset-0 opacity-90"></div>
+				<div class="bg-primary absolute inset-0 opacity-100"></div>
 
 				<!-- Background glow - positioned to cover the entire page -->
 				<div
@@ -643,8 +268,7 @@
 				></div>
 			</div>
 
-			<!-- Hero Content - Takes full viewport height -->
-			<Hero />
+			<!-- Hero removed per request -->
 
 			<!-- Command Palette -->
 			<CommandPalette
@@ -666,7 +290,7 @@
 								<li class="border-accent/10 border-b pb-2" data-reveal>
 									<button
 										onclick={toggleStory}
-										class="hover:text-accent group relative flex w-full items-center py-2 text-left text-white transition-colors"
+						class="hover:text-accent group relative flex w-full items-center py-2 text-left text-white transition-colors"
 									>
 										<span class="mr-2 inline-block h-4 w-4 flex-shrink-0">
 											{#if isStoryVisible}
@@ -702,13 +326,13 @@
 												? 'text-accent'
 												: ''}">Nontitled</span
 										>
-										<span class="ml-2 text-xs text-white">2023</span>
+							<span class="ml-2 text-xs {isStoryVisible ? 'text-accent' : 'text-white/70'}">2023</span>
 									</button>
 
 									{#if isStoryVisible}
 										<div
 											in:slide={{ duration: 300 }}
-											class="border-accent/20 font-handwriting mt-3 border-l-2 pr-2 pl-4 text-left text-sm leading-relaxed whitespace-pre-line text-white"
+							class="border-accent/10 font-handwriting mt-3 rounded-lg border bg-white px-4 py-3 text-left text-sm leading-relaxed whitespace-pre-line text-black shadow-accent/5 shadow"
 										>
 											<p>
 												Loneliness and love are foreign concepts, distant and incomprehensible, our
@@ -743,9 +367,9 @@
 												Enough—I long for ignorance now. Words have become meaningless.
 											</p>
 
-											<div class="border-accent/30 my-4 border-l-4 bg-black/20 px-4 py-2 italic">
-												"Hey, let's run away to somewhere far away—a place that's not here."
-											</div>
+									<blockquote class="border-accent/30 my-4 border-l-4 rounded-md bg-black/5 px-4 py-3 text-black/80 italic">
+										"Hey, let's run away to somewhere far away—a place that's not here."
+									</blockquote>
 
 											<p class="mt-2">
 												A place where the morning dawn gently spills through the wooden cracks,
@@ -787,15 +411,15 @@
 							<div class="mx-auto mb-8 w-full max-w-3xl">
 								<!-- Main profile section with image and name -->
 								<div class="relative mb-8">
-									<div
-										class="border-accent/20 relative flex flex-col items-center overflow-hidden rounded-2xl border bg-black/40 backdrop-blur-sm md:flex-row"
-										data-reveal
-									>
+								<div
+									class="border-accent/20 relative flex flex-col items-center overflow-hidden rounded-2xl border bg-black/40 backdrop-blur-sm md:flex-row"
+									data-reveal
+								>
 										<div class="flex flex-shrink-0 flex-col items-center p-6 md:items-start md:p-8">
 											<img
 												src="/images/ibuuvai.webp"
 												alt="Vai Ibuu"
-												class="shadow-accent/10 mb-4 h-72 w-72 shadow-lg md:h-80 md:w-80"
+									class="shadow-accent/10 mb-4 h-72 w-72 shadow-lg md:h-80 md:w-80"
 												width="320"
 												height="320"
 												loading="lazy"
@@ -809,24 +433,24 @@
 										<div class="flex-grow p-6 md:p-8">
 											<!-- Stats cards -->
 											<div class="mb-6 grid grid-cols-2 gap-3">
-												<div
-													class="border-accent/10 flex flex-col items-center justify-center rounded-xl border bg-black/30 p-4"
-												>
+									<div
+										class="border-accent/10 flex flex-col items-center justify-center rounded-xl border bg-black/30 p-4"
+									>
 													<span class="text-accent text-2xl font-bold">vai</span>
-													<span class="text-xs tracking-wider text-white/60 uppercase">name</span>
+										<span class="text-xs tracking-wider text-white/60 uppercase">name</span>
 												</div>
 
-												<div
-													class="border-accent/10 flex flex-col items-center justify-center rounded-xl border bg-black/30 p-4"
-												>
+									<div
+										class="border-accent/10 flex flex-col items-center justify-center rounded-xl border bg-black/30 p-4"
+									>
 													<span class="text-accent text-2xl font-bold">22</span>
-													<span class="text-xs tracking-wider text-white/60 uppercase">age</span>
+										<span class="text-xs tracking-wider text-white/60 uppercase">age</span>
 												</div>
 											</div>
 
-											<div
-												class="border-accent/10 mb-4 rounded-xl border bg-black/30 p-4 text-center backdrop-blur-sm transition-all duration-300 hover:bg-black/40"
-											>
+								<div
+									class="border-accent/10 mb-4 rounded-xl border bg-black/30 p-4 text-center backdrop-blur-sm transition-all duration-300 hover:bg-black/40"
+								>
 												<div
 													class="text-accent mb-3 text-center text-sm font-bold tracking-wider uppercase"
 												>
@@ -834,7 +458,7 @@
 												</div>
 												<div class="flex flex-wrap justify-center gap-2">
 													<span
-														class="bg-accent/10 text-accent/90 font-handwriting hover:bg-accent/20 rounded-full px-3 py-1.5 text-xs transition-all duration-300"
+											class="bg-accent/10 text-accent/90 font-handwriting hover:bg-accent/20 rounded-full px-3 py-1.5 text-xs transition-all duration-300"
 													>
 														Afternoon Nap
 													</span>
@@ -847,42 +471,42 @@
 											</div>
 
 											<div class="mb-4 flex flex-col items-center space-y-3">
-												<div
-													class="custom-scrollbar flex h-64 w-full flex-col items-center space-y-3 overflow-y-auto"
-												>
+								<div
+									class="custom-scrollbar flex h-64 w-full flex-col items-center space-y-3 overflow-y-auto"
+								>
 													<div
-														class="border-accent/10 w-64 rounded-xl border bg-black/30 px-4 py-3 text-center backdrop-blur-sm transition-all duration-300 hover:bg-black/40"
+										class="border-accent/10 w-64 rounded-xl border bg-black/30 px-4 py-3 text-center backdrop-blur-sm transition-all duration-300 hover:bg-black/40"
 													>
-														<div class="mb-1 font-mono text-sm text-purple-400">Height</div>
-														<div class="font-handwriting text-white">185cm (6'3)</div>
+								<div class="mb-1 font-mono text-sm text-red-400">Height</div>
+											<div class="font-handwriting text-white">185cm (6'3)</div>
 													</div>
 
 													<div
-														class="border-accent/10 w-64 rounded-xl border bg-black/30 px-4 py-3 text-center backdrop-blur-sm transition-all duration-300 hover:bg-black/40"
+										class="border-accent/10 w-64 rounded-xl border bg-black/30 px-4 py-3 text-center backdrop-blur-sm transition-all duration-300 hover:bg-black/40"
 													>
-														<div class="mb-1 font-mono text-sm text-purple-400">Birthday</div>
-														<div class="font-handwriting text-white">31st July</div>
+								<div class="mb-1 font-mono text-sm text-red-400">Birthday</div>
+											<div class="font-handwriting text-white">31st July</div>
 													</div>
 
 													<div
-														class="border-accent/10 w-64 rounded-xl border bg-black/30 px-4 py-3 text-center backdrop-blur-sm transition-all duration-300 hover:bg-black/40"
+										class="border-accent/10 w-64 rounded-xl border bg-black/30 px-4 py-3 text-center backdrop-blur-sm transition-all duration-300 hover:bg-black/40"
 													>
-														<div class="mb-1 font-mono text-sm text-purple-400">Zodiac Sign</div>
-														<div class="font-handwriting text-white">Leo</div>
+								<div class="mb-1 font-mono text-sm text-red-400">Zodiac Sign</div>
+											<div class="font-handwriting text-white">Leo</div>
 													</div>
 
 													<div
-														class="border-accent/10 w-64 rounded-xl border bg-black/30 px-4 py-3 text-center backdrop-blur-sm transition-all duration-300 hover:bg-black/40"
+										class="border-accent/10 w-64 rounded-xl border bg-black/30 px-4 py-3 text-center backdrop-blur-sm transition-all duration-300 hover:bg-black/40"
 													>
-														<div class="mb-1 font-mono text-sm text-purple-400">Favorite Food</div>
-														<div class="font-handwriting text-white">Salmon Sushi</div>
+								<div class="mb-1 font-mono text-sm text-red-400">Favorite Food</div>
+											<div class="font-handwriting text-white">Salmon Sushi</div>
 													</div>
 
 													<div
-														class="border-accent/10 w-64 rounded-xl border bg-black/30 px-4 py-3 text-center backdrop-blur-sm transition-all duration-300 hover:bg-black/40"
+										class="border-accent/10 w-64 rounded-xl border bg-black/30 px-4 py-3 text-center backdrop-blur-sm transition-all duration-300 hover:bg-black/40"
 													>
-														<div class="mb-1 font-mono text-sm text-purple-400">Favorite Pet</div>
-														<div class="font-handwriting text-white">White Cat</div>
+								<div class="mb-1 font-mono text-sm text-red-400">Favorite Pet</div>
+											<div class="font-handwriting text-white">White Cat</div>
 													</div>
 												</div>
 											</div>
@@ -891,7 +515,7 @@
 								</div>
 
 								<div
-									class="border-accent/20 mt-6 rounded-2xl border bg-black/30 p-4 md:p-6"
+								class="border-accent/20 mt-6 rounded-2xl border bg-black/30 p-4 md:p-6"
 									data-reveal
 								>
 									<div class="mb-4 flex items-center justify-between">
@@ -905,11 +529,11 @@
 									<div class="font-handwriting space-y-6">
 										<section>
 											<h4
-												class="font-handwriting mb-1 text-xs tracking-wider text-white/90 uppercase"
+										class="font-handwriting mb-1 text-xs tracking-wider text-white/90 uppercase"
 											>
 												Profile
 											</h4>
-											<p class="font-handwriting leading-relaxed text-white/80">
+									<p class="font-handwriting leading-relaxed text-white/80">
 												Born of bad timing; domesticated by poems. I collect exits, broken promises,
 												and sentences that refuse to behave. If there is a way to love incorrectly,
 												I have documented it with care.
@@ -918,28 +542,28 @@
 
 										<section>
 											<h4
-												class="font-handwriting mb-2 text-xs tracking-wider text-white/90 uppercase"
+										class="font-handwriting mb-2 text-xs tracking-wider text-white/90 uppercase"
 											>
 												Selected Works
 											</h4>
 											<ul class="grid grid-cols-1 gap-2 md:grid-cols-2">
 												<li
-													class="border-accent/10 rounded-lg border bg-black/20 px-3 py-2 text-white/80"
+										class="border-accent/10 rounded-lg border bg-black/20 px-3 py-2 text-white/80"
 												>
 													<span class="font-handwriting">a letter that will never reach you</span
-													><span class="text-white/50"> — endurance, performed badly.</span>
+											><span class="text-white/50"> — endurance, performed badly.</span>
 												</li>
 												<li
-													class="border-accent/10 rounded-lg border bg-black/20 px-3 py-2 text-white/80"
+										class="border-accent/10 rounded-lg border bg-black/20 px-3 py-2 text-white/80"
 												>
 													<span class="font-handwriting">The silent collapse of a heart</span><span
-														class="text-white/50"
+											class="text-white/50"
 													>
 														— a study in exquisite damage.</span
 													>
 												</li>
 												<li
-													class="border-accent/10 rounded-lg border bg-black/20 px-3 py-2 text-white/80 md:col-span-2"
+										class="border-accent/10 rounded-lg border bg-black/20 px-3 py-2 text-white/80 md:col-span-2"
 												>
 													<span class="font-handwriting">at the mercy of my dreams</span><span
 														class="text-white/50"
@@ -952,29 +576,29 @@
 
 										<section>
 											<h4
-												class="font-handwriting mb-2 text-xs tracking-wider text-white/90 uppercase"
+										class="font-handwriting mb-2 text-xs tracking-wider text-white/90 uppercase"
 											>
 												Experience
 											</h4>
 											<ul class="space-y-2">
 												<li class="border-accent/10 rounded-lg border bg-black/20 p-3">
-													<div class="flex items-center justify-between text-white/90">
+										<div class="flex items-center justify-between text-white/90">
 														<span class="font-handwriting">Amateur witness to my own life</span
-														><span class="text-[10px] tracking-wide text-white/50 uppercase"
+											><span class="text-[10px] tracking-wide text-white/50 uppercase"
 															>ongoing</span
 														>
 													</div>
-													<p class="mt-1 text-sm text-white/70">
+										<p class="mt-1 text-sm text-white/70">
 														watch; refuse rescue; remember too clearly.
 													</p>
 												</li>
 												<li
-													class="border-accent/10 rounded-lg border bg-black/20 p-3 text-white/80"
+										class="border-accent/10 rounded-lg border bg-black/20 p-3 text-white/80"
 												>
 													Co-conspirator with loneliness — delivered daily.
 												</li>
 												<li
-													class="border-accent/10 rounded-lg border bg-black/20 p-3 text-white/80"
+										class="border-accent/10 rounded-lg border bg-black/20 p-3 text-white/80"
 												>
 													Keeper of an unnecessary book — still writing it.
 												</li>
@@ -983,7 +607,7 @@
 
 										<section>
 											<h4
-												class="font-handwriting mb-2 text-xs tracking-wider text-white/90 uppercase"
+										class="font-handwriting mb-2 text-xs tracking-wider text-white/90 uppercase"
 											>
 												Competencies
 											</h4>
@@ -1015,9 +639,9 @@
 											>
 												Achievements
 											</h4>
-											<ul class="list-disc space-y-1 pl-5 text-white/80">
+									<ul class="list-disc space-y-1 pl-5 text-white/80">
 												<li>
-													Survived the days I said I wouldn't. <span class="text-white/50"
+											Survived the days I said I wouldn't. <span class="text-white/50"
 														>(several)</span
 													>
 												</li>
@@ -1030,11 +654,11 @@
 
 										<section>
 											<h4
-												class="font-handwriting mb-2 text-xs tracking-wider text-white/90 uppercase"
+										class="font-handwriting mb-2 text-xs tracking-wider text-white/90 uppercase"
 											>
 												References
 											</h4>
-											<p class="text-white/70">
+									<p class="text-white/70">
 												Denied, with affection. The relevant people are tired; let them rest.
 											</p>
 										</section>

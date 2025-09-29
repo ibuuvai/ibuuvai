@@ -29,8 +29,8 @@
 	:root {
 		--color-primary: #000000;
 		--color-secondary: #e6e6e6;
-		--color-accent: #8a2be2;
-		--color-accent-glow: #9b30ff;
+		--color-accent: #8b0000;
+		--color-accent-glow: #ff0000;
 
 		/* Blur variables for responsive adjustment */
 		--blur-small: 10px;
@@ -107,7 +107,7 @@
 	}
 
 	.prose-violet a:hover {
-		text-shadow: 0 0 8px rgba(155, 48, 255, 0.6);
+		text-shadow: 0 0 8px rgba(255, 0, 0, 0.6);
 	}
 }
 
@@ -126,10 +126,10 @@
 
 	/* used in +page.svelte */
 	.bg-accent\/8 {
-		background-color: rgba(138, 43, 226, 0.08);
+		background-color: rgba(139, 0, 0, 0.08);
 	}
 	.shadow-accent\/10 {
-		box-shadow: 0 0 10px rgba(138, 43, 226, 0.1);
+		box-shadow: 0 0 10px rgba(139, 0, 0, 0.1);
 	}
 
 	/* Shadow utilities */
@@ -138,24 +138,24 @@
 
 	/* Opacity variants using rgba() */
 	.bg-accent\/10 {
-		background-color: rgba(138, 43, 226, 0.1);
+		background-color: rgba(139, 0, 0, 0.1);
 	}
 	.bg-accent\/15 {
-		background-color: rgba(138, 43, 226, 0.15);
+		background-color: rgba(139, 0, 0, 0.15);
 	}
 
 	.border-accent\/10 {
-		border-color: rgba(138, 43, 226, 0.1);
+		border-color: rgba(139, 0, 0, 0.1);
 	}
 	.border-accent\/20 {
-		border-color: rgba(138, 43, 226, 0.2);
+		border-color: rgba(139, 0, 0, 0.2);
 	}
 	.border-accent\/30 {
-		border-color: rgba(138, 43, 226, 0.3);
+		border-color: rgba(139, 0, 0, 0.3);
 	}
 
 	.shadow-accent\/5 {
-		box-shadow: 0 0 10px rgba(138, 43, 226, 0.05);
+		box-shadow: 0 0 10px rgba(139, 0, 0, 0.05);
 	}
 
 	/* Hover variants */
@@ -169,7 +169,7 @@
 	}
 	.font-handwriting {
 		font-family: var(--font-handwriting);
-		letter-spacing: 0.03em;
+		letter-spacing: 0.01em;
 	}
 
 	.font-creepy {
@@ -244,8 +244,8 @@
 		border-radius: 9999px;
 		background: radial-gradient(
 			closest-side,
-			rgba(138, 43, 226, 0.2),
-			rgba(138, 43, 226, 0.09) 60%,
+			rgba(139, 0, 0, 0.2),
+			rgba(139, 0, 0, 0.09) 60%,
 			transparent 70%
 		);
 		filter: blur(30px);
@@ -260,21 +260,21 @@
 		word-break: break-word;
 	}
 
-	/* Force all text-white opacity variants to render pure white */
-	.text-white,
-	.text-white\/95,
-	.text-white\/90,
-	.text-white\/80,
-	.text-white\/70,
-	.text-white\/60,
-	.text-white\/50,
-	.text-white\/40,
-	.text-white\/30,
-	.text-white\/20,
-	.text-white\/10,
-	.text-white\/5 {
-		color: #ffffff;
-	}
+/* Force all text-white opacity variants to render pure white */
+.text-white,
+.text-white\/95,
+.text-white\/90,
+.text-white\/80,
+.text-white\/70,
+.text-white\/60,
+.text-white\/50,
+.text-white\/40,
+.text-white\/30,
+.text-white\/20,
+.text-white\/10,
+.text-white\/5 {
+	color: #ffffff;
+}
 }
 
 /* Hero & intro animations moved from +page.svelte so they are globally available */
@@ -356,7 +356,7 @@
 		overflow: hidden;
 		white-space: nowrap;
 		width: 0;
-		border-right: 3px solid #fff;
+		border-right: 3px solid #111111;
 		animation:
 			typing-line2 3s steps(40, end) forwards,
 			blink-caret 0.75s step-end 6 1.5s,

@@ -130,7 +130,7 @@
 			>
 			<input
 				id="cmdk-input"
-				class="flex-1 bg-transparent text-sm text-white outline-none placeholder:text-white/40"
+			class="flex-1 bg-transparent text-sm text-white outline-none placeholder:text-white/40"
 				placeholder="Search (tabs, journal entries)..."
 				bind:value={query}
 				onkeydown={(e: KeyboardEvent) => {
@@ -158,9 +158,9 @@
 					{#each filtered as item, i}
 						<li>
 							<button
-								class="w-full px-4 py-2 text-left text-sm transition-colors {i === activeIndex
-									? 'bg-white/10 text-white'
-									: 'text-white/80 hover:bg-white/5'}"
+					class="w-full px-4 py-2 text-left text-sm transition-colors {i === activeIndex
+						? 'bg-white/10 text-white'
+						: 'text-white/80 hover:bg-white/5'}"
 								onclick={() => submit(item)}
 							>
 								{item.title}

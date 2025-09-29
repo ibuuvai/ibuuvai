@@ -11,14 +11,14 @@
 </script>
 
 <div
-	class="border-accent/20 book-container overflow-hidden rounded-2xl border bg-black/40 backdrop-blur-sm"
+	class="border-accent/20 book-container overflow-hidden rounded-2xl border bg-white"
 	data-reveal
 >
 	<!-- Chapter Navigation -->
 	<div class="border-accent/10 flex items-center justify-between border-b p-4">
 		<button
 			onclick={() => goToChapter(currentChapter - 1)}
-			class="hover:text-accent px-4 py-2 text-white transition-colors disabled:cursor-not-allowed disabled:opacity-50"
+			class="hover:text-accent px-4 py-2 text-black transition-colors disabled:cursor-not-allowed disabled:opacity-50"
 			aria-label="Previous chapter"
 			disabled={currentChapter === 0}
 		>
@@ -37,7 +37,7 @@
 		<span class="text-accent font-handwriting text-lg">{chapters[currentChapter]?.title}</span>
 		<button
 			onclick={() => goToChapter(currentChapter + 1)}
-			class="hover:text-accent px-4 py-2 text-white transition-colors disabled:cursor-not-allowed disabled:opacity-50"
+			class="hover:text-accent px-4 py-2 text-black transition-colors disabled:cursor-not-allowed disabled:opacity-50"
 			aria-label="Next chapter"
 			disabled={currentChapter === chapters.length - 1}
 		>
@@ -57,9 +57,9 @@
 
 	<!-- Chapter Content -->
 	<div class="chapter-content p-6 md:p-8">
-		<div class="prose prose-invert max-w-none">
+		<div class="prose max-w-none">
 			<div
-				class="font-handwriting break-anywhere mx-auto max-w-[70ch] leading-relaxed whitespace-pre-line text-white"
+				class="font-handwriting break-anywhere mx-auto max-w-[70ch] leading-relaxed whitespace-pre-line text-black"
 			>
 				{chapters[currentChapter]?.content}
 			</div>
@@ -70,7 +70,7 @@
 	<div class="border-accent/10 flex items-center justify-between border-t p-4">
 		<button
 			onclick={() => goToChapter(currentChapter - 1)}
-			class="hover:text-accent px-4 py-2 text-white transition-colors disabled:cursor-not-allowed disabled:opacity-50"
+			class="hover:text-accent px-4 py-2 text-black transition-colors disabled:cursor-not-allowed disabled:opacity-50"
 			aria-label="Previous chapter"
 			disabled={currentChapter === 0}
 		>
@@ -89,7 +89,7 @@
 		<span class="text-accent font-handwriting text-lg">{chapters[currentChapter]?.title}</span>
 		<button
 			onclick={() => goToChapter(currentChapter + 1)}
-			class="hover:text-accent px-4 py-2 text-white transition-colors disabled:cursor-not-allowed disabled:opacity-50"
+			class="hover:text-accent px-4 py-2 text-black transition-colors disabled:cursor-not-allowed disabled:opacity-50"
 			aria-label="Next chapter"
 			disabled={currentChapter === chapters.length - 1}
 		>

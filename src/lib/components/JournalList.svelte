@@ -16,7 +16,7 @@
 		<li class="border-accent/10 border-b pb-3" id={'entry-' + entry.id} data-reveal>
 			<button
 				onclick={() => onToggle(entry.id)}
-				class="hover:text-accent group relative flex w-full flex-col py-2 text-left text-white transition-colors sm:flex-row sm:items-center sm:justify-between"
+			class="hover:text-accent group relative flex w-full flex-col py-2 text-left text-white transition-colors sm:flex-row sm:items-center sm:justify-between"
 			>
 				<div class="flex items-center">
 					<span class="mr-2 inline-block h-4 w-4 flex-shrink-0">
@@ -42,7 +42,7 @@
 								stroke-width="2"
 								stroke-linecap="round"
 								stroke-linejoin="round"
-								class="group-hover:text-accent/70 h-4 w-4 text-white/50"
+				class="group-hover:text-accent/70 h-4 w-4 text-white/50"
 							>
 								<path d="M9 18l6-6-6-6" />
 							</svg>
@@ -59,7 +59,7 @@
 			{#if openId === entry.id}
 				<div
 					in:slide={{ duration: 300 }}
-					class="border-accent/20 font-handwriting mt-3 border-l-2 pr-2 pl-4 text-left text-sm leading-relaxed whitespace-pre-line text-white"
+			class="border-accent/10 font-handwriting mt-3 rounded-lg border bg-white px-4 py-3 text-left text-sm leading-relaxed whitespace-pre-line text-black shadow-accent/5 shadow"
 				>
 					{entry.content}
 				</div>

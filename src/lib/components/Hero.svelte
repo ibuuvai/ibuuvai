@@ -19,7 +19,7 @@
 				>Ibuu Vai</span
 			>
 			<div class="mt-2 w-full px-3 text-center">
-				<p class="font-handwriting main-phrase font-bold text-white uppercase">
+			<p class="font-handwriting main-phrase font-bold text-white uppercase">
 					<span class="typing-animation-text">My existence isn't known</span><br
 						class="sm:hidden"
 					/>
@@ -41,7 +41,7 @@
 
 			<div class="relative">
 				<p
-					class="font-handwriting mx-auto mt-1 max-w-xl px-2 text-center text-base text-white md:text-2xl"
+				class="font-handwriting mx-auto mt-1 max-w-xl px-2 text-center text-base text-white md:text-2xl"
 				>
 					<span class="warning-text-1 block">So that I will not be fooled...</span>
 					<span class="warning-text-2 mt-1 block">So that I won't drag you into this—</span>

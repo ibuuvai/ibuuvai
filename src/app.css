@@ -107,10 +107,7 @@ body {
 	position: relative;
 	z-index: 2;
 	/* viewport stability */
-	min-height: 100vh; /* legacy */
-	height: 100dvh; /* dynamic (toolbars show/hide) */
-	min-height: 100svh; /* when bars visible */
-	max-height: 100lvh; /* when bars collapsed */
+    height: clamp(100svh, 100dvh, 100lvh);
 	/* page background (no fixed attachment) */
 	background-image: var(--grain), var(--bg-image);
 	background-size:

@@ -4,7 +4,7 @@
 </script>
 
 <div class="flex flex-col gap-5">
-{#each items as it, i}
+	{#each items as it, i}
 		<FlorilegiumItem number={items.length - i} index={i} title={it.title} content={it.content} />
-{/each}
+	{/each}
 </div>

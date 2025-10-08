@@ -1,640 +1,99 @@
-/* Import fonts */
-@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Cutive+Mono&family=Major+Mono+Display&display=swap');
-
-/* Import Tailwind CSS */
 @import 'tailwindcss';
-@plugin '@tailwindcss/typography';
 
-/* Add smooth blur rendering hints */
-* {
-	backface-visibility: hidden;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-}
-
-/* Enable hardware acceleration for elements with blur effects */
-.blur,
-.blur-sm,
-.blur-md,
-.blur-lg,
-.blur-xl,
-[class*='blur-['] {
-	transform: translateZ(0);
-	will-change: filter;
-}
-
-/* Define theme */
 @layer theme {
 	:root {
-		--color-primary: #000000;
-		--color-secondary: #e6e6e6;
-		--color-accent: #8b0000;
-		--color-accent-glow: #ff0000;
-
-		/* Blur variables for responsive adjustment */
-		--blur-small: 10px;
-		--blur-medium: 20px;
-		--blur-large: 30px;
-		--blur-xl: 40px;
-		--blur-2xl: 60px;
-
-		/* Font families */
-		--font-writer: 'Merriweather', serif;
-		--font-handwriting: 'Cutive Mono', monospace;
-		--font-creepy: 'Major Mono Display', monospace;
-
-		/* Set default font */
-		font-family: var(--font-writer);
-	}
-
-	/* Adjust blur for high-DPI screens */
-	@media (min-resolution: 2dppx) {
-		:root {
-			--blur-small: 5px;
-			--blur-medium: 15px;
-			--blur-large: 25px;
-			--blur-xl: 35px;
-			--blur-2xl: 50px;
-		}
+		--font-sans:
+			'Inter', ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial,
+			'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+		--ink: 20 20 20;
+		--paper: 255 255 255; /* pure white */
+		/* store full url() form for current background */
+		--bg-image: url('/images/flower.webp');
+		/* subtle grain texture (SVG fractal noise) */
+		--grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='table' tableValues='0 0 0 0 0.035'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 	}
 }
 
-/* Base styles */
-@layer base {
-	html {
-		background-color: var(--color-primary);
-		color: #ffffff;
-		scroll-behavior: smooth;
-		font-family: var(--font-writer);
-		overflow-y: scroll;
-		overflow-x: hidden;
-		height: 100%;
-	}
-
-	body {
-		margin: 0;
-		padding: 0;
-		min-height: 100vh;
-		overflow: hidden;
-		position: relative;
-	}
-
-	::selection {
-		background-color: var(--color-accent);
-		color: var(--color-secondary);
-	}
-}
-
-/* Custom components */
-@layer components {
-	.prose-violet {
-		color-scheme: dark;
-	}
-
-	.prose-violet h1,
-	.prose-violet h2,
-	.prose-violet h3,
-	.prose-violet h4,
-	.prose-violet h5,
-	.prose-violet h6 {
-		color: var(--color-accent);
-	}
-
-	.prose-violet a {
-		color: var(--color-accent-glow);
-		text-decoration: none;
-	}
-
-	.prose-violet a:hover {
-		text-shadow: 0 0 8px rgba(255, 0, 0, 0.6);
-	}
-}
-
-/* Custom utilities */
 @layer utilities {
-	/* Accent colors */
-	.bg-accent {
-		background-color: var(--color-accent);
-	}
-	.text-accent {
-		color: var(--color-accent);
-	}
-	.border-accent {
-		border-color: var(--color-accent);
+	.manga-panel {
+		background: white;
+		border: 1px solid black;
+		border-radius: 0;
+		box-shadow: 6px 6px 0 0 rgb(0 0 0);
 	}
 
-	/* used in +page.svelte */
-	.bg-accent\/8 {
-		background-color: rgba(139, 0, 0, 0.08);
+	/* dotted background utility for manga title bars */
+	.dot-bg {
+		background-image: radial-gradient(rgba(0, 0, 0, 0.18) 1px, transparent 1px);
+		background-size: 6px 6px;
+		background-position: top left;
+		opacity: 0.5;
 	}
-	.shadow-accent\/10 {
-		box-shadow: 0 0 10px rgba(139, 0, 0, 0.1);
-	}
-
-	/* Shadow utilities */
-
-	/* Text effects */
-
-	/* Opacity variants using rgba() */
-	.bg-accent\/10 {
-		background-color: rgba(139, 0, 0, 0.1);
-	}
-	.bg-accent\/15 {
-		background-color: rgba(139, 0, 0, 0.15);
-	}
-
-	.border-accent\/10 {
-		border-color: rgba(139, 0, 0, 0.1);
-	}
-	.border-accent\/20 {
-		border-color: rgba(139, 0, 0, 0.2);
-	}
-	.border-accent\/30 {
-		border-color: rgba(139, 0, 0, 0.3);
-	}
-
-	.shadow-accent\/5 {
-		box-shadow: 0 0 10px rgba(139, 0, 0, 0.05);
-	}
-
-	/* Hover variants */
-
-	/* Group hover variants */
-
-	/* Custom font classes */
-	.font-serif {
-		font-family: var(--font-writer);
-		letter-spacing: 0.01em;
-	}
-	.font-handwriting {
-		font-family: var(--font-handwriting);
-		letter-spacing: 0.01em;
-	}
-
-	.font-creepy {
-		font-family: var(--font-creepy);
-		letter-spacing: 0.05em;
-		font-weight: 400;
-		text-transform: lowercase;
-	}
-
-	/* Custom animations */
-
-	/* Red pulse animation */
-
-	/* Glitch animation */
-
-	/* Falling animation */
-
-	/* Typing animation */
-
-	/* Improved smooth blur animation */
-
-	@keyframes fade-in {
-		0% {
-			opacity: 0;
-		}
-		100% {
-			opacity: 1;
-		}
-	}
-
-	@keyframes slide-up {
-		0% {
-			transform: translateY(30px);
-			opacity: 0;
-		}
-		100% {
-			transform: translateY(0);
-			opacity: 1;
-		}
-	}
-
-	@keyframes text-focus {
-		0% {
-			filter: blur(12px);
-			opacity: 0;
-		}
-		100% {
-			filter: blur(0);
-			opacity: 1;
-		}
-	}
-
-	/* Animation classes */
-
-	.animate-fade-in {
-		animation: fade-in 1.5s ease-out;
-	}
-	.animate-slide-up {
-		animation: slide-up 1s ease-out;
-	}
-	.animate-text-focus {
-		animation: text-focus 2s ease;
-	}
-	.animate-pulse-subtle {
-		animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-	}
-
-	/* Cursor aura */
-	.cursor-aura {
-		width: 140px;
-		height: 140px;
-		border-radius: 9999px;
-		background: radial-gradient(
-			closest-side,
-			rgba(139, 0, 0, 0.2),
-			rgba(139, 0, 0, 0.09) 60%,
-			transparent 70%
-		);
-		filter: blur(30px);
-		transform: translateZ(0);
-	}
-
-	/* Page turn animation (reduced motion safe) */
-
-	/* Safe word breaking utility */
-	.break-anywhere {
-		overflow-wrap: anywhere;
-		word-break: break-word;
-	}
-
-/* Force all text-white opacity variants to render pure white */
-.text-white,
-.text-white\/95,
-.text-white\/90,
-.text-white\/80,
-.text-white\/70,
-.text-white\/60,
-.text-white\/50,
-.text-white\/40,
-.text-white\/30,
-.text-white\/20,
-.text-white\/10,
-.text-white\/5 {
-	color: #ffffff;
-}
 }
 
-/* Hero & intro animations moved from +page.svelte so they are globally available */
-@layer utilities {
-	/* Typing caret and line animations */
-	@keyframes typing {
-		from {
-			width: 0;
-		}
-		to {
-			width: 100%;
-		}
-	}
-	@keyframes blink-caret {
-		from,
-		to {
-			border-color: transparent;
-		}
-		50% {
-			border-color: #fff;
-		}
-	}
-	@keyframes blink-caret-end {
-		0%,
-		79% {
-			border-color: transparent;
-		}
-		30%,
-		49% {
-			border-color: #fff;
-		}
-		80%,
-		100% {
-			border-color: transparent;
-		}
-	}
-	@keyframes typing-line2 {
-		0% {
-			width: 0;
-		}
-		50% {
-			width: 0;
-		}
-		100% {
-			width: 100%;
-		}
-	}
-	@keyframes cursor-disappear {
-		to {
-			border-right-color: transparent;
-		}
-	}
+/* Page canvas baseline */
+html,
+body {
+	height: 100%;
+}
 
-	.main-phrase {
-		font-size: 1.125rem;
-		line-height: 1.5;
-	}
-	@media (max-width: 640px) {
-		.main-phrase {
-			font-size: 0.875rem;
-		}
-		.typing-animation-text,
-		.typing-animation-text-line2 {
-			max-width: 90vw;
-		}
-	}
-	.typing-animation-text {
-		display: inline-block;
-		overflow: hidden;
-		white-space: nowrap;
-		width: 0;
-		border-right: 3px solid transparent;
-		animation:
-			typing 1.5s steps(20, end) forwards,
-			blink-caret 0.75s step-end 4;
-	}
-	.typing-animation-text-line2 {
-		display: inline-block;
-		overflow: hidden;
-		white-space: nowrap;
-		width: 0;
-		border-right: 3px solid #111111;
-		animation:
-			typing-line2 3s steps(40, end) forwards,
-			blink-caret 0.75s step-end 6 1.5s,
-			cursor-disappear 0.1s forwards 6s;
-	}
+body {
+	/* base canvas styling */
+	background-color: rgb(var(--paper));
+	color: rgb(var(--ink));
+	/* layers: [0] grain texture, [1] primary (flower/me) over white base */
+	background-image: var(--grain), var(--bg-image);
+	/* primary: width-based, bottom anchored, no repeat; grain tiling auto */
+	background-size:
+		auto,
+		100% auto;
+	background-repeat: repeat, no-repeat;
+	background-position:
+		top left,
+		center bottom;
+	font-family: var(--font-sans);
+}
 
-	/* Glitch intro and follow-up fades */
-	.warning-content {
-		opacity: 0;
-		animation: glitchIn 1.2s forwards;
-		animation-delay: 3.2s;
-	}
-	@keyframes glitchIn {
-		0% {
-			opacity: 0;
-			transform: translateX(-10px) skewX(20deg);
-			text-shadow: -2px 0 #ff0000;
-			clip-path: inset(0 100% 0 0);
-		}
-		10% {
-			opacity: 0.3;
-			transform: translateX(5px) skewX(-10deg);
-			text-shadow: 2px 0 #00ff00;
-			clip-path: inset(0 80% 0 0);
-		}
-		20% {
-			opacity: 0.5;
-			transform: translateX(-3px) skewX(5deg);
-			text-shadow:
-				-1px 0 #ff0000,
-				1px 0 #00ff00;
-			clip-path: inset(0 60% 0 0);
-		}
-		30% {
-			opacity: 0.7;
-			transform: translateX(2px) skewX(-3deg);
-			text-shadow:
-				1px 0 #0000ff,
-				-1px 0 #ff0000;
-			clip-path: inset(0 40% 0 0);
-		}
-		40% {
-			opacity: 0.8;
-			transform: translateX(-1px) skewX(1deg);
-			text-shadow:
-				-1px 0 #00ff00,
-				1px 0 #0000ff;
-			clip-path: inset(0 20% 0 0);
-		}
-		50% {
-			opacity: 1;
-			transform: translateX(0) skewX(0);
-			text-shadow:
-				1px 0 #ff0000,
-				-1px 0 #00ff00;
-			clip-path: inset(0 0 0 0);
-		}
-		60%,
-		70% {
-			opacity: 1;
-			transform: skewX(2deg) translateX(3px);
-			text-shadow:
-				-1px 0 #ff0000,
-				2px 2px #00ff00;
-		}
-		80%,
-		90% {
-			opacity: 1;
-			transform: skewX(-2deg) translateX(-3px);
-			text-shadow:
-				1px 0 #ff0000,
-				-2px -2px #00ff00;
-		}
-		100% {
-			opacity: 1;
-			transform: skewX(0) translateX(0);
-			text-shadow: none;
-		}
-	}
-	@keyframes glitch {
-		0% {
-			transform: translate(0);
-			text-shadow:
-				-1px 0 red,
-				1px 0 blue;
-		}
-		2% {
-			transform: translate(-2px, 1px);
-			text-shadow:
-				1px 0 red,
-				-1px 0 blue;
-		}
-		4% {
-			transform: translate(-2px, -2px);
-			text-shadow:
-				1px 0 green,
-				-1px 0 red;
-		}
-		6% {
-			transform: translate(0);
-			text-shadow:
-				-1px 0 red,
-				1px 0 green;
-		}
-		8% {
-			transform: translate(0, 1px);
-			text-shadow:
-				-1px 0 blue,
-				1px 0 red;
-		}
-		10% {
-			transform: translate(0);
-			text-shadow:
-				-1px 0 red,
-				1px 0 blue;
-		}
-		45% {
-			transform: translate(0);
-			text-shadow:
-				-1px 0 red,
-				1px 0 blue;
-		}
-		46% {
-			transform: translateX(3px);
-			text-shadow:
-				-1px 0 blue,
-				1px 0 red;
-		}
-		48% {
-			transform: translateX(-3px);
-			text-shadow:
-				1px 0 red,
-				-1px 0 green;
-		}
-		50% {
-			transform: translateX(0);
-			text-shadow:
-				-1px 0 red,
-				1px 0 blue;
-		}
-		100% {
-			transform: translateX(0);
-			text-shadow:
-				-1px 0 red,
-				1px 0 blue;
-		}
-	}
-	.animate-glitch {
-		animation: glitch 4s infinite;
-		animation-delay: 4.4s;
-	}
-	.warning-text-1 {
-		opacity: 0;
-		animation: fadeIn 0.8s ease-out forwards;
-		animation-delay: 3.8s;
-	}
-	.warning-text-2 {
-		opacity: 0;
-		animation: fadeIn 0.8s ease-out forwards;
-		animation-delay: 4.4s;
-	}
+.bg-fader {
+	position: fixed;
+	inset: 0;
+	pointer-events: none;
+	background-size: 100% auto;
+	background-repeat: no-repeat;
+	background-position: center bottom;
+	opacity: 0;
+	transition: opacity 200ms ease;
+	z-index: 0;
+}
 
-	/* Follows after Keep out */
-	@keyframes fadeIn {
-		from {
-			opacity: 0;
-		}
-		to {
-			opacity: 1;
-		}
-	}
-	@keyframes pulse {
-		0% {
-			opacity: 0.8;
-			color: #8b0000;
-			text-shadow: 0 0 3px #8b0000;
-		}
-		50% {
-			opacity: 1;
-			color: #ff0000;
-			text-shadow: 0 0 8px #ff0000;
-		}
-		100% {
-			opacity: 0.8;
-			color: #8b0000;
-			text-shadow: 0 0 3px #8b0000;
-		}
-	}
-	@keyframes enhancedPulse {
-		0% {
-			transform: scale(1);
-			color: #8b0000;
-			text-shadow: 0 0 4px #8b0000;
-			filter: brightness(0.9);
-		}
-		50% {
-			transform: scale(1.15);
-			color: #ff0000;
-			text-shadow:
-				0 0 10px #ff0000,
-				0 0 15px #ff3333,
-				0 0 20px #ff6666;
-			filter: brightness(1.2);
-		}
-		100% {
-			transform: scale(1);
-			color: #8b0000;
-			text-shadow: 0 0 4px #8b0000;
-			filter: brightness(0.9);
-		}
-	}
-	.stay-away {
-		opacity: 0;
-		animation:
-			fadeIn 0.8s ease-out forwards,
-			enhancedPulse 2s infinite;
-		animation-delay: 5s, 5.8s;
-		transform-origin: center;
-		display: inline-block;
-	}
-	.blood-drops {
-		opacity: 0;
-		animation: fadeIn 0.5s ease-out forwards;
-		animation-delay: 5.6s;
-	}
-	.drop-1 {
-		animation: fallRepeat 2.5s ease-in infinite;
-		animation-delay: 5.8s;
-		opacity: 0;
-	}
-	.drop-2 {
-		animation: fallRepeat 3s ease-in infinite;
-		animation-delay: 6.2s;
-		opacity: 0;
-	}
-	.drop-3 {
-		animation: fallRepeat 2.8s ease-in infinite;
-		animation-delay: 6.6s;
-		opacity: 0;
-	}
-	@keyframes fall {
-		from {
-			transform: translateY(0);
-		}
-		to {
-			transform: translateY(100px);
-		}
-	}
-	@keyframes fallRepeat {
-		0% {
-			transform: translateY(0);
-			opacity: 1;
-		}
-		80% {
-			transform: translateY(100px);
-			opacity: 1;
-		}
-		81% {
-			opacity: 0;
-		}
-		82% {
-			transform: translateY(0);
-			opacity: 0;
-		}
-		100% {
-			transform: translateY(0);
-			opacity: 1;
-		}
-	}
+.page-layer {
+	position: relative;
+	z-index: 1;
+}
 
-	/* Page turn helpers */
-	.page-turn {
-		transition: transform 0.5s ease;
-	}
-	.turn-forward {
-		transform: translateX(100%);
-	}
-	.turn-back {
-		transform: translateX(-100%);
-	}
+.stack > * + * {
+	margin-top: 0.6rem;
+}
+
+/* Poetic text formatting */
+.poem {
+	white-space: pre-wrap;
+	line-height: 1.85;
+	letter-spacing: 0.01em;
+}
+
+.poem em {
+	font-style: italic;
+}
+
+.poem strong {
+	font-weight: 600;
+}
+
+/* Manga-style helpers */
+.manga-card {
+	background: white;
+	border: 1px solid black;
+	border-radius: 2px;
+	box-shadow: 4px 4px 0 0 rgb(0 0 0);
 }

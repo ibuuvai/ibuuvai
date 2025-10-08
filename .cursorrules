@@ -1,0 +1,90 @@
+Cursor Rules for this repository
+
+Purpose
+
+- Guidance for Cursor when proposing, editing, and organizing code in this repo.
+
+Project summary
+
+- SvelteKit v2 single-page app (SPA); SSR is disabled globally.
+- Static export via @sveltejs/adapter-static → output to build/ with fallback index.html.
+- Vite 6 + Tailwind CSS v4 (via @tailwindcss/vite). No tailwind config file; utilities/themes live in CSS.
+- TypeScript strict mode; bundler moduleResolution.
+- Primary package manager: Bun (bun.lock present). npm/pnpm alternatives acceptable.
+
+Common commands
+
+- Install deps
+  - bun install
+  - npm install or pnpm install
+- Start dev server
+  - bun run dev
+  - npm run dev or pnpm dev
+- Type-check (Svelte + TS)
+  - bun run check
+  - bun run check:watch
+- Format / Lint (Prettier)
+  - bun run format  # write
+  - bun run lint    # check only
+- Build (static export to build/)
+  - bun run build
+- Preview build locally
+  - bun run preview
+- SvelteKit project sync
+  - bun run prepare
+
+Architecture & constraints
+
+- SSR is disabled: ensure `export const ssr = false` in `src/routes/+layout.ts` remains.
+- The site is statically prerendered: `export const prerender = true` in `src/routes/+layout.ts`.
+- Static adapter configuration lives in `svelte.config.js` with fallback `index.html`; do not change output dir from `build/` without strong reason.
+- `src/app.html` is the template; `%sveltekit.head%` and `%sveltekit.body%` must remain intact.
+- Tailwind v4 is configured via the Vite plugin (`@tailwindcss/vite`); do not introduce a `tailwind.config.*` unless specifically requested. Prefer adding theme/utilities in `src/app.css` using `@layer` blocks.
+- Keep SPA behavior; avoid adding server-only endpoints or enabling SSR unless explicitly asked.
+
+Conventions
+
+- Place new routes and pages under `src/routes/`. With SPA, prefer in-page navigation/components where appropriate.
+- Global styles live in `src/app.css` (Tailwind `@import 'tailwindcss'`, `@layer theme`, `@layer utilities`). Extend existing design tokens rather than ad-hoc inline styles.
+- Static assets belong under `static/` (e.g., `static/images/...`). Reference via `%sveltekit.assets%` in HTML or `/images/...` at runtime.
+- Maintain custom domain files: keep `CNAME` files at repo root and in `static/` as-is; builds may copy them.
+
+Coding standards
+
+- TypeScript: strict, descriptive naming; avoid 1–2 letter identifiers. Prefer early returns and shallow nesting. Avoid unnecessary try/catch.
+- Svelte 5 runes are acceptable where used; keep reactivity clear and minimal.
+- Prefer utility-first Tailwind classes; create small, composable components.
+- Prettier governs formatting (plugins: svelte, tailwind). Run format before committing.
+
+What to do when implementing changes
+
+- Before edits: scan `svelte.config.js`, `vite.config.ts`, `src/routes/+layout.ts`, and `src/app.css` to align with current settings.
+- When adding UI: colocate small components in `src/lib` if reused; otherwise, keep within route components.
+- When adding styles: extend tokens/utilities in `src/app.css` under the correct `@layer`.
+- When adding assets: place under `static/` and reference via absolute paths.
+- After edits: run type-check and format; ensure build succeeds (`bun run build`).
+
+Avoid
+
+- Enabling SSR, adding server endpoints, or changing adapter without explicit instruction.
+- Introducing a Tailwind config file unless required by a feature.
+- Importing images from `src/` for production use; use `static/` instead.
+
+Files of interest
+
+- `svelte.config.js`: adapter-static with build dir and fallback.
+- `vite.config.ts`: `sveltekit()` + `@tailwindcss/vite` plugins.
+- `src/routes/+layout.ts`: `ssr = false`, `prerender = true`.
+- `src/app.html`: HTML template.
+- `src/app.css`: Tailwind layers (theme, utilities) and global styles.
+- `tsconfig.json`: strict TS, bundler resolution.
+
+PR acceptance checklist (for automated suggestions)
+
+- Code compiles (`bun run build`) and passes `bun run check`.
+- No SSR introduced; static export intact with fallback `index.html`.
+- New styles live in proper Tailwind layers; design tokens respected.
+- Assets placed in `static/` and referenced correctly.
+- Prettier formatting applied.
+
+

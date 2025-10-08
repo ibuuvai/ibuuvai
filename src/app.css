@@ -6,17 +6,14 @@
 			'Inter', ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial,
 			'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
 		--ink: 20 20 20;
-		--paper: 255 255 255; /* pure white */
-		/* design tokens */
-		--radius: 15px; /* global corner radius */
-		--badge-radius: 8px; /* slightly squarer badge corners */
+		--paper: 255 255 255;
+		--radius: 15px;
+		--badge-radius: 8px;
 		--border-w: 2px;
 		--shadow-offset: 8px;
-		--dot-size: 4px; /* dot grid spacing */
-		--dot-alpha: 0.6; /* darker dots to match reference */
-		/* store full url() form for current background */
+		--dot-size: 4px;
+		--dot-alpha: 0.6;
 		--bg-image: url('/images/flower.webp');
-		/* subtle grain texture (SVG fractal noise) */
 		--grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='table' tableValues='0 0 0 0 0.035'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 	}
 }
@@ -29,7 +26,6 @@
 		box-shadow: var(--shadow-offset) var(--shadow-offset) 0 0 rgb(0 0 0);
 	}
 
-	/* dotted background utility for manga title bars */
 	.dot-bg {
 		background-image: radial-gradient(rgba(0, 0, 0, var(--dot-alpha)) 1px, transparent 1px);
 		background-size: var(--dot-size) var(--dot-size);
@@ -37,90 +33,47 @@
 		opacity: 1;
 	}
 
-	/* pill badge with dotted border (e.g., "NO. 01") */
 	.no-badge {
 		display: inline-block;
-		padding: 0.25rem 0.5rem; /* rem-based */
+		padding: 0.25rem 0.5rem;
 		border: var(--border-w) dotted black;
 		border-radius: var(--badge-radius);
 		background: white;
-		font-size: 0.75rem; /* text-sm */
+		font-size: 0.75rem;
 		text-transform: uppercase;
 		letter-spacing: 0.08em;
 	}
 }
 
-/* Page canvas baseline */
 html,
 body {
-	height: 100%;
-    min-height: 100%;
-}
-
-/* Paint the canvas on the root element so iOS toolbars (transparent) show it */
-html {
-	background-color: rgb(var(--paper));
-	background-image: var(--grain), var(--bg-image);
-	background-size:
-		auto,
-		100% auto;
-	background-repeat: repeat, no-repeat;
-	background-position:
-		top left,
-		center calc(100% + env(safe-area-inset-bottom));
-	background-attachment:
-		fixed,
-		fixed;
-	min-height: 100svh; /* stable viewport height on mobile */
-	overscroll-behavior-y: none; /* avoid rubber-band showing behind */
+	height: auto;
 }
 
 body {
-	/* base canvas styling */
-	background-color: transparent; /* root handles paint under iOS chrome */
+	background-color: #fff;
 	color: rgb(var(--ink));
-	/* layers: [0] grain texture, [1] primary (flower/me) over white base */
-	background-image: var(--grain), var(--bg-image);
-	/* primary: width-based, bottom anchored, no repeat; grain tiling auto */
-	background-size:
-		auto,
-		100% auto;
-	background-repeat: repeat, no-repeat;
-	background-position:
-		top left,
-		center bottom;
-	/* keep background fixed while content scrolls */
-	background-attachment:
-		fixed,
-		fixed;
 	font-family: var(--font-sans);
+	background-image: url('/images/background.webp');
+	background-repeat: no-repeat;
+	background-position: center bottom;
+	background-size: 100% auto;
+	background-attachment: fixed;
 }
 
 .bg-fader {
-	position: fixed;
-	inset: 0;
-	pointer-events: none;
-	background-size: 100% auto;
-	background-repeat: no-repeat;
-	background-position: center bottom;
-	background-attachment: fixed;
-	opacity: 0;
-	transition: opacity 200ms ease;
-	z-index: 0;
+	display: none;
 }
 
 .page-layer {
 	position: relative;
 	z-index: 1;
-	/* account for iOS safe areas when system bars overlay content */
-	padding-bottom: env(safe-area-inset-bottom);
 }
 
 .stack > * + * {
 	margin-top: 0.6rem;
 }
 
-/* Poetic text formatting */
 .poem {
 	white-space: pre-wrap;
 	line-height: 1.85;
@@ -135,9 +88,7 @@ body {
 	font-weight: 600;
 }
 
-/* Manga-style helpers */
 .manga-card {
-	/* legacy alias; keep consistent with manga-panel */
 	background: white;
 	border: var(--border-w) solid black;
 	border-radius: var(--radius);

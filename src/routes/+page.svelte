@@ -1,10 +1,10 @@
 <script lang="ts">
 	import Icon from '@iconify/svelte';
-    const cards = [
-        { href: '/me', label: 'me', icon: 'ph:user' },
-        { href: '/florilegium', label: 'florilegium', icon: 'ph:flower' },
-        { href: '/whispers', label: 'whispers', icon: 'ph:music-notes' }
-    ];
+	const cards = [
+		{ href: '/me', label: 'me', icon: 'ph:user' },
+		{ href: '/florilegium', label: 'florilegium', icon: 'ph:flower' },
+		{ href: '/whispers', label: 'whispers', icon: 'ph:music-notes' }
+	];
 </script>
 
 <svelte:head>
@@ -12,7 +12,7 @@
 	<meta name="description" content="a quiet canvas." />
 </svelte:head>
 
-<main class="min-h-[100dvh] p-6 pt-20">
+<main class="min-h-[100svh] p-6 pt-20">
 	<div class="mx-auto max-w-5xl space-y-6">
 		<!-- Top full-width panel: me -->
 		<a
@@ -26,8 +26,8 @@
 			</div>
 		</a>
 
-        <!-- Bottom right-aligned narrower panel: florilegium -->
-        <div class="flex justify-end">
+		<!-- Bottom right-aligned narrower panel: florilegium -->
+		<div class="flex justify-end">
 			<a
 				href="/florilegium"
 				class="manga-panel group block w-full max-w-[40rem] p-5 transition-transform hover:-translate-y-0.5 sm:w-[44%]"
@@ -40,17 +40,17 @@
 			</a>
 		</div>
 
-        <!-- Third panel: whispers -->
-        <a
-            href="/whispers"
-            class="manga-panel group block w-full max-w-[40rem] p-5 transition-transform hover:-translate-y-0.5 sm:w-[44%]"
-            style="border-radius: var(--radius)"
-        >
-            <div class="flex items-center gap-3">
-                <Icon icon="ph:music-notes" class="h-5 w-5 opacity-70" />
-                <span class="text-xl tracking-wide lowercase">whispers</span>
-            </div>
-        </a>
+		<!-- Third panel: whispers -->
+		<a
+			href="/whispers"
+			class="manga-panel group block w-full max-w-[40rem] p-5 transition-transform hover:-translate-y-0.5 sm:w-[44%]"
+			style="border-radius: var(--radius)"
+		>
+			<div class="flex items-center gap-3">
+				<Icon icon="ph:music-notes" class="h-5 w-5 opacity-70" />
+				<span class="text-xl tracking-wide lowercase">whispers</span>
+			</div>
+		</a>
 	</div>
 </main>
 

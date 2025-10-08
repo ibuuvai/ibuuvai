@@ -1,6 +1,6 @@
 <script lang="ts">
-    import '../app.css';
-    import { page } from '$app/state';
+	import '../app.css';
+	import { page } from '$app/state';
 	let { children } = $props();
 	let previousImage = '';
 

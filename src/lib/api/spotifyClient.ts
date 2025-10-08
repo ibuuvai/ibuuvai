@@ -1,35 +1,35 @@
 export type NowPlaying = {
-  is_playing?: boolean;
-  progress_ms?: number;
-  item?: {
-    id?: string;
-    name?: string;
-    duration_ms?: number;
-    artists?: { name?: string }[];
-    album?: { images?: { url: string }[] };
-    external_urls?: { spotify?: string };
-  } | null;
+	is_playing?: boolean;
+	progress_ms?: number;
+	item?: {
+		id?: string;
+		name?: string;
+		duration_ms?: number;
+		artists?: { name?: string }[];
+		album?: { images?: { url: string }[] };
+		external_urls?: { spotify?: string };
+	} | null;
 };
 
 export type RecentlyPlayed = {
-  items?: {
-    played_at?: string;
-    track: {
-      id?: string;
-      name?: string;
-      artists?: { name?: string }[];
-      album?: { images?: { url: string }[] };
-    };
-  }[];
+	items?: {
+		played_at?: string;
+		track: {
+			id?: string;
+			name?: string;
+			artists?: { name?: string }[];
+			album?: { images?: { url: string }[] };
+		};
+	}[];
 };
 
 export type TopTracks = {
-  items?: {
-    id?: string;
-    name?: string;
-    artists?: { name?: string }[];
-    album?: { images?: { url: string }[] };
-  }[];
+	items?: {
+		id?: string;
+		name?: string;
+		artists?: { name?: string }[];
+		album?: { images?: { url: string }[] };
+	}[];
 };
 
 const API_BASE = 'https://api.ibuuvai.me';

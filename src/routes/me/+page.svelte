@@ -3,15 +3,15 @@
 	import FactsGrid from '$lib/components/FactsGrid.svelte';
 	import PageTitle from '$lib/components/PageTitle.svelte';
 	import { facts } from '$lib/data/me';
-    let previousBg = '';
-    $effect(() => {
-        const body = document.body;
-        previousBg = body.style.backgroundImage;
-        body.style.backgroundImage = "url('/images/me.webp')";
-        return () => {
-            body.style.backgroundImage = previousBg || "url('/images/background.webp')";
-        };
-    });
+	let previousBg = '';
+	$effect(() => {
+		const body = document.body;
+		previousBg = body.style.backgroundImage;
+		body.style.backgroundImage = "url('/images/me.webp')";
+		return () => {
+			body.style.backgroundImage = previousBg || "url('/images/background.webp')";
+		};
+	});
 </script>
 
 <svelte:head>

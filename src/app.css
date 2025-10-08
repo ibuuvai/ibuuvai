@@ -54,6 +54,7 @@
 html,
 body {
 	height: 100%;
+    min-height: 100%;
 }
 
 /* Paint the canvas on the root element so iOS toolbars (transparent) show it */
@@ -66,10 +67,12 @@ html {
 	background-repeat: repeat, no-repeat;
 	background-position:
 		top left,
-		center bottom;
+		center calc(100% + env(safe-area-inset-bottom));
 	background-attachment:
 		fixed,
 		fixed;
+	min-height: 100svh; /* stable viewport height on mobile */
+	overscroll-behavior-y: none; /* avoid rubber-band showing behind */
 }
 
 body {

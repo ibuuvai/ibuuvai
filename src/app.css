@@ -55,16 +55,24 @@ html,
 body {
 	height: 100%;
     min-height: 100%;
-    min-height: -webkit-fill-available;
-    min-height: 100dvh;
 }
 
 /* Paint the canvas on the root element so iOS toolbars (transparent) show it */
 html {
 	background-color: rgb(var(--paper));
-	min-height: 100dvh;
-	min-height: 100svh;
-	overscroll-behavior-y: none;
+	background-image: var(--grain), var(--bg-image);
+	background-size:
+		auto,
+		100% auto;
+	background-repeat: repeat, no-repeat;
+	background-position:
+		top left,
+		center calc(100% + env(safe-area-inset-bottom));
+	background-attachment:
+		fixed,
+		fixed;
+	min-height: 100svh; /* stable viewport height on mobile */
+	overscroll-behavior-y: none; /* avoid rubber-band showing behind */
 }
 
 body {
@@ -89,48 +97,23 @@ body {
 }
 
 .bg-fader {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    background-size: 100% auto;
-    background-repeat: no-repeat;
-    background-position: center calc(100% + env(safe-area-inset-bottom));
-    opacity: 0;
-    transition: opacity 200ms ease;
-    z-index: 1;
+	position: fixed;
+	inset: 0;
+	pointer-events: none;
+	background-size: 100% auto;
+	background-repeat: no-repeat;
+	background-position: center bottom;
+	background-attachment: fixed;
+	opacity: 0;
+	transition: opacity 200ms ease;
+	z-index: 0;
 }
 
 .page-layer {
 	position: relative;
-	z-index: 2;
-	/* viewport stability */
-    height: calc(var(--vh, 1vh) * 100); /* WKWebView/edge fallback */
-    height: clamp(100svh, 100dvh, 100lvh);
-	/* page background (no fixed attachment) */
-	background-image: var(--grain), var(--bg-image);
-	background-size:
-		auto,
-		100% auto;
-	background-repeat: repeat, no-repeat;
-	background-position:
-		top left,
-		center calc(100% + env(safe-area-inset-bottom));
-	/* keep content above the home indicator */
+	z-index: 1;
+	/* account for iOS safe areas when system bars overlay content */
 	padding-bottom: env(safe-area-inset-bottom);
-}
-
-/* (bg-canvas removed; background handled by .page-layer) */
-
-/* Small guard to mask any iOS toolbar seam */
-.ios-bottom-guard {
-	position: fixed;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	height: max(2px, env(safe-area-inset-bottom));
-	background: linear-gradient(to top, rgb(var(--paper)) 0%, rgba(255,255,255,0) 90%);
-	z-index: 3;
-	pointer-events: none;
 }
 
 .stack > * + * {

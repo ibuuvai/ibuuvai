@@ -41,8 +41,8 @@
 	});
 </script>
 
-<div id="bg-fader" class="bg-fader"></div>
 <div class="page-layer">
+	<div id="bg-fader" class="bg-fader"></div>
 	{@render children()}
 </div>
 <div class="ios-bottom-guard"></div>

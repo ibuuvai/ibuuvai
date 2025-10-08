@@ -62,18 +62,9 @@ body {
 /* Paint the canvas on the root element so iOS toolbars (transparent) show it */
 html {
 	background-color: rgb(var(--paper));
-	background-image: var(--grain), var(--bg-image);
-	background-size:
-		auto,
-		100% auto;
-	background-repeat: repeat, no-repeat;
-	background-position:
-		top left,
-		center calc(100% + env(safe-area-inset-bottom));
-	/* Avoid iOS background-attachment bugs; rely on fixed layers instead */
-    min-height: 100dvh; /* dynamic viewport: follow toolbar */
-    min-height: 100svh; /* fallback */
-	overscroll-behavior-y: none; /* avoid rubber-band showing behind */
+	min-height: 100dvh;
+	min-height: 100svh;
+	overscroll-behavior-y: none;
 }
 
 body {
@@ -115,32 +106,25 @@ body {
 .page-layer {
 	position: relative;
 	z-index: 2;
-	/* account for iOS safe areas when system bars overlay content */
-	padding-bottom: env(safe-area-inset-bottom);
-}
-
-/* Dedicated fixed background painter to avoid iOS toolbar gaps */
-.bg-canvas {
-	position: fixed;
-    left: 0;
-    right: 0;
-    top: 0;
-    height: calc(100dvh + env(safe-area-inset-bottom));
-    bottom: auto;
-	pointer-events: none;
-	z-index: 0;
+	/* viewport stability */
+	min-height: 100vh; /* legacy */
+	height: 100dvh; /* dynamic (toolbars show/hide) */
+	min-height: 100svh; /* when bars visible */
+	max-height: 100lvh; /* when bars collapsed */
+	/* page background (no fixed attachment) */
 	background-image: var(--grain), var(--bg-image);
 	background-size:
 		auto,
 		100% auto;
 	background-repeat: repeat, no-repeat;
-    background-position:
+	background-position:
 		top left,
-        center calc(100% + env(safe-area-inset-bottom));
-	/* fixed element simulates fixed background across iOS */
-	will-change: transform;
-	transform: translateZ(0);
+		center calc(100% + env(safe-area-inset-bottom));
+	/* keep content above the home indicator */
+	padding-bottom: env(safe-area-inset-bottom);
 }
+
+/* (bg-canvas removed; background handled by .page-layer) */
 
 /* Small guard to mask any iOS toolbar seam */
 .ios-bottom-guard {

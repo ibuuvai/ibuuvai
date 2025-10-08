@@ -10,6 +10,7 @@
     let durationMs = $state(0);
     let lastUpdateTs = $state(0);
     let liveProgressMs = $state(0);
+    let isPlaying = $state(false);
 
     function formatTime(ms: number) {
         const s = Math.floor(ms / 1000);
@@ -24,7 +25,7 @@
                 const [n, r, t] = await Promise.all([
                     getNowPlaying(),
                     getRecentlyPlayed(10),
-                    getTopTracks('short_term', 10)
+                    getTopTracks('medium_term', 10)
                 ]);
                 now = n;
                 recent = r;
@@ -33,6 +34,7 @@
                 durationMs = n?.item?.duration_ms ?? 0;
                 lastUpdateTs = Date.now();
                 liveProgressMs = Math.min(durationMs, baseProgressMs);
+                isPlaying = Boolean(n?.is_playing);
             } catch (e) {
                 console.error(e);
             }
@@ -55,6 +57,7 @@
                 }
                 lastUpdateTs = Date.now();
                 liveProgressMs = Math.min(durationMs, baseProgressMs);
+                isPlaying = Boolean(n?.is_playing);
             } catch (e) {
                 console.error(e);
             }
@@ -67,8 +70,12 @@
     $effect(() => {
         const tick = setInterval(() => {
             if (!durationMs) return;
-            const elapsed = Date.now() - lastUpdateTs;
-            liveProgressMs = Math.min(durationMs, baseProgressMs + elapsed);
+            if (isPlaying) {
+                const elapsed = Date.now() - lastUpdateTs;
+                liveProgressMs = Math.min(durationMs, baseProgressMs + elapsed);
+            } else {
+                liveProgressMs = Math.min(durationMs, baseProgressMs);
+            }
         }, 1000);
         return () => clearInterval(tick);
     });
@@ -91,6 +98,9 @@
                     <div>
                         <div class="text-xl">{now.item.name}</div>
                         <div class="opacity-70">{now.item.artists?.map((a:any)=>a.name).join(', ')}</div>
+                        {#if !isPlaying}
+                            <div class="mt-1 inline-block rounded px-2 py-0.5 text-xs uppercase opacity-70 ring-1 ring-black">paused</div>
+                        {/if}
                     </div>
                 </div>
                 <div class="mt-4">
@@ -131,7 +141,7 @@
         </div>
 
         <div class="manga-panel p-5" style="border-radius: var(--radius)">
-            <div class="mb-2 text-xs uppercase opacity-60">Top tracks (short term)</div>
+            <div class="mb-2 text-xs uppercase opacity-60">Top tracks</div>
             {#if top?.items}
                 <div class="grid grid-cols-1 gap-3">
                     {#each top.items.slice(0,10) as t, i}

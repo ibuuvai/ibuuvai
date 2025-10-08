@@ -2,6 +2,7 @@
     import BackLink from '$lib/components/BackLink.svelte';
     import PageTitle from '$lib/components/PageTitle.svelte';
     import { getNowPlaying, getRecentlyPlayed, getTopTracks } from '$lib/api/spotifyClient';
+    import Icon from '@iconify/svelte';
 
     let now = $state<any>(null);
     let recent = $state<any>(null);
@@ -52,6 +53,21 @@
         endTimer = setTimeout(async () => {
             await refreshNow(true);
         }, delay) as unknown as number;
+    }
+
+    function togglePlayLocal() {
+        if (!durationMs) return;
+        if (isPlaying) {
+            // Pause locally: freeze progress at current computed position
+            baseProgressMs = Math.min(durationMs, liveProgressMs);
+            lastUpdateTs = Date.now();
+            isPlaying = false;
+        } else {
+            // Resume locally: continue advancing from current position
+            baseProgressMs = Math.min(durationMs, liveProgressMs);
+            lastUpdateTs = Date.now();
+            isPlaying = true;
+        }
     }
 
     function formatTime(ms: number) {
@@ -115,7 +131,7 @@
     <PageTitle title="whispers" />
     <BackLink />
     <section class="mx-auto mt-6 grid max-w-5xl grid-cols-1 items-start gap-5">
-        <div class="manga-panel p-5" style="border-radius: var(--radius)">
+        <div class="manga-panel relative p-5" style="border-radius: var(--radius)">
             <div class="mb-2 text-xs uppercase opacity-60">Now playing</div>
             {#if now?.item}
                 <div class="flex items-center gap-4">
@@ -128,7 +144,47 @@
                         {/if}
                     </div>
                 </div>
-                <div class="mt-4">
+                <a class="manga-panel absolute right-3 top-3 inline-flex items-center gap-1 px-3 py-1 no-underline text-[11px] opacity-100" style="border-radius: var(--radius)" href={now.item.external_urls?.spotify} target="_blank" rel="noreferrer" aria-label="Open in Spotify">
+                    <Icon icon="ph:spotify-logo" class="h-3 w-3" />
+                    <span>Open in Spotify</span>
+                </a>
+                <div class="mt-6">
+                    <div class="mt-2 mb-8 grid w-full grid-cols-3 items-center px-6 md:px-12">
+                        <div class="flex justify-start">
+                            <button
+                                class="manga-panel grid h-12 w-12 place-items-center p-0 text-lg transition-transform duration-150 hover:-translate-y-0.5 active:scale-95"
+                                style="border-radius: var(--radius)"
+                                aria-label="Previous (mock)"
+                                title="mock control"
+                            >
+                                <Icon icon="ph:skip-back" />
+                            </button>
+                        </div>
+                        <div class="flex justify-center">
+                            <button
+                                class="manga-panel grid h-14 w-14 place-items-center p-0 text-xl transition-transform duration-150 hover:-translate-y-0.5 active:scale-95"
+                                style="border-radius: var(--radius)"
+                                aria-label="Play/Pause (mock)"
+                                title="mock control"
+                            >
+                                {#if isPlaying}
+                                    <Icon icon="ph:pause" />
+                                {:else}
+                                    <Icon icon="ph:play" />
+                                {/if}
+                            </button>
+                        </div>
+                        <div class="flex justify-end">
+                            <button
+                                class="manga-panel grid h-12 w-12 place-items-center p-0 text-lg transition-transform duration-150 hover:-translate-y-0.5 active:scale-95"
+                                style="border-radius: var(--radius)"
+                                aria-label="Next (mock)"
+                                title="mock control"
+                            >
+                                <Icon icon="ph:skip-forward" />
+                            </button>
+                        </div>
+                    </div>
                     <div class="h-2 w-full rounded-full bg-black/10">
                         <div
                             class="h-2 rounded-full bg-black"
@@ -137,7 +193,6 @@
                     </div>
                     <div class="mt-1 flex items-center justify-between text-xs opacity-70">
                         <span>{formatTime(liveProgressMs)}</span>
-                        <a class="underline decoration-black/30 underline-offset-2 hover:decoration-black" href={now.item.external_urls?.spotify} target="_blank" rel="noreferrer">Open in Spotify</a>
                         <span>{formatTime(durationMs)}</span>
                     </div>
                 </div>

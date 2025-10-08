@@ -6,6 +6,17 @@
     let now = $state<any>(null);
     let recent = $state<any>(null);
     let top = $state<any>(null);
+    let baseProgressMs = $state(0);
+    let durationMs = $state(0);
+    let lastUpdateTs = $state(0);
+    let liveProgressMs = $state(0);
+
+    function formatTime(ms: number) {
+        const s = Math.floor(ms / 1000);
+        const m = Math.floor(s / 60);
+        const ss = String(s % 60).padStart(2, '0');
+        return `${m}:${ss}`;
+    }
 
     $effect(() => {
         (async () => {
@@ -18,10 +29,39 @@
                 now = n;
                 recent = r;
                 top = t;
+                baseProgressMs = n?.progress_ms ?? 0;
+                durationMs = n?.item?.duration_ms ?? 0;
+                lastUpdateTs = Date.now();
+                liveProgressMs = Math.min(durationMs, baseProgressMs);
             } catch (e) {
                 console.error(e);
             }
         })();
+
+        const intervalId = setInterval(async () => {
+            try {
+                const n = await getNowPlaying();
+                now = n;
+                baseProgressMs = n?.progress_ms ?? 0;
+                durationMs = n?.item?.duration_ms ?? 0;
+                lastUpdateTs = Date.now();
+                liveProgressMs = Math.min(durationMs, baseProgressMs);
+            } catch (e) {
+                console.error(e);
+            }
+        }, 15000); // match Worker cache TTL
+
+        return () => clearInterval(intervalId);
+    });
+
+    // Local 1s ticker to animate progress bar smoothly between polls
+    $effect(() => {
+        const tick = setInterval(() => {
+            if (!durationMs) return;
+            const elapsed = Date.now() - lastUpdateTs;
+            liveProgressMs = Math.min(durationMs, baseProgressMs + elapsed);
+        }, 1000);
+        return () => clearInterval(tick);
     });
 </script>
 
@@ -42,6 +82,19 @@
                     <div>
                         <div class="text-xl">{now.item.name}</div>
                         <div class="opacity-70">{now.item.artists?.map((a:any)=>a.name).join(', ')}</div>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <div class="h-2 w-full rounded-full bg-black/10">
+                        <div
+                            class="h-2 rounded-full bg-black"
+                            style={`width: ${durationMs ? Math.min(100, (liveProgressMs / durationMs) * 100).toFixed(2) : 0}%`}
+                        ></div>
+                    </div>
+                    <div class="mt-1 flex items-center justify-between text-xs opacity-70">
+                        <span>{formatTime(liveProgressMs)}</span>
+                        <a class="underline decoration-black/30 underline-offset-2 hover:decoration-black" href={now.item.external_urls?.spotify} target="_blank" rel="noreferrer">Open in Spotify</a>
+                        <span>{formatTime(durationMs)}</span>
                     </div>
                 </div>
             {:else}

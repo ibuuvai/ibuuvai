@@ -50,6 +50,11 @@ body {
 	height: auto;
 }
 
+html {
+	min-height: 100svh;
+	overscroll-behavior-y: none;
+}
+
 body {
 	background-color: #fff;
 	color: rgb(var(--ink));
@@ -59,7 +64,6 @@ body {
 	background-position: center bottom;
 	background-size: 100% auto;
 	background-attachment: fixed;
-	overflow-x: hidden;
 }
 
 .bg-fader {
@@ -69,7 +73,6 @@ body {
 .page-layer {
 	position: relative;
 	z-index: 1;
-	padding-bottom: env(safe-area-inset-bottom);
 }
 
 .stack > * + * {

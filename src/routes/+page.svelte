@@ -12,29 +12,31 @@
 </svelte:head>
 
 <main class="min-h-screen p-6 pt-20">
-	<div class="mx-auto max-w-5xl space-y-6">
+    <div class="mx-auto max-w-5xl space-y-6">
 		<!-- Top full-width panel: me -->
-		<a
-			href="/me"
-			class="manga-panel group block w-[44%] max-w-[40rem] p-5 transition-transform hover:-translate-y-0.5"
-		>
-			<div class="flex items-center gap-3">
-				<Icon icon="ph:user" class="h-5 w-5 opacity-70" />
-				<span class="tracking-wide lowercase">me</span>
-			</div>
-		</a>
+        <a
+            href="/me"
+            class="manga-panel group block w-[44%] max-w-[40rem] p-5 transition-transform hover:-translate-y-0.5"
+            style="border-radius: var(--radius)"
+        >
+            <div class="flex items-center gap-3">
+                <Icon icon="ph:user" class="h-5 w-5 opacity-70" />
+                <span class="tracking-wide lowercase text-xl">me</span>
+            </div>
+        </a>
 
 		<!-- Bottom right-aligned narrower panel: florilegium -->
 		<div class="flex justify-end">
-			<a
-				href="/florilegium"
-				class="manga-panel group block w-[44%] max-w-[40rem] p-5 transition-transform hover:-translate-y-0.5"
-			>
-				<div class="flex items-center gap-3">
-					<Icon icon="ph:flower" class="h-5 w-5 opacity-70" />
-					<span class="tracking-wide lowercase">florilegium</span>
-				</div>
-			</a>
+            <a
+                href="/florilegium"
+                class="manga-panel group block w-[44%] max-w-[40rem] p-5 transition-transform hover:-translate-y-0.5"
+                style="border-radius: var(--radius)"
+            >
+                <div class="flex items-center gap-3">
+                    <Icon icon="ph:flower" class="h-5 w-5 opacity-70" />
+                    <span class="tracking-wide lowercase text-xl">florilegium</span>
+                </div>
+            </a>
 		</div>
 	</div>
 </main>

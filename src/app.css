@@ -7,6 +7,13 @@
 			'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
 		--ink: 20 20 20;
 		--paper: 255 255 255; /* pure white */
+		/* design tokens */
+		--radius: 15px; /* global corner radius */
+		--badge-radius: 8px; /* slightly squarer badge corners */
+		--border-w: 2px;
+		--shadow-offset: 8px;
+		--dot-size: 4px; /* dot grid spacing */
+		--dot-alpha: 0.6; /* darker dots to match reference */
 		/* store full url() form for current background */
 		--bg-image: url('/images/flower.webp');
 		/* subtle grain texture (SVG fractal noise) */
@@ -17,17 +24,29 @@
 @layer utilities {
 	.manga-panel {
 		background: white;
-		border: 1px solid black;
-		border-radius: 0;
-		box-shadow: 6px 6px 0 0 rgb(0 0 0);
+		border: var(--border-w) solid black;
+		border-radius: var(--radius);
+		box-shadow: var(--shadow-offset) var(--shadow-offset) 0 0 rgb(0 0 0);
 	}
 
 	/* dotted background utility for manga title bars */
 	.dot-bg {
-		background-image: radial-gradient(rgba(0, 0, 0, 0.18) 1px, transparent 1px);
-		background-size: 6px 6px;
+		background-image: radial-gradient(rgba(0, 0, 0, var(--dot-alpha)) 1px, transparent 1px);
+		background-size: var(--dot-size) var(--dot-size);
 		background-position: top left;
-		opacity: 0.5;
+		opacity: 1;
+	}
+
+	/* pill badge with dotted border (e.g., "NO. 01") */
+	.no-badge {
+		display: inline-block;
+		padding: 0.25rem 0.5rem; /* rem-based */
+		border: var(--border-w) dotted black;
+		border-radius: var(--badge-radius);
+		background: white;
+		font-size: 0.75rem; /* text-sm */
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
 	}
 }
 
@@ -92,8 +111,9 @@ body {
 
 /* Manga-style helpers */
 .manga-card {
+	/* legacy alias; keep consistent with manga-panel */
 	background: white;
-	border: 1px solid black;
-	border-radius: 2px;
-	box-shadow: 4px 4px 0 0 rgb(0 0 0);
+	border: var(--border-w) solid black;
+	border-radius: var(--radius);
+	box-shadow: var(--shadow-offset) var(--shadow-offset) 0 0 rgb(0 0 0);
 }

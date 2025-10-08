@@ -50,7 +50,7 @@
 </script>
 
 {#if open}
-	<div class="fixed inset-0 z-50 grid place-items-center" role="presentation">
+	<div class="fixed inset-0 z-[100] grid place-items-center p-4" role="presentation">
 		<button
 			type="button"
 			class="absolute inset-0 z-0 bg-black/70"
@@ -58,22 +58,23 @@
 			onclick={onClose}
 		></button>
 		<div
-			class="relative z-10 m-4 h-[70vh] w-[min(94vw,42rem)] overflow-hidden bg-white p-0 shadow-[0_8px_0_0_rgb(0,0,0)] ring-1 ring-black"
+			class="manga-panel relative z-10 w-[min(94vw,42rem)] max-h-[80vh] overflow-auto bg-white outline-none"
+			style="border-radius: var(--radius)"
 			role="dialog"
 			aria-modal="true"
 			tabindex="-1"
 			bind:this={dialogEl}
 		>
-			<div class="flex items-center justify-end bg-white px-4 py-2">
+			<div class="flex items-center justify-end bg-white px-3 py-2">
 				<button
-					class="inline-flex items-center justify-center rounded p-1 hover:bg-black/5"
+					class="inline-flex items-center justify-center p-1 hover:bg-black/5"
 					aria-label="Close"
 					onclick={onClose}
 				>
 					✕
 				</button>
 			</div>
-			<div class="poem h-[calc(70vh-40px)] overflow-auto p-4 text-base leading-relaxed">
+			<div class="poem px-5 pb-5 text-base leading-relaxed">
 				{content}
 			</div>
 		</div>

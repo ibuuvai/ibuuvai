@@ -3,8 +3,8 @@
 	let { items }: { items: { title: string; content: string }[] } = $props();
 </script>
 
-<div class="grid grid-cols-[repeat(auto-fit,minmax(16rem,1fr))] gap-3">
-	{#each items as it}
-		<FlorilegiumItem title={it.title} content={it.content} />
-	{/each}
+<div class="flex flex-col gap-5">
+{#each items as it, i}
+		<FlorilegiumItem number={items.length - i} index={i} title={it.title} content={it.content} />
+{/each}
 </div>

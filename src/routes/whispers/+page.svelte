@@ -47,7 +47,7 @@
 
 	function scheduleEdgeRefresh() {
 		if (endTimer) clearTimeout(endTimer);
-		if (!durationMs) return;
+		if (!durationMs || !isPlaying) return;
 		const remaining = Math.max(0, durationMs - liveProgressMs);
 		const delay = Math.max(1500, remaining + 200); // small buffer after expected end
 		endTimer = setTimeout(async () => {
@@ -99,10 +99,34 @@
 			}
 		})();
 
-		const nowInterval = setInterval(() => refreshNow(true), 15000);
+		// Visibility-aware, jittered polling loop
+		let pollTimer: number | null = null;
+		function nextDelay() {
+			const base = isPlaying ? 15000 : 60000;
+			const jitter = Math.floor(Math.random() * 5000);
+			return base + jitter;
+		}
+		async function pollOnce() {
+			if (document.hidden) {
+				// When hidden, slow down aggressively
+				pollTimer = setTimeout(pollOnce, 60000) as unknown as number;
+				return;
+			}
+			await refreshNow(true);
+			pollTimer = setTimeout(pollOnce, nextDelay()) as unknown as number;
+		}
+		pollTimer = setTimeout(pollOnce, 0) as unknown as number;
+		const onVis = () => {
+			if (!document.hidden && pollTimer === null) {
+				pollTimer = setTimeout(pollOnce, 0) as unknown as number;
+			}
+		};
+		document.addEventListener('visibilitychange', onVis);
 
 		return () => {
-			clearInterval(nowInterval);
+			if (pollTimer) clearTimeout(pollTimer);
+			pollTimer = null;
+			document.removeEventListener('visibilitychange', onVis);
 			if (endTimer) clearTimeout(endTimer);
 		};
 	});
@@ -140,13 +164,13 @@
 						class="h-16 w-16 object-cover ring-1 ring-black"
 					/>
 					<div>
-						<div class="text-xl">{now.item.name}</div>
+				<div class="text-xl">{now.item.name}</div>
 						<div class="opacity-70">{now.item.artists?.map((a: any) => a.name).join(', ')}</div>
-						{#if !isPlaying}
+					{#if !isPlaying}
 							<div
 								class="mt-1 inline-block rounded px-2 py-0.5 text-xs uppercase opacity-70 ring-1 ring-black"
 							>
-								paused
+							{now?.from_recent ? 'last played' : 'paused'}
 							</div>
 						{/if}
 					</div>

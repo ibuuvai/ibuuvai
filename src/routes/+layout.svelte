@@ -34,3 +34,4 @@
 <div class="page-layer">
 	{@render children()}
 </div>
+<div class="ios-bottom-guard"></div>

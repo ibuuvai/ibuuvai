@@ -55,6 +55,7 @@ html,
 body {
 	height: 100%;
     min-height: 100%;
+    min-height: -webkit-fill-available;
 }
 
 /* Paint the canvas on the root element so iOS toolbars (transparent) show it */
@@ -68,9 +69,7 @@ html {
 	background-position:
 		top left,
 		center calc(100% + env(safe-area-inset-bottom));
-	background-attachment:
-		fixed,
-		fixed;
+	/* Avoid iOS background-attachment bugs; rely on fixed layers instead */
 	min-height: 100svh; /* stable viewport height on mobile */
 	overscroll-behavior-y: none; /* avoid rubber-band showing behind */
 }
@@ -103,7 +102,7 @@ body {
 	background-size: 100% auto;
 	background-repeat: no-repeat;
 	background-position: center calc(100% + env(safe-area-inset-bottom));
-	background-attachment: fixed;
+	/* fixed element; no background-attachment needed */
 	opacity: 0;
 	transition: opacity 200ms ease;
 	z-index: 1;
@@ -130,9 +129,21 @@ body {
 	background-position:
 		top left,
 		center calc(100% + env(safe-area-inset-bottom));
-	background-attachment:
-		fixed,
-		fixed;
+	/* fixed element simulates fixed background across iOS */
+	will-change: transform;
+	transform: translateZ(0);
+}
+
+/* Small guard to mask any iOS toolbar seam */
+.ios-bottom-guard {
+	position: fixed;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	height: max(2px, env(safe-area-inset-bottom));
+	background: linear-gradient(to top, rgb(var(--paper)) 0%, rgba(255,255,255,0) 90%);
+	z-index: 3;
+	pointer-events: none;
 }
 
 .stack > * + * {

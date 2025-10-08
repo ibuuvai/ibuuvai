@@ -1,9 +1,10 @@
 <script lang="ts">
 	import Icon from '@iconify/svelte';
-	const cards = [
-		{ href: '/me', label: 'me', icon: 'ph:user' },
-		{ href: '/florilegium', label: 'florilegium', icon: 'ph:flower' }
-	];
+    const cards = [
+        { href: '/me', label: 'me', icon: 'ph:user' },
+        { href: '/florilegium', label: 'florilegium', icon: 'ph:flower' },
+        { href: '/whispers', label: 'whispers', icon: 'ph:music-notes' }
+    ];
 </script>
 
 <svelte:head>
@@ -25,8 +26,8 @@
 			</div>
 		</a>
 
-		<!-- Bottom right-aligned narrower panel: florilegium -->
-		<div class="flex justify-end">
+        <!-- Bottom right-aligned narrower panel: florilegium -->
+        <div class="flex justify-end">
 			<a
 				href="/florilegium"
 				class="manga-panel group block w-full max-w-[40rem] p-5 transition-transform hover:-translate-y-0.5 sm:w-[44%]"
@@ -38,6 +39,18 @@
 				</div>
 			</a>
 		</div>
+
+        <!-- Third panel: whispers -->
+        <a
+            href="/whispers"
+            class="manga-panel group block w-full max-w-[40rem] p-5 transition-transform hover:-translate-y-0.5 sm:w-[44%]"
+            style="border-radius: var(--radius)"
+        >
+            <div class="flex items-center gap-3">
+                <Icon icon="ph:music-notes" class="h-5 w-5 opacity-70" />
+                <span class="text-xl tracking-wide lowercase">whispers</span>
+            </div>
+        </a>
 	</div>
 </main>
 

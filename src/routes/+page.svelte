@@ -1,10 +1,5 @@
 <script lang="ts">
 	import Icon from '@iconify/svelte';
-	const cards = [
-		{ href: '/me', label: 'me', icon: 'ph:user' },
-		{ href: '/florilegium', label: 'florilegium', icon: 'ph:flower' },
-		{ href: '/whispers', label: 'whispers', icon: 'ph:music-notes' }
-	];
 </script>
 
 <svelte:head>

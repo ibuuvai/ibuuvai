@@ -99,34 +99,17 @@
 			}
 		})();
 
-		// Visibility-aware, jittered polling loop
+		// Fixed 30s polling loop
 		let pollTimer: number | null = null;
-		function nextDelay() {
-			const base = isPlaying ? 15000 : 60000;
-			const jitter = Math.floor(Math.random() * 5000);
-			return base + jitter;
-		}
 		async function pollOnce() {
-			if (document.hidden) {
-				// When hidden, slow down aggressively
-				pollTimer = setTimeout(pollOnce, 60000) as unknown as number;
-				return;
-			}
 			await refreshNow(true);
-			pollTimer = setTimeout(pollOnce, nextDelay()) as unknown as number;
+			pollTimer = setTimeout(pollOnce, 10000) as unknown as number;
 		}
 		pollTimer = setTimeout(pollOnce, 0) as unknown as number;
-		const onVis = () => {
-			if (!document.hidden && pollTimer === null) {
-				pollTimer = setTimeout(pollOnce, 0) as unknown as number;
-			}
-		};
-		document.addEventListener('visibilitychange', onVis);
 
 		return () => {
 			if (pollTimer) clearTimeout(pollTimer);
 			pollTimer = null;
-			document.removeEventListener('visibilitychange', onVis);
 			if (endTimer) clearTimeout(endTimer);
 		};
 	});
@@ -155,7 +138,6 @@
 	<BackLink />
 	<section class="mx-auto mt-6 grid max-w-5xl grid-cols-1 items-start gap-5">
 		<div class="manga-panel relative p-5" style="border-radius: var(--radius)">
-			<div class="mb-2 text-xs uppercase opacity-60">Now playing</div>
 			{#if now?.item}
 				<div class="flex items-center gap-4">
 					<img
@@ -166,13 +148,11 @@
 					<div>
 				<div class="text-xl">{now.item.name}</div>
 						<div class="opacity-70">{now.item.artists?.map((a: any) => a.name).join(', ')}</div>
-					{#if !isPlaying}
-							<div
-								class="mt-1 inline-block rounded px-2 py-0.5 text-xs uppercase opacity-70 ring-1 ring-black"
-							>
-							{now?.from_recent ? 'last played' : 'paused'}
-							</div>
-						{/if}
+						<div
+							class="mt-1 inline-block rounded px-2 py-0.5 text-xs uppercase opacity-70 ring-1 ring-black"
+						>
+							{isPlaying ? 'now playing' : (now?.from_recent ? 'last played' : 'paused')}
+						</div>
 					</div>
 				</div>
 				<a

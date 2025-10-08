@@ -93,6 +93,8 @@ body {
 .page-layer {
 	position: relative;
 	z-index: 1;
+	/* account for iOS safe areas when system bars overlay content */
+	padding-bottom: env(safe-area-inset-bottom);
 }
 
 .stack > * + * {

@@ -11,6 +11,48 @@
     let lastUpdateTs = $state(0);
     let liveProgressMs = $state(0);
     let isPlaying = $state(false);
+    let endTimer: number | null = null;
+
+    async function refreshRecent() {
+        try {
+            recent = await getRecentlyPlayed(10);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    async function refreshNow(fetchRecentOnChange = false) {
+        try {
+            const prevId = now?.item?.id;
+            const n = await getNowPlaying();
+            now = n;
+            const nextId = n?.item?.id;
+            if (prevId && nextId && prevId === nextId) {
+                durationMs = n?.item?.duration_ms ?? durationMs;
+                baseProgressMs = Math.max(baseProgressMs, n?.progress_ms ?? 0);
+            } else {
+                baseProgressMs = n?.progress_ms ?? 0;
+                durationMs = n?.item?.duration_ms ?? 0;
+                if (fetchRecentOnChange) await refreshRecent();
+            }
+            lastUpdateTs = Date.now();
+            liveProgressMs = Math.min(durationMs, baseProgressMs);
+            isPlaying = Boolean(n?.is_playing);
+            scheduleEdgeRefresh();
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    function scheduleEdgeRefresh() {
+        if (endTimer) clearTimeout(endTimer);
+        if (!durationMs) return;
+        const remaining = Math.max(0, durationMs - liveProgressMs);
+        const delay = Math.max(1500, remaining + 200); // small buffer after expected end
+        endTimer = setTimeout(async () => {
+            await refreshNow(true);
+        }, delay) as unknown as number;
+    }
 
     function formatTime(ms: number) {
         const s = Math.floor(ms / 1000);
@@ -35,35 +77,18 @@
                 lastUpdateTs = Date.now();
                 liveProgressMs = Math.min(durationMs, baseProgressMs);
                 isPlaying = Boolean(n?.is_playing);
+                scheduleEdgeRefresh();
             } catch (e) {
                 console.error(e);
             }
         })();
 
-        const intervalId = setInterval(async () => {
-            try {
-                const n = await getNowPlaying();
-                // If same track id, keep local progress advancing rather than snapping backwards
-                const prevId = now?.item?.id;
-                const nextId = n?.item?.id;
-                now = n;
-                if (prevId && nextId && prevId === nextId) {
-                    // update duration in case it changed, but keep elapsed growing
-                    durationMs = n?.item?.duration_ms ?? durationMs;
-                    baseProgressMs = Math.max(baseProgressMs, n?.progress_ms ?? 0);
-                } else {
-                    baseProgressMs = n?.progress_ms ?? 0;
-                    durationMs = n?.item?.duration_ms ?? 0;
-                }
-                lastUpdateTs = Date.now();
-                liveProgressMs = Math.min(durationMs, baseProgressMs);
-                isPlaying = Boolean(n?.is_playing);
-            } catch (e) {
-                console.error(e);
-            }
-        }, 15000); // match Worker cache TTL
+        const nowInterval = setInterval(() => refreshNow(true), 15000);
 
-        return () => clearInterval(intervalId);
+        return () => {
+            clearInterval(nowInterval);
+            if (endTimer) clearTimeout(endTimer);
+        };
     });
 
     // Local 1s ticker to animate progress bar smoothly between polls

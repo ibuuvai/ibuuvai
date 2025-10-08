@@ -41,9 +41,18 @@
         const intervalId = setInterval(async () => {
             try {
                 const n = await getNowPlaying();
+                // If same track id, keep local progress advancing rather than snapping backwards
+                const prevId = now?.item?.id;
+                const nextId = n?.item?.id;
                 now = n;
-                baseProgressMs = n?.progress_ms ?? 0;
-                durationMs = n?.item?.duration_ms ?? 0;
+                if (prevId && nextId && prevId === nextId) {
+                    // update duration in case it changed, but keep elapsed growing
+                    durationMs = n?.item?.duration_ms ?? durationMs;
+                    baseProgressMs = Math.max(baseProgressMs, n?.progress_ms ?? 0);
+                } else {
+                    baseProgressMs = n?.progress_ms ?? 0;
+                    durationMs = n?.item?.duration_ms ?? 0;
+                }
                 lastUpdateTs = Date.now();
                 liveProgressMs = Math.min(durationMs, baseProgressMs);
             } catch (e) {

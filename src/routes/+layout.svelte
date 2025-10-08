@@ -29,6 +29,7 @@
 	});
 </script>
 
+<div class="bg-canvas"></div>
 <div id="bg-fader" class="bg-fader"></div>
 <div class="page-layer">
 	{@render children()}

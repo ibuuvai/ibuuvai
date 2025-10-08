@@ -102,18 +102,37 @@ body {
 	pointer-events: none;
 	background-size: 100% auto;
 	background-repeat: no-repeat;
-	background-position: center bottom;
+	background-position: center calc(100% + env(safe-area-inset-bottom));
 	background-attachment: fixed;
 	opacity: 0;
 	transition: opacity 200ms ease;
-	z-index: 0;
+	z-index: 1;
 }
 
 .page-layer {
 	position: relative;
-	z-index: 1;
+	z-index: 2;
 	/* account for iOS safe areas when system bars overlay content */
 	padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Dedicated fixed background painter to avoid iOS toolbar gaps */
+.bg-canvas {
+	position: fixed;
+	inset: 0;
+	pointer-events: none;
+	z-index: 0;
+	background-image: var(--grain), var(--bg-image);
+	background-size:
+		auto,
+		100% auto;
+	background-repeat: repeat, no-repeat;
+	background-position:
+		top left,
+		center calc(100% + env(safe-area-inset-bottom));
+	background-attachment:
+		fixed,
+		fixed;
 }
 
 .stack > * + * {

@@ -28,7 +28,12 @@
 			const n = await getNowPlaying();
 			now = n;
 			const nextId = n?.item?.id;
-			if (prevId && nextId && prevId === nextId) {
+			if (n?.from_recent) {
+				// Force reset to start when showing last played fallback
+				isPlaying = false;
+				durationMs = n?.item?.duration_ms ?? 0;
+				baseProgressMs = 0;
+			} else if (prevId && nextId && prevId === nextId) {
 				durationMs = n?.item?.duration_ms ?? durationMs;
 				baseProgressMs = Math.max(baseProgressMs, n?.progress_ms ?? 0);
 			} else {
@@ -38,7 +43,7 @@
 			}
 			lastUpdateTs = Date.now();
 			liveProgressMs = Math.min(durationMs, baseProgressMs);
-			isPlaying = Boolean(n?.is_playing);
+			isPlaying = n?.from_recent ? false : Boolean(n?.is_playing);
 			scheduleEdgeRefresh();
 		} catch (e) {
 			console.error(e);
@@ -88,11 +93,11 @@
 				now = n;
 				recent = r;
 				top = t;
-				baseProgressMs = n?.progress_ms ?? 0;
+				baseProgressMs = n?.from_recent ? 0 : (n?.progress_ms ?? 0);
 				durationMs = n?.item?.duration_ms ?? 0;
 				lastUpdateTs = Date.now();
 				liveProgressMs = Math.min(durationMs, baseProgressMs);
-				isPlaying = Boolean(n?.is_playing);
+				isPlaying = n?.from_recent ? false : Boolean(n?.is_playing);
 				scheduleEdgeRefresh();
 			} catch (e) {
 				console.error(e);

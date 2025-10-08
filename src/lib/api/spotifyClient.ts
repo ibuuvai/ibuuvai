@@ -1,5 +1,6 @@
 export type NowPlaying = {
 	is_playing?: boolean;
+	from_recent?: boolean;
 	progress_ms?: number;
 	item?: {
 		id?: string;

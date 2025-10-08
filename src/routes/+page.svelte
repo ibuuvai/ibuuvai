@@ -11,7 +11,7 @@
 	<meta name="description" content="a quiet canvas." />
 </svelte:head>
 
-<main class="min-h-screen p-6 pt-20">
+<main class="min-h-[100dvh] p-6 pt-20">
 	<div class="mx-auto max-w-5xl space-y-6">
 		<!-- Top full-width panel: me -->
 		<a

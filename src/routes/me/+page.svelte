@@ -11,7 +11,7 @@
 	<meta name="description" content="me — a living canvas." />
 </svelte:head>
 
-<main class="min-h-screen p-4">
+<main class="min-h-[100dvh] p-4">
 	<PageTitle title="me" />
 	<BackLink />
 	<section class="mx-auto mt-6 grid max-w-5xl grid-cols-1 items-start">

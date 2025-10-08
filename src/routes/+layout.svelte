@@ -4,6 +4,18 @@
 	let { children } = $props();
 	let previousImage = '';
 
+    // Visual viewport fallback for iOS 26 / WKWebView
+    function setVH() {
+        const h = (window.visualViewport?.height || window.outerHeight || window.innerHeight) * 0.01;
+        document.documentElement.style.setProperty('--vh', `${h}px`);
+    }
+
+    $effect(() => {
+        setVH();
+        window.addEventListener('resize', setVH);
+        return () => window.removeEventListener('resize', setVH);
+    });
+
 	$effect(() => {
 		const pathname = $page.url.pathname;
 		const imagePath = pathname.startsWith('/me') ? '/images/me.webp' : '/images/flower.webp';

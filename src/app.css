@@ -107,6 +107,7 @@ body {
 	position: relative;
 	z-index: 2;
 	/* viewport stability */
+    height: calc(var(--vh, 1vh) * 100); /* WKWebView/edge fallback */
     height: clamp(100svh, 100dvh, 100lvh);
 	/* page background (no fixed attachment) */
 	background-image: var(--grain), var(--bg-image);

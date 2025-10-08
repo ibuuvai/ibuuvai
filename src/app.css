@@ -56,9 +56,25 @@ body {
 	height: 100%;
 }
 
+/* Paint the canvas on the root element so iOS toolbars (transparent) show it */
+html {
+	background-color: rgb(var(--paper));
+	background-image: var(--grain), var(--bg-image);
+	background-size:
+		auto,
+		100% auto;
+	background-repeat: repeat, no-repeat;
+	background-position:
+		top left,
+		center bottom;
+	background-attachment:
+		fixed,
+		fixed;
+}
+
 body {
 	/* base canvas styling */
-	background-color: rgb(var(--paper));
+	background-color: transparent; /* root handles paint under iOS chrome */
 	color: rgb(var(--ink));
 	/* layers: [0] grain texture, [1] primary (flower/me) over white base */
 	background-image: var(--grain), var(--bg-image);

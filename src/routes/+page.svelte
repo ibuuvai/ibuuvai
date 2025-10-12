@@ -43,6 +43,19 @@
 				<span class="text-xl tracking-wide lowercase">whispers</span>
 			</div>
 		</a>
+
+		<div class="flex justify-end">
+			<a
+				href="/doppelganger"
+				class="manga-panel group block w-full max-w-[40rem] p-5 transition-transform hover:-translate-y-0.5 sm:w-[44%]"
+				style="border-radius: var(--radius)"
+			>
+				<div class="flex items-center gap-3">
+					<Icon icon="ph:instagram-logo" class="h-5 w-5 opacity-70" />
+					<span class="text-xl tracking-wide lowercase">doppelgänger</span>
+				</div>
+			</a>
+		</div>
 	</div>
 </main>
 

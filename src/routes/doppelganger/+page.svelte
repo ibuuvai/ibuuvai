@@ -84,12 +84,12 @@
 					{#each media as m}
 						<div class="manga-panel overflow-hidden" style="border-radius: var(--radius)">
 							<button type="button" class="block w-full text-left" onclick={() => openModal(m)}>
-								<div class="p-2">
+								<div class="p-2 pb-0">
 									<img
 										src={m.thumbnail_url || m.media_url}
 										alt={m.caption || ''}
 										class="aspect-square w-full object-cover"
-										style="border-radius: var(--radius)"
+										style="border-top-left-radius: var(--radius); border-top-right-radius: var(--radius)"
 									/>
 								</div>
 							</button>
@@ -108,16 +108,20 @@
 	</section>
 </main>
 
-<Modal open={modalOpen} onClose={() => (modalOpen = false)}>
+<Modal open={modalOpen} onClose={() => (modalOpen = false)} bare>
 	{#if modalItem}
-		<div class="p-2">
-			<img
-				src={modalItem.media_url || modalItem.thumbnail_url}
-				alt={modalItem.caption || ''}
-				class="w-full object-contain"
-			/>
+		<div class="grid max-h-[90vh] w-[min(96vw,1100px)] grid-rows-[1fr_auto]">
+			<div class="grid place-items-center">
+				<img
+					src={modalItem.media_url || modalItem.thumbnail_url}
+					alt={modalItem.caption || ''}
+					class="max-h-[80vh] max-w-full object-contain"
+				/>
+			</div>
 			{#if modalItem.caption}
-				<div class="mt-3 text-base leading-relaxed">{modalItem.caption}</div>
+				<div class="mt-2 text-base leading-relaxed">
+					{modalItem.caption}
+				</div>
 			{/if}
 		</div>
 	{/if}

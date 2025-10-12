@@ -82,21 +82,18 @@
 			{:else}
 				<div class="grid grid-cols-2 gap-4 sm:grid-cols-3">
 					{#each media as m}
-						<div class="space-y-2">
-							<div class="manga-panel overflow-hidden" style="border-radius: var(--radius)">
-								<button type="button" class="block w-full" onclick={() => openModal(m)}>
+						<div class="manga-panel overflow-hidden" style="border-radius: var(--radius)">
+							<button type="button" class="block w-full text-left" onclick={() => openModal(m)}>
+								<div class="p-2">
 									<img
 										src={m.thumbnail_url || m.media_url}
 										alt={m.caption || ''}
 										class="aspect-square w-full object-cover"
 									/>
-								</button>
-							</div>
+								</div>
+							</button>
 							{#if m.caption}
-								<div
-									class="manga-panel px-3 py-2 text-sm leading-snug"
-									style="border-radius: var(--radius)"
-								>
+								<div class="border-t border-black px-3 py-2 text-sm leading-snug">
 									<div class="opacity-80">{m.caption}</div>
 								</div>
 							{/if}

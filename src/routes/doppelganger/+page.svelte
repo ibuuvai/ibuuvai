@@ -13,6 +13,8 @@
   let modalItem = $state<IgMedia | null>(null);
 
   function openModal(item: IgMedia) {
+    const url = item.media_url || item.thumbnail_url;
+    if (!url) return;
     modalItem = item;
     modalOpen = true;
   }
@@ -70,31 +72,30 @@
       {/if}
     </div>
 
-    <div class="manga-panel p-5" style="border-radius: var(--radius)">
-      <div class="mb-2 text-xs uppercase opacity-60">Recent posts</div>
-      {#if media}
-        {#if media.length === 0}
-          <div class="opacity-60">No posts</div>
-        {:else}
-          <div class="grid grid-cols-2 gap-4 sm:grid-cols-3">
-            {#each media as m}
-              <div class="manga-card group overflow-hidden bg-white" style="border-radius: var(--radius)">
+    {#if media}
+      {#if media.length === 0}
+        <div class="opacity-60">No posts</div>
+      {:else}
+        <div class="grid grid-cols-2 gap-4 sm:grid-cols-3">
+          {#each media as m}
+            <div class="space-y-2">
+              <div class="manga-panel overflow-hidden" style="border-radius: var(--radius)">
                 <button type="button" class="block w-full" onclick={() => openModal(m)}>
                   <img src={m.thumbnail_url || m.media_url} alt={m.caption || ''} class="aspect-square w-full object-cover" />
                 </button>
-                {#if m.caption}
-                  <div class="border-t border-black px-3 py-2 text-sm leading-snug">
-                    <div class="opacity-80">{m.caption}</div>
-                  </div>
-                {/if}
               </div>
-            {/each}
-          </div>
-        {/if}
-      {:else}
+              {#if m.caption}
+                <div class="manga-panel px-3 py-2 text-sm leading-snug" style="border-radius: var(--radius)">
+                  <div class="opacity-80">{m.caption}</div>
+                </div>
+              {/if}
+            </div>
+          {/each}
+        </div>
+      {/else}
         <div class="opacity-60">Loading…</div>
       {/if}
-    </div>
+    {/if}
   </section>
 </main>
 
@@ -104,16 +105,22 @@
   }
 </style>
 
-<Modal open={modalOpen} onClose={() => (modalOpen = false)}>
-  {#if modalItem}
-    <div class="p-2">
-      <img src={modalItem.media_url || modalItem.thumbnail_url} alt={modalItem.caption || ''} class="w-full object-contain" />
-      {#if modalItem.caption}
-        <div class="mt-3 text-base leading-relaxed">{modalItem.caption}</div>
-      {/if}
-    </div>
-  {/if}
-  
-</Modal>
+<Modal
+  open={modalOpen}
+  onClose={() => (modalOpen = false)}
+  children={() => (
+    modalItem
+      ? (
+        <div class="p-2">
+          <img src={modalItem.media_url || modalItem.thumbnail_url} alt={modalItem.caption || ''} class="w-full object-contain" />
+          {#if modalItem.caption}
+            <div class="mt-3 text-base leading-relaxed">{modalItem.caption}</div>
+          {/if}
+        </div>
+      )
+      : null
+  )}
+/>
+
 
 

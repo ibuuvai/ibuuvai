@@ -4,16 +4,25 @@
   import Icon from '@iconify/svelte';
 
   import { getIgMedia, getIgProfile, type IgProfile, type IgMedia } from '$lib/api/instagramClient';
+  import Modal from '$lib/components/Modal.svelte';
 
   let profile = $state<IgProfile>(null);
   let media = $state<IgMedia[] | null>(null);
   let errorMessage = $state<string>('');
+  let modalOpen = $state(false);
+  let modalItem = $state<IgMedia | null>(null);
+
+  function openModal(item: IgMedia) {
+    modalItem = item;
+    modalOpen = true;
+  }
 
   async function loadInstagram() {
     try {
-      const [p, m] = await Promise.all([getIgProfile(), getIgMedia(9)]);
+      const [p, m] = await Promise.all([getIgProfile(), getIgMedia(0, undefined, true)]);
       profile = (p as any)?.data ?? (p as any) ?? null;
-      media = (m as any)?.data ?? (m as any) ?? null;
+      const md = (m as any)?.data ?? [];
+      media = md;
     } catch (e) {
       errorMessage = 'Failed to load Instagram data';
       console.error(e);
@@ -70,17 +79,12 @@
           <div class="grid grid-cols-2 gap-4 sm:grid-cols-3">
             {#each media as m}
               <div class="manga-card group overflow-hidden bg-white" style="border-radius: var(--radius)">
-                <div class="relative">
+                <button type="button" class="block w-full" onclick={() => openModal(m)}>
                   <img src={m.thumbnail_url || m.media_url} alt={m.caption || ''} class="aspect-square w-full object-cover" />
-                  {#if m.timestamp}
-                    <div class="pointer-events-none absolute left-2 top-2">
-                      <span class="no-badge">{new Date(m.timestamp).toLocaleDateString()}</span>
-                    </div>
-                  {/if}
-                </div>
+                </button>
                 {#if m.caption}
-                  <div class="px-3 py-2 text-sm leading-snug">
-                    <div class="line-clamp-3 opacity-80">{m.caption}</div>
+                  <div class="border-t border-black px-3 py-2 text-sm leading-snug">
+                    <div class="opacity-80">{m.caption}</div>
                   </div>
                 {/if}
               </div>
@@ -99,5 +103,17 @@
     view-transition-name: canvas;
   }
 </style>
+
+<Modal open={modalOpen} onClose={() => (modalOpen = false)}>
+  {#if modalItem}
+    <div class="p-2">
+      <img src={modalItem.media_url || modalItem.thumbnail_url} alt={modalItem.caption || ''} class="w-full object-contain" />
+      {#if modalItem.caption}
+        <div class="mt-3 text-base leading-relaxed">{modalItem.caption}</div>
+      {/if}
+    </div>
+  {/if}
+  
+</Modal>
 
 

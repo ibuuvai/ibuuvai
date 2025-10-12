@@ -30,6 +30,11 @@ async function request<T>(path: string): Promise<T> {
 }
 
 export const getIgProfile = () => request<{ data: IgProfile } | IgProfile>('/ig/profile');
-export const getIgMedia = (limit = 9) => request<{ data: IgMedia[] } | IgMedia[]>(`/ig/media?limit=${limit}`);
+export const getIgMedia = (limit = 9, after?: string, all = false) => {
+  const q = new URLSearchParams();
+  if (all) q.set('all', 'true'); else q.set('limit', String(limit));
+  if (after) q.set('after', after);
+  return request<{ data: IgMedia[]; paging?: { nextCursor?: string } } | IgMedia[]>(`/ig/media?${q.toString()}`);
+};
 
 

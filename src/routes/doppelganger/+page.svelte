@@ -110,10 +110,10 @@
 
 <Modal open={modalOpen} onClose={() => (modalOpen = false)} bare>
 	{#if modalItem}
-		<div
-			class="manga-panel overflow-hidden bg-white"
-			style="border-radius: var(--radius); width: calc(min(96vw, 900px, 75vh) + 0.5rem);"
-		>
+        <div
+            class="manga-panel inline-block overflow-hidden bg-white"
+            style="border-radius: var(--radius); width: calc(min(96vw, 900px, 75vh) + 0.5rem);"
+        >
 			<div class="p-2 pb-0">
 				<div
 					class="relative"

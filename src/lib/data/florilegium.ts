@@ -2,10 +2,17 @@ export type FlorilegiumEntry = { title: string; content: string };
 
 export const entries: FlorilegiumEntry[] = [
 	{
+		title: 'stained',
+		content: `Even if these moments never come to pass again.
+these words will not vanish.
+They will be burned into our chest,
+and refused to disappear.`
+	},
+	{
 		title: 'heavy silence',
 		content: `If I were cruel, I would change something.
-Instead, I memorize your footsteps between the till and me.
-It’s a small map; it leads everywhere I cannot go.`
+	Instead, I memorize your footsteps between the till and me.
+	It’s a small map; it leads everywhere I cannot go.`
 	},
 	{
 		title: 'are you okay?',
@@ -55,12 +62,5 @@ if i keep going, will it write me out?`
 		hide-and-seek in the oort’s seams.
 		i wander, aimless,
 		until the night lays me down—gently.`
-	},
-	{
-		title: 'stained',
-		content: `Even if these moments never come to pass again.
-	these words will not vanish.
-	They will be burned into our chest,
-	and refused to disappear.`
 	}
 ];

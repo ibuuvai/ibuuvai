@@ -1,36 +1,35 @@
-export type InstagramProfile = {
-    id?: string;
-    username?: string;
-    account_type?: string;
-    media_count?: number;
-    biography?: string | null; // not available via Basic Display
-    profile_picture_url?: string | null; // not available via Basic Display
-};
+export type IgProfile = {
+  id?: string;
+  user_id?: string;
+  username?: string;
+  name?: string;
+  account_type?: string;
+  profile_picture_url?: string;
+  followers_count?: number;
+  follows_count?: number;
+  media_count?: number;
+  bio?: string;
+} | null;
 
-export type InstagramMediaItem = {
-    id?: string;
-    caption?: string | null;
-    media_type?: 'IMAGE' | 'VIDEO' | 'CAROUSEL_ALBUM';
-    media_url?: string;
-    permalink?: string;
-    thumbnail_url?: string | null;
-    timestamp?: string;
-    username?: string;
-};
-
-export type InstagramMediaResponse = {
-    data?: InstagramMediaItem[];
+export type IgMedia = {
+  id: string;
+  media_type?: string;
+  media_url?: string;
+  thumbnail_url?: string;
+  caption?: string;
+  permalink?: string;
+  timestamp?: string;
 };
 
 const API_BASE = 'https://api.ibuuvai.me';
 
 async function request<T>(path: string): Promise<T> {
-    const r = await fetch(`${API_BASE}${path}`, { headers: { Accept: 'application/json' } });
-    if (!r.ok) throw new Error(`Request failed: ${r.status}`);
-    return (await r.json()) as T;
+  const r = await fetch(`${API_BASE}${path}`, { headers: { Accept: 'application/json' } });
+  if (!r.ok) throw new Error(`Request failed: ${r.status}`);
+  return (await r.json()) as T;
 }
 
-export const getInstagramProfile = () => request<InstagramProfile>('/ig/profile');
-export const getInstagramMedia = (limit = 12) => request<InstagramMediaResponse>(`/ig/media?limit=${limit}`);
+export const getIgProfile = () => request<{ data: IgProfile } | IgProfile>('/ig/profile');
+export const getIgMedia = (limit = 9) => request<{ data: IgMedia[] } | IgMedia[]>(`/ig/media?limit=${limit}`);
 
 

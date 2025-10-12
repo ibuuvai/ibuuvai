@@ -108,18 +108,18 @@
 </main>
 
 <Modal open={modalOpen} onClose={() => (modalOpen = false)}>
-    {#if modalItem}
-        <div class="p-2">
-            <img
-                src={modalItem.media_url || modalItem.thumbnail_url}
-                alt={modalItem.caption || ''}
-                class="w-full object-contain"
-            />
-            {#if modalItem.caption}
-                <div class="mt-3 text-base leading-relaxed">{modalItem.caption}</div>
-            {/if}
-        </div>
-    {/if}
+	{#if modalItem}
+		<div class="p-2">
+			<img
+				src={modalItem.media_url || modalItem.thumbnail_url}
+				alt={modalItem.caption || ''}
+				class="w-full object-contain"
+			/>
+			{#if modalItem.caption}
+				<div class="mt-3 text-base leading-relaxed">{modalItem.caption}</div>
+			{/if}
+		</div>
+	{/if}
 </Modal>
 
 <style>

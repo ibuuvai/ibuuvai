@@ -51,9 +51,16 @@ if i keep going, will it write me out?`
 	{
 		title: 'chronicles of a dream',
 		content: `a daydream: a tiny city atop a palette.
-a shower of stardust waltzes, dancing in ink.
-hide-and-seek in the oort’s seams.
-i wander, aimless,
-until the night lays me down—gently.`
+		a shower of stardust waltzes, dancing in ink.
+		hide-and-seek in the oort’s seams.
+		i wander, aimless,
+		until the night lays me down—gently.`
+	},
+	{
+		title: 'stained',
+		content: `Even if these moments never come to pass again.
+	these words will not vanish.
+	They will be burned into our chest,
+	and refused to disappear.`
 	}
 ];

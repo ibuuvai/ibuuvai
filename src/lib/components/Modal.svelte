@@ -64,7 +64,7 @@
 		></button>
 		<div
 			class={bare
-				? 'relative z-10 grid max-h-[90vh] w-[min(96vw,1100px)] place-items-center overflow-hidden outline-none'
+				? 'relative z-10 grid max-h-[90vh] w-auto place-items-center overflow-hidden outline-none'
 				: 'manga-panel relative z-10 max-h-[80vh] w-[min(94vw,42rem)] overflow-auto bg-white outline-none'}
 			style={bare ? '' : 'border-radius: var(--radius)'}
 			role="dialog"

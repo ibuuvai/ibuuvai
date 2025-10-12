@@ -94,7 +94,7 @@
 								</div>
 							</button>
 							{#if m.caption}
-								<div class="grid place-items-center px-3 py-2 text-center text-sm leading-snug">
+								<div class="px-3 py-2 text-sm leading-snug">
 									<div class="opacity-80">{m.caption}</div>
 								</div>
 							{/if}
@@ -110,15 +110,21 @@
 
 <Modal open={modalOpen} onClose={() => (modalOpen = false)} bare>
 	{#if modalItem}
-		<div class="grid max-h-[90vh] w-full grid-rows-[1fr_auto] place-items-center">
-			<img
-				src={modalItem.media_url || modalItem.thumbnail_url}
-				alt={modalItem.caption || ''}
-				class="max-h-[80vh] max-w-[min(96vw,1100px)] object-contain"
-			/>
+		<div
+			class="manga-panel w-[min(96vw,900px)] overflow-hidden bg-white"
+			style="border-radius: var(--radius)"
+		>
+			<div class="p-2 pb-0">
+				<img
+					src={modalItem.media_url || modalItem.thumbnail_url}
+					alt={modalItem.caption || ''}
+					class="max-h-[75vh] w-full object-contain"
+					style="border-radius: var(--radius)"
+				/>
+			</div>
 			{#if modalItem.caption}
-				<div class="mt-2 px-4 text-center text-base leading-relaxed">
-					{modalItem.caption}
+				<div class="px-3 py-2 text-base leading-snug">
+					<div class="opacity-80">{modalItem.caption}</div>
 				</div>
 			{/if}
 		</div>

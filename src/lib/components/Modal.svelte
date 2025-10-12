@@ -55,7 +55,7 @@
 </script>
 
 {#if open}
-	<div class="fixed inset-0 z-[100] grid place-items-center p-4" role="presentation">
+	<div class="fixed inset-0 z-[100] grid place-items-center p-2" role="presentation">
 		<button
 			type="button"
 			class="absolute inset-0 z-0 bg-black/70"

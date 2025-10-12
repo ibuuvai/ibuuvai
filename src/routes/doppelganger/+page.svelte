@@ -111,12 +111,12 @@
 <Modal open={modalOpen} onClose={() => (modalOpen = false)} bare>
 	{#if modalItem}
 		<div
-			class="manga-panel w-[min(96vw,900px)] overflow-hidden bg-white"
-			style="border-radius: var(--radius)"
+			class="manga-panel overflow-hidden bg-white"
+			style="border-radius: var(--radius); width: calc(min(96vw, 900px, 75vh) + 0.5rem);"
 		>
 			<div class="p-2 pb-0">
 				<div
-					class="relative w-full"
+					class="relative"
 					style="width: min(96vw, 900px, 75vh); height: min(96vw, 900px, 75vh); margin: 0 auto;"
 				>
 					<img

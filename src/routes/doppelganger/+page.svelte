@@ -89,11 +89,12 @@
 										src={m.thumbnail_url || m.media_url}
 										alt={m.caption || ''}
 										class="aspect-square w-full object-cover"
+										style="border-radius: var(--radius)"
 									/>
 								</div>
 							</button>
 							{#if m.caption}
-								<div class="border-t border-black px-3 py-2 text-sm leading-snug">
+								<div class="px-3 py-2 text-sm leading-snug">
 									<div class="opacity-80">{m.caption}</div>
 								</div>
 							{/if}

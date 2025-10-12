@@ -94,7 +94,7 @@
 								</div>
 							</button>
 							{#if m.caption}
-								<div class="px-3 py-2 text-sm leading-snug">
+								<div class="px-4 py-3 text-sm leading-snug">
 									<div class="opacity-80">{m.caption}</div>
 								</div>
 							{/if}
@@ -125,7 +125,7 @@
 				</div>
 			</div>
 			{#if modalItem.caption}
-				<div class="px-3 py-2 text-base leading-snug">
+				<div class="px-4 py-4 text-base leading-relaxed">
 					<div class="opacity-80">{modalItem.caption}</div>
 				</div>
 			{/if}

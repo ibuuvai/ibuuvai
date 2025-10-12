@@ -112,13 +112,10 @@
 	{#if modalItem}
         <div
             class="manga-panel inline-block overflow-hidden bg-white"
-            style="border-radius: var(--radius); width: calc(min(96vw, 900px, 75vh) + 0.5rem);"
+            style="border-radius: var(--radius); box-sizing: border-box; width: min(calc(100vw - 1rem), 900px, 75vh);"
         >
 			<div class="p-2 pb-0">
-				<div
-					class="relative"
-					style="width: min(96vw, 900px, 75vh); height: min(96vw, 900px, 75vh); margin: 0 auto;"
-				>
+                <div class="relative" style="width: 100%; aspect-ratio: 1 / 1; margin: 0 auto;">
 					<img
 						src={modalItem.media_url || modalItem.thumbnail_url}
 						alt={modalItem.caption || ''}

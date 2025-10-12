@@ -1,14 +1,15 @@
 <script lang="ts">
+    import type { Snippet } from 'svelte';
 	let {
 		open,
 		content = '',
-    onClose,
-    children
+		onClose,
+		children
 	}: {
 		open: boolean;
 		content?: string;
-    onClose: () => void;
-    children?: () => unknown;
+		onClose: () => void;
+		children?: Snippet;
 	} = $props();
 
 	let dialogEl = $state<HTMLDivElement | null>(null);
@@ -76,12 +77,12 @@
 					✕
 				</button>
 			</div>
-            {#if content}
-                <div class="poem px-5 pb-5 text-base leading-relaxed">{content}</div>
-            {/if}
-            {#if children}
-                <div class="px-5 pb-5">{@render children()}</div>
-            {/if}
+			{#if content}
+				<div class="poem px-5 pb-5 text-base leading-relaxed">{content}</div>
+			{/if}
+			{#if children}
+				<div class="px-5 pb-5">{@render children?.()}</div>
+			{/if}
 		</div>
 	</div>
 {/if}

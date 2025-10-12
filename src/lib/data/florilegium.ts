@@ -49,7 +49,7 @@ until the path became ink.
 if i keep going, will it write me out?`
 	},
 	{
-		title: 'chronicles of a watercolor dream',
+		title: 'chronicles of a dream',
 		content: `a daydream: a tiny city atop a palette.
 a shower of stardust waltzes, dancing in ink.
 hide-and-seek in the oort’s seams.

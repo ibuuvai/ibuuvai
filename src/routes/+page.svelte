@@ -8,7 +8,7 @@
 </svelte:head>
 
 <main class="min-h-[100svh] p-6 pt-20">
-    <div class="mx-auto max-w-5xl space-y-6">
+	<div class="mx-auto max-w-5xl space-y-6">
 		<a
 			href="/me"
 			class="manga-panel group block w-full max-w-[40rem] p-5 transition-transform hover:-translate-y-0.5 sm:w-[44%]"
@@ -20,7 +20,6 @@
 			</div>
 		</a>
 
-        
 		<div class="flex justify-end">
 			<a
 				href="/florilegium"
@@ -34,7 +33,6 @@
 			</a>
 		</div>
 
-        
 		<a
 			href="/whispers"
 			class="manga-panel group block w-full max-w-[40rem] p-5 transition-transform hover:-translate-y-0.5 sm:w-[44%]"

@@ -151,12 +151,12 @@
 						class="h-16 w-16 object-cover ring-1 ring-black"
 					/>
 					<div>
-				<div class="text-xl">{now.item.name}</div>
+						<div class="text-xl">{now.item.name}</div>
 						<div class="opacity-70">{now.item.artists?.map((a: any) => a.name).join(', ')}</div>
 						<div
 							class="mt-1 inline-block rounded px-2 py-0.5 text-xs uppercase opacity-70 ring-1 ring-black"
 						>
-							{isPlaying ? 'now playing' : (now?.from_recent ? 'last played' : 'paused')}
+							{isPlaying ? 'now playing' : now?.from_recent ? 'last played' : 'paused'}
 						</div>
 					</div>
 				</div>

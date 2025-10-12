@@ -115,12 +115,17 @@
 			style="border-radius: var(--radius)"
 		>
 			<div class="p-2 pb-0">
-				<img
-					src={modalItem.media_url || modalItem.thumbnail_url}
-					alt={modalItem.caption || ''}
-					class="max-h-[75vh] w-full object-contain"
-					style="border-radius: var(--radius)"
-				/>
+				<div
+					class="relative w-full"
+					style="width: min(96vw, 900px, 75vh); height: min(96vw, 900px, 75vh); margin: 0 auto;"
+				>
+					<img
+						src={modalItem.media_url || modalItem.thumbnail_url}
+						alt={modalItem.caption || ''}
+						class="absolute inset-0 h-full w-full object-cover"
+						style="border-radius: var(--radius)"
+					/>
+				</div>
 			</div>
 			{#if modalItem.caption}
 				<div class="px-3 py-2 text-base leading-snug">

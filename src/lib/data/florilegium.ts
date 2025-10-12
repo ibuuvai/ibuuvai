@@ -11,8 +11,8 @@ and refused to disappear.`
 	{
 		title: 'heavy silence',
 		content: `If I were cruel, I would change something.
-	Instead, I memorize your footsteps between the till and me.
-	It’s a small map; it leads everywhere I cannot go.`
+Instead, I memorize your footsteps between the till and me.
+It’s a small map; it leads everywhere I cannot go.`
 	},
 	{
 		title: 'are you okay?',
@@ -58,9 +58,9 @@ if i keep going, will it write me out?`
 	{
 		title: 'chronicles of a dream',
 		content: `a daydream: a tiny city atop a palette.
-		a shower of stardust waltzes, dancing in ink.
-		hide-and-seek in the oort’s seams.
-		i wander, aimless,
-		until the night lays me down—gently.`
+a shower of stardust waltzes, dancing in ink.
+hide-and-seek in the oort’s seams.
+i wander, aimless,
+until the night lays me down—gently.`
 	}
 ];

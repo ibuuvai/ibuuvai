@@ -110,12 +110,12 @@
 
 <Modal open={modalOpen} onClose={() => (modalOpen = false)} bare>
 	{#if modalItem}
-        <div
-            class="manga-panel inline-block overflow-hidden bg-white"
-            style="border-radius: var(--radius); box-sizing: border-box; width: min(calc(100vw - 1rem), 900px, 75vh);"
-        >
+		<div
+			class="manga-panel inline-block overflow-hidden bg-white"
+			style="border-radius: var(--radius); box-sizing: border-box; width: min(calc(100vw - 1rem), 900px, 75vh);"
+		>
 			<div class="p-2 pb-0">
-                <div class="relative" style="width: 100%; aspect-ratio: 1 / 1; margin: 0 auto;">
+				<div class="relative" style="width: 100%; aspect-ratio: 1 / 1; margin: 0 auto;">
 					<img
 						src={modalItem.media_url || modalItem.thumbnail_url}
 						alt={modalItem.caption || ''}

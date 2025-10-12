@@ -84,7 +84,7 @@
 			{:else}
 				<div class="flex items-center justify-end bg-white px-3 py-2">
 					<button
-						class="inline-flex items-center justify-center p-1 hover:bg-black/5"
+						class="inline-flex items-center justify-center rounded bg-white/90 px-2 py-1 text-sm ring-1 ring-black hover:bg-white"
 						aria-label="Close"
 						onclick={onClose}
 					>

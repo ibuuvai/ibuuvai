@@ -89,12 +89,12 @@
 										src={m.thumbnail_url || m.media_url}
 										alt={m.caption || ''}
 										class="aspect-square w-full object-cover"
-										style="border-top-left-radius: var(--radius); border-top-right-radius: var(--radius)"
+										style="border-radius: var(--radius)"
 									/>
 								</div>
 							</button>
 							{#if m.caption}
-								<div class="px-3 py-2 text-sm leading-snug">
+								<div class="grid place-items-center px-3 py-2 text-center text-sm leading-snug">
 									<div class="opacity-80">{m.caption}</div>
 								</div>
 							{/if}
@@ -110,16 +110,14 @@
 
 <Modal open={modalOpen} onClose={() => (modalOpen = false)} bare>
 	{#if modalItem}
-		<div class="grid max-h-[90vh] w-[min(96vw,1100px)] grid-rows-[1fr_auto]">
-			<div class="grid place-items-center">
-				<img
-					src={modalItem.media_url || modalItem.thumbnail_url}
-					alt={modalItem.caption || ''}
-					class="max-h-[80vh] max-w-full object-contain"
-				/>
-			</div>
+		<div class="grid max-h-[90vh] w-full grid-rows-[1fr_auto] place-items-center">
+			<img
+				src={modalItem.media_url || modalItem.thumbnail_url}
+				alt={modalItem.caption || ''}
+				class="max-h-[80vh] max-w-[min(96vw,1100px)] object-contain"
+			/>
 			{#if modalItem.caption}
-				<div class="mt-2 text-base leading-relaxed">
+				<div class="mt-2 px-4 text-center text-base leading-relaxed">
 					{modalItem.caption}
 				</div>
 			{/if}

@@ -1,18 +1,18 @@
 <script lang="ts">
-    import type { Snippet } from 'svelte';
-    let {
-        open,
-        content = '',
-        onClose,
-        children,
-        bare = false
-    }: {
-        open: boolean;
-        content?: string;
-        onClose: () => void;
-        children?: Snippet;
-        bare?: boolean;
-    } = $props();
+	import type { Snippet } from 'svelte';
+	let {
+		open,
+		content = '',
+		onClose,
+		children,
+		bare = false
+	}: {
+		open: boolean;
+		content?: string;
+		onClose: () => void;
+		children?: Snippet;
+		bare?: boolean;
+	} = $props();
 
 	let dialogEl = $state<HTMLDivElement | null>(null);
 	let previousActive: HTMLElement | null = null;
@@ -64,7 +64,7 @@
 		></button>
 		<div
 			class={bare
-				? 'relative z-10 max-h-[90vh] w-auto outline-none'
+				? 'relative z-10 max-h-[90vh] w-[min(96vw,1100px)] overflow-hidden outline-none'
 				: 'manga-panel relative z-10 max-h-[80vh] w-[min(94vw,42rem)] overflow-auto bg-white outline-none'}
 			style={bare ? '' : 'border-radius: var(--radius)'}
 			role="dialog"

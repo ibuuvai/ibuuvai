@@ -67,17 +67,23 @@
         {#if media.length === 0}
           <div class="opacity-60">No posts</div>
         {:else}
-          <div class="grid grid-cols-2 gap-3 sm:grid-cols-3">
+          <div class="grid grid-cols-2 gap-4 sm:grid-cols-3">
             {#each media as m}
-              <a href={m.permalink} target="_blank" rel="noreferrer" class="group block">
-                <img src={m.thumbnail_url || m.media_url} alt={m.caption || ''} class="aspect-square w-full object-cover ring-1 ring-black" />
+              <div class="manga-card group overflow-hidden bg-white" style="border-radius: var(--radius)">
+                <div class="relative">
+                  <img src={m.thumbnail_url || m.media_url} alt={m.caption || ''} class="aspect-square w-full object-cover" />
+                  {#if m.timestamp}
+                    <div class="pointer-events-none absolute left-2 top-2">
+                      <span class="no-badge">{new Date(m.timestamp).toLocaleDateString()}</span>
+                    </div>
+                  {/if}
+                </div>
                 {#if m.caption}
-                  <div class="mt-1 line-clamp-2 text-sm opacity-70">{m.caption}</div>
+                  <div class="px-3 py-2 text-sm leading-snug">
+                    <div class="line-clamp-3 opacity-80">{m.caption}</div>
+                  </div>
                 {/if}
-                {#if m.timestamp}
-                  <div class="text-xs opacity-50">{new Date(m.timestamp).toLocaleDateString()}</div>
-                {/if}
-              </a>
+              </div>
             {/each}
           </div>
         {/if}

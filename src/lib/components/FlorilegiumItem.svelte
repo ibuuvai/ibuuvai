@@ -24,7 +24,7 @@
 		onclick={() => (open = true)}
 	>
 		<span class="no-badge">no. {String(number ?? (index ?? 0) + 1).padStart(2, '0')}</span>
-		<span class="text-xl font-semibold tracking-wide uppercase">{title}</span>
+		<span class="text-lg leading-tight lowercase sm:text-xl">{title}</span>
 	</button>
 </article>
 

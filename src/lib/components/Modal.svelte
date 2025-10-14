@@ -86,7 +86,7 @@
 			{:else}
 				<div class="flex items-center justify-between bg-white px-3 py-2">
 					{#if title}
-						<span class="text-[11px] uppercase opacity-60 sm:text-xs">{title}</span>
+						<span class="text-xs uppercase sm:text-sm">{title}</span>
 					{/if}
 					<button
 						class="inline-flex items-center justify-center rounded bg-white/90 px-2 py-1 text-sm ring-1 ring-black hover:bg-white"

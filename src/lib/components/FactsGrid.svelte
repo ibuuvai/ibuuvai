@@ -29,7 +29,7 @@
 		<div class="grid grid-cols-1 gap-3 sm:grid-cols-[repeat(auto-fit,minmax(14rem,1fr))] sm:gap-4">
 			{#each otherFacts as fact}
 				<div>
-					<div class="mb-1 text-[11px] opacity-60 sm:text-xs">{fact.label}</div>
+					<div class="mb-1 text-[11px] uppercase opacity-60 sm:text-xs">{fact.label}</div>
 					<div class="text-base lowercase sm:text-lg">{fact.value}</div>
 				</div>
 			{/each}

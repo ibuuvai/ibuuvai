@@ -24,8 +24,8 @@
 		onclick={() => (open = true)}
 	>
 		<span class="no-badge">no. {String(number ?? (index ?? 0) + 1).padStart(2, '0')}</span>
-		<span class="text-xl tracking-wide lowercase">{title}</span>
+		<span class="text-xl font-semibold tracking-wide uppercase">{title}</span>
 	</button>
 </article>
 
-<Modal {open} {content} onClose={() => (open = false)} />
+<Modal {open} {content} {title} onClose={() => (open = false)} />

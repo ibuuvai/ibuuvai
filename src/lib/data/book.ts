@@ -1,0 +1,1 @@
+https://github.com/ibuuvai/ibuuvai/blob/main/src/lib/data

@@ -2,6 +2,15 @@ export type FlorilegiumEntry = { title: string; content: string };
 
 export const entries: FlorilegiumEntry[] = [
 	{
+		title: 'something like that',
+		content: `Whiskey shall be my undoing;
+I've never known a poison so gentle in its cruelty.
+I breathe in smoke like air,
+as if nicotine could fill the emptiness of a hollowed soul.
+Here I stand, stripping my heart bare,
+leaving it to decay in the open air.`
+	},
+	{
 		title: 'stained',
 		content: `Even if these moments never come to pass again.
 these words will not vanish.
@@ -38,9 +47,9 @@ We will never become lies, right?`
 	{
 		title: 'museum of almosts',
 		content: `Every night I curate the exhibits:
-the hug I didn’t take,
-the train I watched depart,
-the life that bowed and left without applause.`
+		the hug I didn’t take,
+		the train I watched depart,
+		the life that bowed and left without applause.`
 	},
 	{
 		title: 'weather report for the soul',
@@ -51,25 +60,16 @@ Midnight rain: I remember too much.`
 	{
 		title: 'white, once',
 		content: `how many colours have we been stained with?
-i remember a white ocean i walked—each step darkening,
-until the path became ink.
-if i keep going, will it write me out?`
+		i remember a white ocean i walked—each step darkening,
+		until the path became ink.
+		if i keep going, will it write me out?`
 	},
 	{
 		title: 'chronicles of a dream',
 		content: `a daydream: a tiny city atop a palette.
-a shower of stardust waltzes, dancing in ink.
-hide-and-seek in the oort’s seams.
-i wander, aimless,
-until the night lays me down—gently.`
-	},
-	{
-		title: 'something like that',
-		content: `Whiskey shall be my undoing;
-I've never known a poison so gentle in its cruelty.
-I breathe in smoke like air,
-as if nicotine could fill the emptiness of a hollowed soul.
-Here I stand, stripping my heart bare,
-leaving it to decay in the open air.`
+		a shower of stardust waltzes, dancing in ink.
+		hide-and-seek in the oort’s seams.
+		i wander, aimless,
+		until the night lays me down—gently.`
 	}
 ];
